@@ -1,18 +1,10 @@
-import { ForecastState } from '../constants/types';
+import { GG } from '../constants/types';
 import * as ACTION from './actions';
 
-const initialState: ForecastState = {
+const initialState: GG = {
   isLoading: false,
-  filter: {
-    units: 'si',
-    searchedLocation: '',
-    timestamp: 0,
-  },
-  location: '',
-  timezone: null,
-  currentWeather: null,
-  hourlyForecast: null,
-  dailyForecast: null,
+  plant : null,
+  search : null,
   error: '',
 };
 
@@ -23,6 +15,12 @@ export const reducers = (state: any = initialState, action: any) => {
         ...state,
         isLoading: true,
         error: '',
+      };
+
+    case ACTION.SET_SEARCH:
+      return{
+        ...state,
+        search: action.search,
       };
 
     case ACTION.FETCHING_DATA_SUCCESS:
@@ -38,40 +36,10 @@ export const reducers = (state: any = initialState, action: any) => {
         error: action.error,
       };
 
-    case ACTION.SET_FILTER:
+    case ACTION.SET_PLANT:
       return {
         ...state,
-        filter: action.filter,
-      };
-
-    case ACTION.SET_LOCATION:
-      return {
-        ...state,
-        location: action.location,
-      };
-
-    case ACTION.SET_TIMEZONE:
-      return {
-        ...state,
-        timezone: action.timezone,
-      };
-
-    case ACTION.SET_CURRENT_WEATHER:
-      return {
-        ...state,
-        currentWeather: action.currentWeather,
-      };
-
-    case ACTION.SET_HOURLY_FORECAST:
-      return {
-        ...state,
-        hourlyForecast: action.hourlyForecast,
-      };
-
-    case ACTION.SET_DAILY_FORECAST:
-      return {
-        ...state,
-        dailyForecast: action.dailyForecast,
+        plant: action.plant,
       };
 
     default:

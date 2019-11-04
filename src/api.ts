@@ -1,5 +1,4 @@
-import { Forecast, GeoCode } from './constants/types';
-import { Plant } from './constants/types';
+import { Plant, Garden } from './constants/types';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
 
@@ -23,27 +22,11 @@ export const getPlant = (name : string) :Promise<Plant> => {
     .then((data: Plant) => data);
 }
 
-export const getGeocode = (latitude: number, longitude: number, address: string): Promise<GeoCode> => {
+export const getGardens = (username : string) :Promise<Garden[]> => {
   const requestUrl =
-    `${CLOUD_FUNCTION_URL}getGeocode?lat=${latitude}&lon=${longitude}&address=` + encodeURIComponent(address);
+    `${CLOUD_FUNCTION_URL}gardens?username=${username}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
-    .then((data: GeoCode) => data);
-};
-
-export const getWeatherByTime = (
-  latitude: number,
-  longitude: number,
-  time: number,
-  exclude: string,
-  units: string
-): Promise<Forecast> => {
-  const requestUrl =
-    `${CLOUD_FUNCTION_URL}getWeather?lat=${latitude}&lon=${longitude}&time=${time}` +
-    `&exclude=${encodeURIComponent(exclude)}&units=${encodeURIComponent(units)}`;
-  return fetch(requestUrl)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((data: any) => data);
-};
+    .then((data: Garden[]) => data);
+}

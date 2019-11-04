@@ -1,13 +1,13 @@
 {
-  "name": "react-weather-app",
+  "name": "gardeners-galore",
   "version": "3.4.2",
-  "description": "React Weather App",
+  "description": "Gardeners Galore",
   "scripts": {
     "start": "webpack-dev-server --config ./config/webpack.dev.js --mode development --progress --profile --watch --watch-poll --open",
     "build": "npm run lint && webpack --config ./config/webpack.prod.js --progress --profile --bail",
     "lint": "eslint --ext .ts,.tsx src --fix"
   },
-  "author": "Laurence Ho",
+  "author": "Gardeners Galore",
   "license": "MIT",
   "keywords": [
     "React",

@@ -1,10 +1,10 @@
 import { Layout, Menu, Breadcrumb, Icon, Row, Col } from 'antd';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 import * as React from 'react';
-import Search from 'antd/lib/input/Search';
+// import Search from 'antd/lib/input/Search';
 import { WeatherSearch } from './weather-search';
 
 
@@ -21,11 +21,11 @@ export const SideBar: React.FC<any> = () => {
 
       const GardenLink = withRouter(({ history }) => (
         <Link
-          to='/garden'
+          to='/gardens'
           onClick={() => {
-            history.push('/garden');
+            history.push('/gardens');
           }}>
-          Garden
+          MyGardens
         </Link>
       ));
 
@@ -39,15 +39,38 @@ export const SideBar: React.FC<any> = () => {
         </Link>
       ));
 
-      // const Search = withRouter(({ location }) => {
-      //   const pathname = location.pathname;
-      //   const urlPath = 
-      //   const urlPath = pathname.substring(1) === '' ? 'weather' : pathname.substring(1);
-    
-      //   return (
-      //     <WeatherSearch onSearch={handleSearch} />
-      //   );
-      // });
+      const LoginLink = withRouter(({ history }) => (
+        <Link
+          to='/login'
+          onClick={() => {
+            history.push('/login');
+          }}>
+          Login
+        </Link>
+      ));
+
+      const LogoutLink = withRouter(({ history }) => (
+        <Link
+          to='/logout'
+          onClick={() => {
+            history.push('/logout');
+            // also need to log the user out!!
+          }}>
+          Logout
+        </Link>
+      ));
+
+      const handleSearch = (location : string) => {
+        // this needs to probs do something in terms of altering search state ..
+        console.log(location);
+      }
+
+
+      const Search = withRouter(({ history }) => {
+        return (
+          <WeatherSearch onSearch={handleSearch} history={history} />
+        );
+      });
 
       return (
         <Header className='nav-bar'>
@@ -71,6 +94,17 @@ export const SideBar: React.FC<any> = () => {
             <div className='weather-search-outer'>
               <Search />
             </div>
+          </Col>
+          <Col span={6}></Col>
+          <Col span={2}>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              style={{ lineHeight: '64px' }}
+            >
+              <Menu.Item key="Login"><LoginLink/></Menu.Item>
+              <Menu.Item key="Logout"><LogoutLink/></Menu.Item>
+            </Menu>
           </Col>
 
           </Row>

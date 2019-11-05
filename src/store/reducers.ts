@@ -2,6 +2,9 @@ import { GG } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {
+  username : 'test',
+  garden : null,
+  gardens : [],
   isLoading: false,
   plant : null,
   search : null,
@@ -41,6 +44,17 @@ export const reducers = (state: any = initialState, action: any) => {
         ...state,
         plant: action.plant,
       };
+
+    case ACTION.SET_GARDENS:
+        return {
+          ...state,
+          gardens: action.gardens,
+        };
+    case ACTION.SET_GARDEN:
+        return {
+          ...state,
+          garden: action.garden,
+        };
 
     default:
       return state;

@@ -2,10 +2,13 @@ import Input from 'antd/lib/input';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 
+import { withRouter, Redirect } from 'react-router';
+
 const Search = Input.Search;
 
 interface WeatherSearchProps {
   onSearch: any;
+  history : any;
 }
 
 export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearchProps) => {
@@ -16,8 +19,10 @@ export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearch
     setLocation(value);
   };
 
+
   const handleSubmit = () => {
     props.onSearch(location);
+    props.history.push(`/plant/${location}`);
   };
 
   

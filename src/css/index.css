@@ -10,6 +10,53 @@ body {
   width: 100%;
 }
 
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+
+.garden-row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.garden-cell {
+  height: 181px;
+  width: 181px;
+  line-height: 181px;
+  text-align: center;
+  color: white;
+  padding: 2px;
+  transition: all .1s ease-in-out;
+}
+
+.garden-cell:hover {
+  transform: scale(0.9);
+}
+
+.garden-cell-occupied {
+  background-color: #237804;
+}
+
+.garden-cell-unoccupied {
+  background-color: #783e04;
+}
+
+
+
+
+
+
+
+
+
+
 .logo {
   width: 120px;
   height: 31px;

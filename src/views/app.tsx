@@ -8,7 +8,10 @@ import store from '../store';
 import { Forum } from './forum';
 import { Home } from './home';
 import { Plant } from './plant';
+import { GardenView } from './garden';
 import { Gardens } from './gardens';
+import { Login } from './login';
+import { Register } from './register';
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,9 +25,12 @@ export const App: React.FC<any> = () => {
           <Content className='content'>
             <Switch>
               <Route exact={true} path='/' component={Home} />
-              <Route exact={true} path='/garden' component={Gardens} />
+              <Route exact={true} path='/gardens' component={Gardens} />
               <Route exact={true} path='/forum' component={Forum} />
+              <Route exact={true} path='/login' component={Login} />
+              <Route exact={true} path='/register' component={Register} />
               <Route path="/plant/:name" component={Plant}/>
+              <Route path="/garden/:name" component={GardenView}/>
               <Route render={() => <div>Page not found!</div>} />
             </Switch>
           </Content>

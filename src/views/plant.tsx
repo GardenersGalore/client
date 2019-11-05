@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps} from 'react-router-dom';
 import { RootState } from '../constants/types';
-import { getPlantData} from '../store/ggactions';
+import { getPlantData} from '../store/actions';
 
 
 type PathParamsType = {
@@ -27,6 +27,9 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
 
   useEffect(() => {
     if (!plant){
+      dispatch(getPlantData(props.match.params.name));
+    }
+    else if (plant.name != props.match.params.name){
       dispatch(getPlantData(props.match.params.name));
     }
   });

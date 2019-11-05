@@ -3,8 +3,9 @@ export interface RootState {
 }
 
 export interface GG {
-  // gardens : Garden[];
-  // garden : Garden;
+  username : string;
+  gardens : Garden[];
+  garden : Garden;
   plant : Plant;
   error : string;
   search : SearchState;
@@ -21,6 +22,7 @@ export interface Planting{
   description : string;
   planted_from : string;
   harvest_count : number;
+  plant : Plant;
 }
 
 export interface Location{
@@ -33,7 +35,7 @@ export interface Garden{
   username : string;
   description : string;
   location : Location;
-  loaction_name : string;
+  location_name : string;
   garden_width : number;
   garden_height : number;
   plantings : Planting[];

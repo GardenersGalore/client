@@ -8,7 +8,7 @@ const Search = Input.Search;
 
 interface WeatherSearchProps {
   onSearch: any;
-  history : any;
+  history: any;
 }
 
 export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearchProps) => {
@@ -19,13 +19,11 @@ export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearch
     setLocation(value);
   };
 
-
   const handleSubmit = () => {
     props.onSearch(location);
     props.history.push(`/plant/${location}`);
   };
 
-  
   return (
     <Search
       type='text'
@@ -33,7 +31,7 @@ export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearch
       onChange={handleChange}
       onSearch={handleSubmit}
       onPressEnter={handleSubmit}
-      placeholder='Search weather by city'
+      placeholder='Search for plants'
       enterButton={true}
       style={{ verticalAlign: 'middle', width: '100%' }}
     />

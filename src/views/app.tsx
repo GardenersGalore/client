@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { NavBar } from '../components/nav-bar';
-import {SideBar} from '../components/side-bar';
+import { SideBar } from '../components/side-bar';
 import store from '../store';
 import { Forum } from './forum';
 import { Home } from './home';
@@ -20,22 +20,22 @@ export const App: React.FC<any> = () => {
     <Provider store={store}>
       <Router>
         <div>
-        <Layout className="layout">
-          <SideBar />
-          <Content className='content'>
-            <Switch>
-              <Route exact={true} path='/' component={Home} />
-              <Route exact={true} path='/gardens' component={Gardens} />
-              <Route exact={true} path='/forum' component={Forum} />
-              <Route exact={true} path='/login' component={Login} />
-              <Route exact={true} path='/register' component={Register} />
-              <Route path="/plant/:name" component={Plant}/>
-              <Route path="/garden/:name" component={GardenView}/>
-              <Route render={() => <div>Page not found!</div>} />
-            </Switch>
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-        </Layout>
+          <Layout className='layout'>
+            <SideBar />
+            <Content className='content'>
+              <Switch>
+                <Route exact={true} path='/' component={Home} />
+                <Route exact={true} path='/gardens' component={Gardens} />
+                <Route exact={true} path='/forum' component={Forum} />
+                <Route exact={true} path='/login' component={Login} />
+                <Route exact={true} path='/register' component={Register} />
+                <Route path='/plant/:name' component={Plant} />
+                <Route path='/garden/:name' component={GardenView} />
+                <Route render={() => <div>Page not found!</div>} />
+              </Switch>
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>Gardeners Galore ©2019</Footer>
+          </Layout>
         </div>
       </Router>
     </Provider>

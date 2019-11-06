@@ -20,10 +20,9 @@ body {
   width: 100%;
 }
 
-
 .garden-row {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .garden-cell {
@@ -45,7 +44,7 @@ body {
 }
 
 .garden-cell-unoccupied {
-  background-color: #783e04;
+  background-color: grey;
 }
 
 

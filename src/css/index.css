@@ -26,9 +26,6 @@ body {
 }
 
 .garden-cell {
-  height: 181px;
-  width: 181px;
-  line-height: 181px;
   text-align: center;
   color: white;
   padding: 2px;
@@ -86,14 +83,12 @@ body {
   padding: 0 0.5rem;
 }
 
-
 .plantName {
   font-size: 2.5rem;
 }
 
 .plantIcon {
-  width : 150px;
-  padding: 15px;
+  margin: 15px;
 }
 /* 
 /* Navigation bar for mobile device */

@@ -59,37 +59,48 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
       const patch: any[] = [];
 
       for (let i = 0; i < garden.garden_height; i++) {
-        const gardenrow: any[] = [];
+        const gardenRow: any[] = [];
+
         for (let j = 0; j < garden.garden_width; j++) {
           const p = findPlanting(garden.plantings, i, j);
           let z: any = null;
+
           if (p != null) {
             console.log('PLANT IS');
             console.log(p.plant);
             const blob = new Blob([p.plant.svg_icon], { type: 'image/svg+xml' });
             const plantIcon = URL.createObjectURL(blob);
+
             z = (
               <div className='garden-cell-occupied'>
-                <img src={plantIcon} className='plantIcon'></img>
+                <img src={plantIcon} className='plantIcon' />
               </div>
             );
           } else {
             z = <div className='garden-cell-unoccupied'>+</div>;
           }
-          gardenrow.push(
+
+          const cellSize = (window.innerHeight - 4 * garden.garden_height) / garden.garden_height;
+          const cellSizePx = cellSize + 'px';
+
+          gardenRow.push(
             <Col>
-              <div className='garden-cell'>{z}</div>
+              <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
+                {z}
+              </div>
             </Col>
           );
         }
+
         patch.push(
           <Row type='flex' justify='center' className='garden-row'>
-            {gardenrow}
+            {gardenRow}
           </Row>
         );
       }
 
       console.log(garden);
+
       return (
         <div>
           <Card>{patch}</Card>

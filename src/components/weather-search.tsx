@@ -21,7 +21,7 @@ export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearch
 
   const handleSubmit = () => {
     props.onSearch(location);
-    props.history.push(`/plant/${location}`);
+    props.history.push(`/search-result/${location}`);
   };
 
   return (

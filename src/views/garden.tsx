@@ -80,7 +80,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
             z = <div className='garden-cell-unoccupied'>+</div>;
           }
 
-          const cellSize = (window.innerHeight - 4 * garden.garden_height) / garden.garden_height;
+          const cellSize = (window.innerHeight * 0.8) / garden.garden_height - 8;
           const cellSizePx = cellSize + 'px';
 
           gardenRow.push(
@@ -103,7 +103,8 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
       return (
         <div>
-          <Card>{patch}</Card>
+          <h1>{garden.name}</h1>
+          <Card className='garden-card'>{patch}</Card>
         </div>
       );
     }

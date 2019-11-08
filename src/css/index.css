@@ -21,8 +21,8 @@ body {
 }
 
 .garden-row {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .garden-cell {
@@ -38,13 +38,22 @@ body {
 
 .garden-cell-occupied {
   background-color: #237804;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .garden-cell-unoccupied {
-  background-color: grey;
+  border-color: white;
+  border-width: 2px;
+  border-style: solid;
+  font-size: 48px;
 }
 
-
+.garden-card {
+  background-image: url("../assets/soil.jpg");
+  background-color: #49372e;
+  background-size: cover;
+}
 
 
 

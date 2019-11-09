@@ -73,7 +73,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
             z = (
               <div className='garden-cell-occupied'>
-                <img src={plantIcon} className='plantIcon' />
+                <img src={plantIcon} className='garden-plant-icon' alt={p.plant_name} />
               </div>
             );
           } else {
@@ -84,7 +84,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           const cellSizePx = cellSize + 'px';
 
           gardenRow.push(
-            <Col>
+            <Col className='garden-col'>
               <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
                 {z}
               </div>

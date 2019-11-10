@@ -25,6 +25,8 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
+  const selectedCell: [number, number] = [-1, -1];
+
   useEffect(() => {
     if (!garden) {
       dispatch(getGardenData(props.match.params.name));
@@ -44,7 +46,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     return r;
   };
 
-  const renderPlant = () => {
+  const renderGarden = () => {
     if (error) {
       return (
         <div>
@@ -103,8 +105,14 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
       return (
         <div>
-          <h1>{garden.name}</h1>
-          <Card className='garden-card'>{patch}</Card>
+          <Card className='garden-card'>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div style={{ width: '70%' }}>{patch}</div>
+              <div className='garden-info'>
+                <h2>{garden.name}</h2>
+              </div>
+            </div>
+          </Card>
         </div>
       );
     }
@@ -118,7 +126,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           <h2>Loading...</h2>
         </Row>
       ) : (
-        renderPlant()
+        renderGarden()
       )}
     </div>
   );

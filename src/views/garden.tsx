@@ -25,7 +25,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
-  const selectedCell: [number, number] = [-1, -1];
+  let selectedCell: [number, number] = [0, 1];
 
   useEffect(() => {
     if (!garden) {
@@ -44,6 +44,12 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
       }
     });
     return r;
+  };
+
+  const setSelected = (x: number, y: number) => {
+    selectedCell = [x, y];
+    console.log(selectedCell[0]);
+    this.for;
   };
 
   const renderGarden = () => {
@@ -86,10 +92,18 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           const cellSizePx = cellSize + 'px';
 
           gardenRow.push(
-            <Col className='garden-col'>
-              <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
-                {z}
-              </div>
+            <Col className='garden-col' onClick={() => setSelected(i, j)}>
+              {selectedCell[0] == i && selectedCell[1] == j ? (
+                <div
+                  className='garden-cell garden-cell-selected'
+                  style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
+                  {z}
+                </div>
+              ) : (
+                <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
+                  {z}
+                </div>
+              )}
             </Col>
           );
         }

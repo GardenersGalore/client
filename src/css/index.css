@@ -45,11 +45,13 @@ body {
 
 .garden-cell-occupied {
   background-color: rgba(47, 74, 47, .75);
+  height: 100%;
 }
 
 .garden-cell-unoccupied {
   font-size: 48px;
   background-color: rgba(255, 255, 255, .25);
+  height: 100%;
 }
 
 .garden-card {
@@ -63,9 +65,15 @@ body {
 }
 
 .garden-info {
-  background-color: white;
+  background-color: rgba(255, 255, 255, .75);
   width: 30%;
   padding: 15px;
+}
+
+.garden-cell-selected {
+  border-style: solid;
+  border-color: #1890ff;
+  border-width: 5px;
 }
 
 

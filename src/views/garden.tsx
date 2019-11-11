@@ -64,6 +64,13 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     dispatch(setGarden(garden));
   };
 
+  const calculateCellSize = () => {
+    const cellHeight = (window.innerHeight - 48) / garden.garden_height - 8;
+    const cellWidth = (window.innerWidth * 0.5) / garden.garden_width - 8;
+    const cellSize = Math.min(cellHeight, cellWidth);
+    return cellSize + 'px';
+  };
+
   const renderGardenInfo = () => {
     return (
       <div className='garden-info'>
@@ -166,8 +173,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
             z = <div className='garden-cell-unoccupied'>+</div>;
           }
 
-          const cellSize = (window.innerHeight * 0.8) / garden.garden_height - 8;
-          const cellSizePx = cellSize + 'px';
+          const cellSizePx = calculateCellSize();
 
           gardenRow.push(
             <Col className='garden-col' onClick={() => toggleSelected(i, j)}>

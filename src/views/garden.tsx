@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Planting } from '../constants/types';
-import { getGardenData } from '../store/actions';
+import { getGardenData, setSelectedGardenCell } from '../store/actions';
 
 type PathParamsType = {
   name: string;
@@ -24,8 +24,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const garden = useSelector((state: RootState) => state.gg.garden);
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
-
-  let selectedCell: [number, number] = [0, 1];
+  const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
 
   useEffect(() => {
     if (!garden) {
@@ -46,13 +45,12 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     return r;
   };
 
-  const setSelected = (x: number, y: number) => {
-    selectedCell = [x, y];
-    console.log(selectedCell[0]);
-  };
-
   const isSelected = (x: number, y: number) => {
     return x == selectedCell[0] && y == selectedCell[1];
+  };
+
+  const toggleSelected = (x: number, y: number) => {
+    isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
   };
 
   const renderGardenInfo = () => {
@@ -156,7 +154,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           const cellSizePx = cellSize + 'px';
 
           gardenRow.push(
-            <Col className='garden-col' onClick={() => setSelected(i, j)}>
+            <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
               {isSelected(i, j) ? (
                 <div
                   className='garden-cell garden-cell-selected'

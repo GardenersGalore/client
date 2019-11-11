@@ -37,6 +37,8 @@ body {
   text-align: center;
   color: white;
   transition: all .1s ease-in-out;
+  cursor: default;
+  user-select: none;
 }
 
 .garden-cell:hover {
@@ -52,6 +54,10 @@ body {
   font-size: 48px;
   background-color: rgba(255, 255, 255, .25);
   height: 100%;
+}
+
+.garden-cell-selected {
+  outline: #1890ff solid 5px;
 }
 
 .garden-card {
@@ -72,12 +78,6 @@ body {
 
 .garden-info-p {
   line-height: 3;
-}
-
-.garden-cell-selected {
-  border-style: solid;
-  border-color: #1890ff;
-  border-width: 5px;
 }
 
 

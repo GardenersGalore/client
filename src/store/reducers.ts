@@ -2,13 +2,14 @@ import { GG } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {
-  username : 'test',
-  garden : null,
-  gardens : [],
+  username: 'test',
+  garden: null,
+  gardens: [],
   isLoading: false,
-  plant : null,
-  search : null,
+  plant: null,
+  search: null,
   error: '',
+  selectedGardenCell: [-1, -1],
 };
 
 export const reducers = (state: any = initialState, action: any) => {
@@ -21,9 +22,15 @@ export const reducers = (state: any = initialState, action: any) => {
       };
 
     case ACTION.SET_SEARCH:
-      return{
+      return {
         ...state,
         search: action.search,
+      };
+
+    case ACTION.SET_SELECTED_GARDEN_CELL:
+      return {
+        ...state,
+        selectedGardenCell: [action.x, action.y],
       };
 
     case ACTION.FETCHING_DATA_SUCCESS:
@@ -46,15 +53,15 @@ export const reducers = (state: any = initialState, action: any) => {
       };
 
     case ACTION.SET_GARDENS:
-        return {
-          ...state,
-          gardens: action.gardens,
-        };
+      return {
+        ...state,
+        gardens: action.gardens,
+      };
     case ACTION.SET_GARDEN:
-        return {
-          ...state,
-          garden: action.garden,
-        };
+      return {
+        ...state,
+        garden: action.garden,
+      };
 
     default:
       return state;

@@ -49,7 +49,6 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const setSelected = (x: number, y: number) => {
     selectedCell = [x, y];
     console.log(selectedCell[0]);
-    this.for;
   };
 
   const renderGarden = () => {
@@ -123,7 +122,15 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div style={{ width: '70%' }}>{patch}</div>
               <div className='garden-info'>
-                <h2>{garden.name}</h2>
+                <h1>{garden.name}</h1>
+
+                <p style={{ lineHeight: 3 }}>
+                  <b>About:</b> {garden.description}
+                  <br />
+                  <b>Location:</b> {garden.location_name}
+                  <br />
+                  <b>User: </b> {garden.username}
+                </p>
               </div>
             </div>
           </Card>

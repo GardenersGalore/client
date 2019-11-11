@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Planting } from '../constants/types';
 import { getGardenData, setSelectedGardenCell } from '../store/actions';
+import { WrappedNewPlantingForm } from '../components/new-planting-form';
 
 type PathParamsType = {
   name: string;
@@ -94,22 +95,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     return (
       <div className='garden-info'>
         <h1>Add new plant</h1>
-        <Form>
-          <Form.Item label='Plant type'>
-            <Input />
-          </Form.Item>
-          <Form.Item label='Date planted'>
-            <Input />
-          </Form.Item>
-          <Form.Item label='Details'>
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type='primary' htmlType='submit'>
-              Done
-            </Button>
-          </Form.Item>
-        </Form>
+        <WrappedNewPlantingForm />
       </div>
     );
   };

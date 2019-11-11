@@ -80,6 +80,13 @@ body {
   line-height: 3;
 }
 
+.garden-size-button {
+  font-size: 150%;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1 !important;
+}
+
 
 
 .logo {

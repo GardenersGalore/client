@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Planting } from '../constants/types';
-import { getGardenData, setSelectedGardenCell } from '../store/actions';
+import { getGardenData, setGarden, setSelectedGardenCell } from '../store/actions';
 import { WrappedNewPlantingForm } from '../components/new-planting-form';
 
 type PathParamsType = {
@@ -54,6 +54,16 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
   };
 
+  const setHeight = (newHeight: number) => {
+    garden.garden_height = newHeight;
+    dispatch(setGarden(garden));
+  };
+
+  const setWidth = (newWidth: number) => {
+    garden.garden_width = newWidth;
+    dispatch(setGarden(garden));
+  };
+
   const renderGardenInfo = () => {
     return (
       <div className='garden-info'>
@@ -64,7 +74,27 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           <br />
           <b>Location:</b> {garden.location_name}
           <br />
-          <b>User: </b> {garden.username}
+          <b>User:</b> {garden.username}
+          <br />
+          <b>Width:</b> {garden.garden_width}
+          <b className='garden-size-button' onClick={() => setWidth(garden.garden_width - 1)}>
+            {' '}
+            -{' '}
+          </b>
+          <b className='garden-size-button' onClick={() => setWidth(garden.garden_width + 1)}>
+            {' '}
+            +{' '}
+          </b>
+          <br />
+          <b>Height:</b> {garden.garden_height}
+          <b className='garden-size-button' onClick={() => setHeight(garden.garden_height - 1)}>
+            {' '}
+            -{' '}
+          </b>
+          <b className='garden-size-button' onClick={() => setHeight(garden.garden_height + 1)}>
+            {' '}
+            +{' '}
+          </b>
         </p>
       </div>
     );

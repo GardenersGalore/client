@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Form, Input, Button } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,6 +51,71 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     console.log(selectedCell[0]);
   };
 
+  const isSelected = (x: number, y: number) => {
+    return x == selectedCell[0] && y == selectedCell[1];
+  };
+
+  const renderGardenInfo = () => {
+    return (
+      <div className='garden-info'>
+        <h1>{garden.name}</h1>
+
+        <p className='garden-info-p'>
+          <b>About:</b> {garden.description}
+          <br />
+          <b>Location:</b> {garden.location_name}
+          <br />
+          <b>User: </b> {garden.username}
+        </p>
+      </div>
+    );
+  };
+
+  const renderPlantInfo = () => {
+    const planting: Planting = findPlanting(garden.plantings, 1, 1);
+
+    return (
+      <div className='garden-info'>
+        <h1>{planting.plant_name}</h1>
+
+        <p className='garden-info-p'>
+          <b>About:</b> {planting.description}
+          <br />
+          <b>Date planted:</b> {planting.planted_at.toDateString}
+          <br />
+          <b>Harvest count: </b> {planting.harvest_count}
+          <br />
+          <b>Planted from:</b> {planting.planted_from}
+          {/*TODO: more*/}
+        </p>
+      </div>
+    );
+  };
+
+  const renderNewPlantForm = () => {
+    return (
+      <div className='garden-info'>
+        <h1>Add new plant</h1>
+        <Form>
+          <Form.Item label='Plant type'>
+            <Input />
+          </Form.Item>
+          <Form.Item label='Date planted'>
+            <Input />
+          </Form.Item>
+          <Form.Item label='Details'>
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Done
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    );
+  };
+
   const renderGarden = () => {
     if (error) {
       return (
@@ -92,7 +157,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
           gardenRow.push(
             <Col className='garden-col' onClick={() => setSelected(i, j)}>
-              {selectedCell[0] == i && selectedCell[1] == j ? (
+              {isSelected(i, j) ? (
                 <div
                   className='garden-cell garden-cell-selected'
                   style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
@@ -116,22 +181,22 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
       console.log(garden);
 
+      let info;
+
+      if (isSelected(-1, -1)) {
+        info = renderGardenInfo();
+      } else if (findPlanting(garden.plantings, selectedCell[0], selectedCell[1]) != null) {
+        info = renderPlantInfo();
+      } else {
+        info = renderNewPlantForm();
+      }
+
       return (
         <div>
           <Card className='garden-card'>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div style={{ width: '70%' }}>{patch}</div>
-              <div className='garden-info'>
-                <h1>{garden.name}</h1>
-
-                <p style={{ lineHeight: 3 }}>
-                  <b>About:</b> {garden.description}
-                  <br />
-                  <b>Location:</b> {garden.location_name}
-                  <br />
-                  <b>User: </b> {garden.username}
-                </p>
-              </div>
+              {info}
             </div>
           </Card>
         </div>

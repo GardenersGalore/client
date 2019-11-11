@@ -70,6 +70,10 @@ body {
   padding: 30px;
 }
 
+.garden-info-p {
+  line-height: 3;
+}
+
 .garden-cell-selected {
   border-style: solid;
   border-color: #1890ff;

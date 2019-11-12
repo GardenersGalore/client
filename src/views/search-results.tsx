@@ -27,39 +27,60 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   const plant = useSelector((state: RootState) => state.gg.plant);
   const gardens: Garden[] = useSelector((state: RootState) => state.gg.gardens);
-  const garden = useSelector((state: RootState) => state.gg.garden);
-  const error = useSelector((state: RootState) => state.gg.error);
+  const garden: Garden = useSelector((state: RootState) => state.gg.garden);
+  // const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
   useEffect(() => {
     if (a !== props.match.params.name) {
       a = props.match.params.name;
-      console.log('Thisssss');
-
-      if (!plant) {
-        dispatch(getPlantData(props.match.params.name));
-        dispatch(getGardenPlantData(props.match.params.name));
-        dispatch(getGardenData(props.match.params.name));
-      } else if (plant.name != props.match.params.name) {
-        dispatch(getPlantData(props.match.params.name));
-        dispatch(getGardenPlantData(props.match.params.name));
-        dispatch(getGardenData(props.match.params.name));
-      }
+      dispatch(getPlantData(props.match.params.name));
+      dispatch(getGardenPlantData(props.match.params.name));
+      dispatch(getGardenData(props.match.params.name));
     }
   });
+
   console.log(garden, plant);
 
   const renderPlant = () => {
     if (!isEmpty(plant)) {
       console.log('PK');
       if (gardens.length > 0) {
-        return (
+        if (garden) {
+          return (
+            <div>
+              <Row type='flex' justify='center' className='fetching-weather-content'>
+                <h1>Fruit/Plant</h1>
+                <Card style={{ width: 1400 }}>
+                  <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                  {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
+                </Card>
+                <h1>Garden</h1>
+                <Card style={{ width: 1400 }}>
+                  <List
+                    itemLayout='vertical'
+                    dataSource={gardens}
+                    renderItem={garden => (
+                      <List.Item key={garden.name}>
+                        <h1>{<a href={`/garden/${garden.name}`}>{garden.name}</a>}</h1>
+                      </List.Item>
+                    )}></List>
+                </Card>
+                <Card style={{ width: 1400 }}>
+                  <h2>{<a href={`/garden/${garden.name}`}>{garden.name}</a>}</h2>
+                </Card>
+              </Row>
+            </div>
+          );
+        } else {
           <div>
             <Row type='flex' justify='center' className='fetching-weather-content'>
+              <h1>Fruits/Plants</h1>
               <Card style={{ width: 1400 }}>
                 <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
                 {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
               </Card>
+              <h1>Garden</h1>
               <Card style={{ width: 1400 }}>
                 <List
                   itemLayout='vertical'
@@ -74,12 +95,14 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                   )}></List>
               </Card>
             </Row>
-          </div>
-        );
+          </div>;
+        }
       } else {
         return (
           <div>
             <Row type='flex' justify='center' className='fetching-weather-content'>
+              <h1>Fruits/Plants</h1>
+
               <Card style={{ width: 1400 }}>
                 <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
                 {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
@@ -88,11 +111,12 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
           </div>
         );
       }
-    } else if (garden) {
+    } else if (garden && garden.plantings.length > 0) {
       console.log('IGI');
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
+            <h1>Garden</h1>
             <Card style={{ width: 1400 }}>
               <h2>{<a href={`/garden/${garden.name}`}>{garden.name}</a>}</h2>
             </Card>

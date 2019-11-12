@@ -57,7 +57,16 @@ export const reducers = (state: any = initialState, action: any) => {
         ...state,
         gardens: action.gardens,
       };
+
     case ACTION.SET_GARDEN:
+      return {
+        ...state,
+        garden: action.garden,
+      };
+
+    case ACTION.ADD_PLANTING_TO_GARDEN:
+      action.garden.plantings.push(action.planting);
+
       return {
         ...state,
         garden: action.garden,

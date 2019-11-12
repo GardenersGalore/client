@@ -15,6 +15,8 @@ export const SET_SELECTED_GARDEN_CELL = 'SET_SELECTED_GARDEN_CELL';
 export const SET_GARDEN_HEIGHT = 'SET_GARDEN_HEIGHT';
 export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
 
+export const ADD_PLANTING_TO_GARDEN = 'ADD_PLANTING_TO_GARDEN';
+
 const setPlant = (plant: Plant) => {
   return {
     type: SET_PLANT,
@@ -62,6 +64,13 @@ export const setGardenWidth = (newWidth: number) => {
   return {
     type: SET_GARDEN_WIDTH,
     newWidth,
+  };
+};
+
+export const addPlantingToGarden = (newPlanting: Planting) => {
+  return {
+    type: ADD_PLANTING_TO_GARDEN,
+    newPlanting,
   };
 };
 

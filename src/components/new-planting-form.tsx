@@ -1,6 +1,9 @@
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPlantingToGarden, setGarden } from '../store/actions';
+import { Plant, Planting, RootState } from '../constants/types';
 
 class NewPlantingForm extends React.Component<FormComponentProps> {
   constructor(props: FormComponentProps) {
@@ -12,6 +15,17 @@ class NewPlantingForm extends React.Component<FormComponentProps> {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+
+        const dispatch = useDispatch();
+        const garden = useSelector((state: RootState) => state.gg.garden);
+        let newPlant: Plant;
+        newPlant.name = "strawberry";
+        let newPlanting: Planting;
+        newPlanting.plant = newPlant;
+        newPlanting.x_coord = 0;
+        newPlanting.y_coord = 0;
+        garden.plantings.push(newPlanting);
+        dispatch(setGarden(garden));
       }
     });
   };

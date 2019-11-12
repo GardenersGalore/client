@@ -1,4 +1,4 @@
-import { Plant, Garden, Planting, Question } from './constants/types';
+import { Plant, Garden, Planting, Question, Answer } from './constants/types';
 import { resolve } from 'dns';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
@@ -57,7 +57,7 @@ export const getPlantings = (garden_name : string) :Promise<Planting[]> => {
 
 export const getQuestions = (username : string) :Promise<Question[]> => {
   const requestUrl =
-    `${CLOUD_FUNCTION_URL}questions?username=${username}`;
+    `${CLOUD_FUNCTION_URL}forum/questions?username=${username}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
@@ -65,7 +65,16 @@ export const getQuestions = (username : string) :Promise<Question[]> => {
     .then((data: Question[]) => data);
 }
 
-export const getAnswers = (question : string) :Promise<Planting[]> => {
+export const getQuestion = (question : string) :Promise<Question> => {
+  const requestUrl =
+    `${CLOUD_FUNCTION_URL}answers?question=${question}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Question) => data);
+}
+
+export const getAnswers = (question : string) :Promise<Answer[]> => {
   const requestUrl =
     `${CLOUD_FUNCTION_URL}answers?question=${question}`;
   return fetch(requestUrl)

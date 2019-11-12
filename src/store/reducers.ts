@@ -8,6 +8,8 @@ const initialState: GG = {
   isLoading: false,
   plant : null,
   search : null,
+  question : null,
+  questions : [],
   error: '',
 };
 
@@ -54,6 +56,12 @@ export const reducers = (state: any = initialState, action: any) => {
         return {
           ...state,
           garden: action.garden,
+        };
+
+    case ACTION.SET_QUESTIONS:
+        return {
+          ...state,
+          questions: action.questions,
         };
 
     default:

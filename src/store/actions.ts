@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings, getQuestions } from '../api';
+import { getPlant, getGardens, getGarden, getPlantings, getQuestions, getQuestion, getAnswers } from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting, Question, Answer } from '../constants/types';
 
 
@@ -15,11 +15,19 @@ export const SET_SEARCH = 'SET_SEARCH';
 
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_ANSWER = 'SET_ANSWER';
+export const SET_QUESTION = 'SET_QUESTION';
 
 const setQuestions = (questions: Question[]) => {
   return {
     type: SET_QUESTIONS,
     questions,
+  };
+};
+
+const setQuestion = (question: Question) => {
+  return {
+    type: SET_QUESTION,
+    question,
   };
 };
 

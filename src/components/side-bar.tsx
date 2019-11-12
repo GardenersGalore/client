@@ -31,9 +31,9 @@ export const SideBar: React.FC<any> = () => {
 
       const ForumLink = withRouter(({ history }) => (
         <Link
-          to='/forum'
+          to='/forum/questions'
           onClick={() => {
-            history.push('/forum');
+            history.push('/forum/questions');
           }}>
           Forum
         </Link>

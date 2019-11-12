@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings } from '../api';
-import { RootState, GG, Plant, SearchState, Garden, Planting } from '../constants/types';
+import { getPlant, getGardens, getGarden, getPlantings, getQuestions } from '../api';
+import { RootState, GG, Plant, SearchState, Garden, Planting, Question, Answer } from '../constants/types';
 
 
 export const FETCHING_DATA = 'FETCHING_DATA';
@@ -13,6 +13,15 @@ export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
 
+export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const SET_ANSWER = 'SET_ANSWER';
+
+const setQuestions = (questions: Question[]) => {
+  return {
+    type: SET_QUESTIONS,
+    questions,
+  };
+};
 
 const setPlant = (plant: Plant) => {
     return {
@@ -119,6 +128,45 @@ export const getGardenData = (garden_name : string) => {
 
         garden.plantings = plantings;
         dispatch(setGarden(garden));
+        dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
+export const getQuestionsData = (username : string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+        console.log(`Getting questions for: ${username}`)
+        const results: Question[] = await getQuestions(
+          username
+        );
+        console.log(results);
+        dispatch(setQuestions(results));
+        dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
+export const getQuestionData = (question_title : string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+        console.log(`Getting: ${question_title}`)
+        const question: Question = await getQuestion(
+          question_title
+        );
+        console.log(question);
+        const answers : Answer[] = await getAnswers(
+          question_title
+        );
+
+        question.answers = answers;
+        dispatch(setQuestion(question));
         dispatch(fetchingDataSuccess());
     } catch (error) {
       dispatch(fetchingDataFailure(error.message));

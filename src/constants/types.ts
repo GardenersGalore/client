@@ -9,6 +9,8 @@ export interface GG {
   plant : Plant;
   error : string;
   search : SearchState;
+  questions : Question[];
+  question : Question;
   isLoading : boolean;
 }
 
@@ -61,7 +63,18 @@ export interface SearchState {
   query : string;
 }
 
+export interface Answer {
+  answer : string;
+  author : string;
+  question_title : string;
+}
 
+export interface Question {
+  question_title : string;
+  author : string;
+  description : string;
+  answers : Answer[];
+}
 
 
 

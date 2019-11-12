@@ -12,6 +12,7 @@ import { GardenView } from './garden';
 import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
+import { Questions } from './questions';
 
 const { Header, Content, Footer } = Layout;
 
@@ -26,11 +27,12 @@ export const App: React.FC<any> = () => {
               <Switch>
                 <Route exact={true} path='/' component={Home} />
                 <Route exact={true} path='/gardens' component={Gardens} />
-                <Route exact={true} path='/forum' component={Forum} />
+                <Route exact={true} path='/forum' component={Questions} />
                 <Route exact={true} path='/login' component={Login} />
                 <Route exact={true} path='/register' component={Register} />
                 <Route path='/plant/:name' component={Plant} />
                 <Route path='/garden/:name' component={GardenView} />
+                <Route path='/question/:question_title' component={Question} />
                 <Route render={() => <div>Page not found!</div>} />
               </Switch>
             </Content>

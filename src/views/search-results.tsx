@@ -101,7 +101,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         return (
           <div>
             <Row type='flex' justify='center' className='fetching-weather-content'>
-              <h1>Fruits/Plants</h1>
+              <h1>Fruit/Plant</h1>
 
               <Card style={{ width: 1400 }}>
                 <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>

@@ -22,7 +22,12 @@ type PlantingRetType = {
 export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const dispatch = useDispatch();
 
-  const garden = useSelector((state: RootState) => state.gg.garden);
+  const garden = useSelector((state: RootState) => state.gg.garden, (left : any, right : any) => {
+    if (left.plantings.length != right.plantings.length){
+      return true;
+    }
+    return false;
+  });
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);

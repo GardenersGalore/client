@@ -34,7 +34,7 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
         console.log('Received values of form: ', values);
 
         
-
+        const p = await getPlant(values.name);
           
           let newPlanting: Planting = {
             "plant_name" : values.name,
@@ -45,15 +45,18 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
             "description": "new plant",
             "planted_from": "seed",
             "harvest_count": 1,
-            "plant": null,
+            "plant": p,
           };
+          
 
           this.props.garden.plantings.push(newPlanting);
-          //this.props.dispatch(setGarden(this.props.garden));
-          const posted = await postPlanting(newPlanting);
+
+          console.log(this.props.garden.plantings);
+          this.props.dispatch(setGarden(this.props.garden));
+          const posted = postPlanting(newPlanting);
 
           console.log(posted);
-          this.props.dispatch(getGardenData(this.props.garden.name));
+          //this.props.dispatch(getGardenData(this.props.garden.name));
       }
     });
   };

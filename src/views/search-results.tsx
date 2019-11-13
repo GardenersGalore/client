@@ -40,13 +40,13 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     }
   });
 
-  console.log(garden, plant);
+  console.log(gardens, plant, garden);
 
   const renderPlant = () => {
     if (!isEmpty(plant)) {
       console.log('PK');
       if (gardens.length > 0) {
-        if (garden) {
+        if (garden && garden.plantings.length > 0) {
           return (
             <div>
               <Row type='flex' justify='center' className='fetching-weather-content'>
@@ -73,29 +73,31 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
             </div>
           );
         } else {
-          <div>
-            <Row type='flex' justify='center' className='fetching-weather-content'>
-              <h1>Fruits/Plants</h1>
-              <Card style={{ width: 1400 }}>
-                <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
-                {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
-              </Card>
-              <h1>Garden</h1>
-              <Card style={{ width: 1400 }}>
-                <List
-                  itemLayout='vertical'
-                  dataSource={gardens}
-                  renderItem={garden => (
-                    <List.Item key={garden.name}>
-                      <List.Item.Meta
-                        title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
-                        description={garden.location_name}
-                      />
-                    </List.Item>
-                  )}></List>
-              </Card>
-            </Row>
-          </div>;
+          return (
+            <div>
+              <Row type='flex' justify='center' className='fetching-weather-content'>
+                <h1>Fruit/Plant</h1>
+                <Card style={{ width: 1400 }}>
+                  <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                  {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
+                </Card>
+                <h1>Garden</h1>
+                <Card style={{ width: 1400 }}>
+                  <List
+                    itemLayout='vertical'
+                    dataSource={gardens}
+                    renderItem={garden => (
+                      <List.Item key={garden.name}>
+                        <List.Item.Meta
+                          title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
+                          description={garden.location_name}
+                        />
+                      </List.Item>
+                    )}></List>
+                </Card>
+              </Row>
+            </div>
+          );
         }
       } else {
         return (

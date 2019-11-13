@@ -3,9 +3,10 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Planting } from '../constants/types';
+import { RootState, Planting, Garden } from '../constants/types';
 import { getGardenData, setGarden, setSelectedGardenCell } from '../store/actions';
 import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
+
 
 type PathParamsType = {
   name: string;
@@ -22,21 +23,20 @@ type PlantingRetType = {
 export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const dispatch = useDispatch();
 
-  const garden = useSelector((state: RootState) => state.gg.garden, (left : any, right : any) => {
-    if (left.plantings.length != right.plantings.length){
-      return true;
-    }
-    return false;
-  });
+  const garden = useSelector((state: RootState) => state.gg.garden);
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
 
   useEffect(() => {
-    if (!garden) {
-      dispatch(getGardenData(props.match.params.name));
-    } else if (garden.name != props.match.params.name) {
-      dispatch(getGardenData(props.match.params.name));
+    if (!isLoading){
+      if (!garden) {
+        console.log("GETTING DATA AS NO GARDEN THIS WAY");
+        dispatch(getGardenData(props.match.params.name));
+      } else if (garden.name != props.match.params.name) {
+        console.log("GETTING DATA THIS WAY");
+        dispatch(getGardenData(props.match.params.name));
+      }
     }
   });
 
@@ -113,7 +113,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   };
 
   const renderPlantInfo = () => {
-    const planting: Planting = findPlanting(garden.plantings, 1, 1);
+    const planting: Planting = findPlanting(garden.plantings, selectedCell[0], selectedCell[1]);
 
     return (
       <div className='garden-info'>

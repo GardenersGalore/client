@@ -6,6 +6,7 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addPlantingToGarden, setGarden, getGardenData } from '../store/actions';
 import { Plant, Planting, RootState, Garden } from '../constants/types';
+import { GardenView } from '../views/garden';
 
 export interface NewPlantingProps extends FormComponentProps {
   garden: Garden;
@@ -32,8 +33,6 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-
-        
         const p = await getPlant(values.name);
           
           let newPlanting: Planting = {
@@ -48,11 +47,10 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
             "plant": p,
           };
           
-
-          this.props.garden.plantings.push(newPlanting);
-
-          console.log(this.props.garden.plantings);
-          this.props.dispatch(setGarden(this.props.garden));
+          const new_garden = { ...this.props.garden };
+          new_garden.plantings.push(newPlanting);
+          console.log(new_garden.plantings);
+          this.props.dispatch(setGarden(new_garden));
           const posted = postPlanting(newPlanting);
 
           console.log(posted);

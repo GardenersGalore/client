@@ -51,7 +51,7 @@ export const Gardens: React.FC<any> = () => {
         
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-
+            <h1>My Gardens</h1>
             <Card style={{ width: 1400 }}>
                 <List
                 itemLayout="vertical"
@@ -69,7 +69,7 @@ export const Gardens: React.FC<any> = () => {
                       <img
                         width={272}
                         alt="logo"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                        src="https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png"
                       />
                     }
                   >

@@ -25,7 +25,7 @@ export const SideBar: React.FC<any> = () => {
           onClick={() => {
             history.push('/gardens');
           }}>
-          MyGardens
+          My Gardens
         </Link>
       ));
 

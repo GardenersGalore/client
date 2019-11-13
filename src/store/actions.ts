@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlantings } from '../api';
+import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlanting } from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
@@ -150,9 +150,7 @@ export const getGardenData = (garden_name: string) => {
       const plantings: Planting[] = await getPlantings(garden_name);
 
       const unique = [...new Set(plantings.map(item => item.plant_name))];
-      const garden: Garden = await getGarden(gardenName);
       console.log('aa', garden);
-      const plantings: Planting[] = await getPlantings(gardenName);
 
       console.log('UNIQUE IS:');
       console.log(unique);

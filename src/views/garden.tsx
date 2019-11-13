@@ -1,10 +1,11 @@
-import { Alert, Col, Row, Spin, Card } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Form, Input, Button } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Planting } from '../constants/types';
-import { getGardenData } from '../store/actions';
+import { RootState, Planting, Garden } from '../constants/types';
+import { getGardenData, setGarden, setSelectedGardenCell } from '../store/actions';
+import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
 
 type PathParamsType = {
   name: string;
@@ -21,15 +22,35 @@ type PlantingRetType = {
 export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const dispatch = useDispatch();
 
-  const garden = useSelector((state: RootState) => state.gg.garden);
+  const garden = useSelector(
+    (state: RootState) => state.gg.garden,
+    (left: Garden, right: Garden) => {
+      if (left === right) {
+        console.log('IN THE SELECTOR :D');
+        console.log(left, right);
+        if (left.garden_height === right.garden_height && left.garden_width === right.garden_width) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
+  );
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
+  const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
 
   useEffect(() => {
-    if (!garden) {
-      dispatch(getGardenData(props.match.params.name));
-    } else if (garden.name != props.match.params.name) {
-      dispatch(getGardenData(props.match.params.name));
+    if (!isLoading) {
+      if (!garden) {
+        console.log('GETTING DATA AS NO GARDEN THIS WAY');
+        dispatch(getGardenData(props.match.params.name));
+      } else if (garden.name != props.match.params.name) {
+        console.log('GETTING DATA THIS WAY');
+        dispatch(getGardenData(props.match.params.name));
+      }
     }
   });
 
@@ -44,7 +65,102 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
     return r;
   };
 
-  const renderPlant = () => {
+  const isSelected = (x: number, y: number) => {
+    return x == selectedCell[0] && y == selectedCell[1];
+  };
+
+  const toggleSelected = (x: number, y: number) => {
+    isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
+  };
+
+  const setHeight = (newHeight: number) => {
+    const new_garden = { ...garden };
+    new_garden.garden_height = newHeight;
+    dispatch(setGarden(new_garden));
+  };
+
+  const setWidth = (newWidth: number) => {
+    const new_garden = { ...garden };
+    new_garden.garden_width = newWidth;
+    dispatch(setGarden(new_garden));
+  };
+
+  const calculateCellSize = () => {
+    const cellHeight = (window.innerHeight - 48) / garden.garden_height - 8;
+    const cellWidth = (window.innerWidth * 0.5) / garden.garden_width - 8;
+    const cellSize = Math.min(cellHeight, cellWidth);
+    return cellSize + 'px';
+  };
+
+  const renderGardenInfo = () => {
+    return (
+      <div className='garden-info'>
+        <h1>{garden.name}</h1>
+
+        <p className='garden-info-p'>
+          <b>About:</b> {garden.description}
+          <br />
+          <b>Location:</b> {garden.location_name}
+          <br />
+          <b>User:</b> {garden.username}
+          <br />
+          <b>Width:</b> {garden.garden_width}
+          <b className='garden-size-button' onClick={() => setWidth(garden.garden_width - 1)}>
+            {' '}
+            -{' '}
+          </b>
+          <b className='garden-size-button' onClick={() => setWidth(garden.garden_width + 1)}>
+            {' '}
+            +{' '}
+          </b>
+          <br />
+          <b>Height:</b> {garden.garden_height}
+          <b className='garden-size-button' onClick={() => setHeight(garden.garden_height - 1)}>
+            {' '}
+            -{' '}
+          </b>
+          <b className='garden-size-button' onClick={() => setHeight(garden.garden_height + 1)}>
+            {' '}
+            +{' '}
+          </b>
+        </p>
+      </div>
+    );
+  };
+
+  const renderPlantInfo = () => {
+    const planting: Planting = findPlanting(garden.plantings, selectedCell[0], selectedCell[1]);
+
+    return (
+      <div className='garden-info'>
+        <h1>{planting.plant_name}</h1>
+
+        <p className='garden-info-p'>
+          <b>About:</b> {planting.description}
+          <br />
+          <b>Date planted:</b> {planting.planted_at.toDateString}
+          <br />
+          <b>Harvest count: </b> {planting.harvest_count}
+          <br />
+          <b>Planted from:</b> {planting.planted_from}
+          {/*TODO: more*/}
+        </p>
+      </div>
+    );
+  };
+
+  const renderNewPlantForm = () => {
+    const MyNewForm = Form.create<NewPlantingProps>()(NewPlantingForm);
+
+    return (
+      <div className='garden-info'>
+        <h1>Add new plant</h1>
+        <MyNewForm garden={garden} dispatch={dispatch} xcoord={selectedCell[0]} ycoord={selectedCell[1]} />
+      </div>
+    );
+  };
+
+  const renderGarden = () => {
     if (error) {
       return (
         <div>
@@ -73,21 +189,28 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
             z = (
               <div className='garden-cell-occupied'>
-                <img src={plantIcon} className='plantIcon' />
+                <img src={plantIcon} className='garden-plant-icon' alt={p.plant_name} />
               </div>
             );
           } else {
             z = <div className='garden-cell-unoccupied'>+</div>;
           }
 
-          const cellSize = (window.innerHeight - 4 * garden.garden_height) / garden.garden_height;
-          const cellSizePx = cellSize + 'px';
+          const cellSizePx = calculateCellSize();
 
           gardenRow.push(
-            <Col>
-              <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
-                {z}
-              </div>
+            <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
+              {isSelected(i, j) ? (
+                <div
+                  className='garden-cell garden-cell-selected'
+                  style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
+                  {z}
+                </div>
+              ) : (
+                <div className='garden-cell' style={{ width: cellSizePx, height: cellSizePx, lineHeight: cellSizePx }}>
+                  {z}
+                </div>
+              )}
             </Col>
           );
         }
@@ -101,9 +224,24 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
 
       console.log(garden);
 
+      let info;
+
+      if (isSelected(-1, -1)) {
+        info = renderGardenInfo();
+      } else if (findPlanting(garden.plantings, selectedCell[0], selectedCell[1]) != null) {
+        info = renderPlantInfo();
+      } else {
+        info = renderNewPlantForm();
+      }
+
       return (
         <div>
-          <Card>{patch}</Card>
+          <Card className='garden-card'>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div style={{ width: '70%' }}>{patch}</div>
+              {info}
+            </div>
+          </Card>
         </div>
       );
     }
@@ -117,7 +255,7 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
           <h2>Loading...</h2>
         </Row>
       ) : (
-        renderPlant()
+        renderGarden()
       )}
     </div>
   );

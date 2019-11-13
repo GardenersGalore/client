@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings } from '../api';
+import { getPlant, getGardens, getGarden, getPlantings, postPlanting } from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
@@ -148,3 +148,25 @@ export const getGardenData = (garden_name: string) => {
     }
   };
 };
+
+// export const postPlantingData = ( planting : Planting )=> {
+//   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+//     dispatch(fetchingData());
+//     try {
+//       console.log(`Getting: ${garden_name}`);
+//       const garden: Garden = await getGarden(garden_name);
+//       console.log(garden);
+//       const plantings: Planting[] = await getPlantings(garden_name);
+
+//       await asyncForEach(plantings, async (planting: Planting) => {
+//         planting.plant = await getPlant(planting.plant_name);
+//       });
+
+//       garden.plantings = plantings;
+//       dispatch(setGarden(garden));
+//       dispatch(fetchingDataSuccess());
+//     } catch (error) {
+//       dispatch(fetchingDataFailure(error.message));
+//     }
+//   };
+// };

@@ -1,31 +1,59 @@
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import * as React from 'react';
+import { useEffect } from 'react';
+import { getPlant, getGardens, getGarden, getPlantings, postPlanting } from '../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPlantingToGarden, setGarden } from '../store/actions';
-import { Plant, Planting, RootState } from '../constants/types';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { addPlantingToGarden, setGarden, getGardenData } from '../store/actions';
+import { Plant, Planting, RootState, Garden } from '../constants/types';
 
-class NewPlantingForm extends React.Component<FormComponentProps> {
-  constructor(props: FormComponentProps) {
+export interface NewPlantingProps extends FormComponentProps {
+  garden: Garden;
+  dispatch : any;
+  xcoord : number;
+  ycoord : number;
+}
+
+
+export class NewPlantingForm extends React.Component<NewPlantingProps> {
+  
+  constructor(props: NewPlantingProps) {
     super(props);
+
   }
+
+  // useEffect = () => {
+  //   this.dispatch = useDispatch();
+  //   this.garden = useSelector((state: RootState) => state.gg.garden);
+  // };
 
   handleSubmit = (e: any) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
 
-        const dispatch = useDispatch();
-        const garden = useSelector((state: RootState) => state.gg.garden);
-        let newPlant: Plant;
-        newPlant.name = "strawberry";
-        let newPlanting: Planting;
-        newPlanting.plant = newPlant;
-        newPlanting.x_coord = 0;
-        newPlanting.y_coord = 0;
-        garden.plantings.push(newPlanting);
-        dispatch(setGarden(garden));
+        
+
+          
+          let newPlanting: Planting = {
+            "plant_name" : values.name,
+            "garden_name" : this.props.garden.name,
+            "x_coord" : this.props.xcoord,
+            "y_coord" : this.props.ycoord,
+            "planted_at" : new Date,
+            "description": "new plant",
+            "planted_from": "seed",
+            "harvest_count": 1,
+            "plant": null,
+          };
+
+          this.props.garden.plantings.push(newPlanting);
+          //this.props.dispatch(setGarden(this.props.garden));
+          const posted = await postPlanting(newPlanting);
+
+          console.log(posted);
+          this.props.dispatch(getGardenData(this.props.garden.name));
       }
     });
   };
@@ -49,4 +77,4 @@ class NewPlantingForm extends React.Component<FormComponentProps> {
   }
 }
 
-export const WrappedNewPlantingForm = Form.create({ name: 'new_planting' })(NewPlantingForm);
+export default connect()(NewPlantingForm);

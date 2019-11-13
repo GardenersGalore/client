@@ -23,7 +23,19 @@ type PlantingRetType = {
 export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   const dispatch = useDispatch();
 
-  const garden = useSelector((state: RootState) => state.gg.garden);
+  const garden = useSelector((state: RootState) => state.gg.garden, (left : Garden, right : Garden) => {
+    if (left === right){
+      console.log("IN THE SELECTOR :D")
+      console.log(left, right);
+      if (left.garden_height === right.garden_height && left.garden_width === right.garden_width){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  });
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
@@ -60,13 +72,15 @@ export const GardenView: React.FC<GardenProps> = (props: GardenProps) => {
   };
 
   const setHeight = (newHeight: number) => {
-    garden.garden_height = newHeight;
-    dispatch(setGarden(garden));
+    const new_garden = { ...garden };
+    new_garden.garden_height = newHeight;
+    dispatch(setGarden(new_garden));
   };
 
   const setWidth = (newWidth: number) => {
-    garden.garden_width = newWidth;
-    dispatch(setGarden(garden));
+    const new_garden = { ...garden };
+    new_garden.garden_width = newWidth;
+    dispatch(setGarden(new_garden));
   };
 
   const calculateCellSize = () => {

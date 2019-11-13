@@ -136,9 +136,24 @@ export const getGardenData = (garden_name: string) => {
       console.log(garden);
       const plantings: Planting[] = await getPlantings(garden_name);
 
-      await asyncForEach(plantings, async (planting: Planting) => {
-        planting.plant = await getPlant(planting.plant_name);
+      const unique = [...new Set(plantings.map(item => item.plant_name))];
+
+      console.log("UNIQUE IS:")
+      console.log(unique);
+
+      await asyncForEach(unique, async (u: string) => {
+        const unique_plant = await getPlant(u);
+        plantings.forEach((planting : Planting) => {
+          if(planting.plant_name === u){
+            planting.plant = unique_plant;
+          }
+        })
       });
+
+      // THIS IS THE ROAD BLOCK!! :(
+      // await asyncForEach(plantings, async (planting: Planting) => {
+      //   planting.plant = await getPlant(planting.plant_name);
+      // });
 
       garden.plantings = plantings;
       dispatch(setGarden(garden));

@@ -58,35 +58,31 @@ export const getPlantings = (gardenName: string): Promise<Planting[]> => {
     .then(checkStatus)
     .then(parseJSON)
     .then((data: Planting[]) => data);
-}
+};
 
-export const getQuestions = (username : string) :Promise<Question[]> => {
-  const requestUrl =
-    `${CLOUD_FUNCTION_URL}forum/questions?username=${username}`;
+export const getQuestions = (username: string): Promise<Question[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/questions?username=${username}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
     .then(readResponse)
     .then((data: Question[]) => data);
-}
+};
 
-export const getQuestion = (question : string) :Promise<Question> => {
-  const requestUrl =
-    `${CLOUD_FUNCTION_URL}answers?question=${question}`;
+export const getQuestion = (question: string): Promise<Question> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}answers?question=${question}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
     .then((data: Question) => data);
-}
+};
 
-export const getAnswers = (question : string) :Promise<Answer[]> => {
-  const requestUrl =
-    `${CLOUD_FUNCTION_URL}answers?question=${question}`;
+export const getAnswers = (question: string): Promise<Answer[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}answers?question=${question}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
     .then((data: Answer[]) => data);
-}
 };
 
 export const postPlanting = (planting: Planting): Promise<Planting> => {

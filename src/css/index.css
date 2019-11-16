@@ -20,16 +20,25 @@ body {
   width: 100%;
 }
 
+
+/***** GARDEN *****/
+
 .garden-row {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.garden-col {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .garden-cell {
   text-align: center;
   color: white;
-  padding: 2px;
   transition: all .1s ease-in-out;
+  cursor: default;
+  user-select: none;
 }
 
 .garden-cell:hover {
@@ -37,19 +46,46 @@ body {
 }
 
 .garden-cell-occupied {
-  background-color: #237804;
+  background-color: rgba(47, 74, 47, .75);
+  height: 100%;
 }
 
 .garden-cell-unoccupied {
-  background-color: grey;
+  font-size: 48px;
+  background-color: rgba(255, 255, 255, .25);
+  height: 100%;
 }
 
+.garden-cell-selected {
+  outline: #1890ff solid 5px;
+}
 
+.garden-card {
+  background-image: url("../assets/soil.jpg");
+  background-color: #49372e;
+  background-size: cover;
+}
 
+.garden-plant-icon {
+  margin: 5%;
+}
 
+.garden-info {
+  background-color: rgba(255, 255, 255, .75);
+  width: 30%;
+  padding: 30px;
+}
 
+.garden-info-p {
+  line-height: 3;
+}
 
-
+.garden-size-button {
+  font-size: 150%;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1 !important;
+}
 
 
 
@@ -88,7 +124,8 @@ body {
 }
 
 .plantIcon {
-  margin: 15px;
+  width: 150px;
+  padding: 15px;
 }
 /* 
 /* Navigation bar for mobile device */

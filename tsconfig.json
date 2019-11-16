@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "downlevelIteration": true,
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "module": "es2015",

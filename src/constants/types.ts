@@ -1,88 +1,85 @@
 export interface RootState {
-  gg : GG;
+  gg: GG;
 }
 
 export interface GG {
-  username : string;
-  gardens : Garden[];
-  garden : Garden;
-  plant : Plant;
-  error : string;
-  search : SearchState;
-  questions : Question[];
-  question : Question;
-  isLoading : boolean;
+  username: string;
+  gardens: Garden[];
+  garden: Garden;
+  plant: Plant;
+  error: string;
+  search: SearchState;
+  isLoading: boolean;
+  selectedGardenCell: [number, number];
+  questions: Question[];
+  question: Question;
 }
 
-
-export interface Planting{
-  plant_name : string;
-  garden_name : string;
-  x_coord : number;
-  y_coord : number;
-  planted_at : Date;
-  description : string;
-  planted_from : string;
-  harvest_count : number;
-  plant : Plant;
+export interface Planting {
+  plant_name: string;
+  garden_name: string;
+  x_coord: number;
+  y_coord: number;
+  planted_at: Date;
+  description: string;
+  planted_from: string;
+  harvest_count: number;
+  plant: Plant;
 }
 
-export interface Location{
+export interface Location {
   type: string;
   coordinates: number[];
 }
 
-export interface Garden{
-  name : string;
-  username : string;
-  description : string;
-  location : Location;
-  location_name : string;
-  garden_width : number;
-  garden_height : number;
-  plantings : Planting[];
+export interface Garden {
+  name: string;
+  username: string;
+  description: string;
+  location: Location;
+  location_name: string;
+  garden_width: number;
+  garden_height: number;
+  plantings: Planting[];
 }
 
 export interface Plant {
-  name : string;
-  en_wikipedia_url : string;
-  binomial_name : string;
-  description : string;
-  median_lifespan : string;
-  median_days_to_first_harvest : number;
-  median_days_to_last_harvest : number;
-  height : number;
-  spread : number;
-  row_spacing : number;
-  sowing_method : string;
-  sun_requirements : string;
-  svg_icon : string;
+  name: string;
+  en_wikipedia_url: string;
+  binomial_name: string;
+  description: string;
+  median_lifespan: string;
+  median_days_to_first_harvest: number;
+  median_days_to_last_harvest: number;
+  height: number;
+  spread: number;
+  row_spacing: number;
+  sowing_method: string;
+  sun_requirements: string;
+  svg_icon: string;
 }
 
 export interface SearchState {
-  query : string;
+  query: string;
 }
 
 export interface Answer {
-  answer : string;
-  author : string;
-  question_title : string;
+  answer: string;
+  author: string;
+  question_title: string;
 }
 
 export interface Question {
-  question_title : string;
-  author : string;
-  description : string;
-  answers : Answer[];
+  question_title: string;
+  author: string;
+  description: string;
+  answers: Answer[];
 }
-
-
 
 /*
 Old Types
 
 */
-
 
 export interface GeoCode {
   status: string;
@@ -197,7 +194,6 @@ export interface ForecastState {
   };
   error: string;
 }
-
 
 export interface ToolTipType {
   display: boolean;

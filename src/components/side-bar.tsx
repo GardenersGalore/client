@@ -14,7 +14,8 @@ export const SideBar: React.FC<any> = () => {
       onClick={() => {
         history.push('/');
       }}>
-      Home
+      <img className="gardeners-galore-icon" src='../assets/gardeners_galore_white.ico'  alt='' />
+
     </Link>
   ));
 
@@ -71,12 +72,19 @@ export const SideBar: React.FC<any> = () => {
   return (
     <Header className='nav-bar'>
       <Row>
-        <Col span={4}>Logo</Col>
+        <Col span={2}/>
         <Col span={4}>
+          <HomeLink>
+          </HomeLink>
+        </Col>
+        <Col span={8}>
+          <div className='weather-search-outer'>
+            <Search />
+          </div>
+        </Col>
+        <Col span={4}>
+          
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
-            <Menu.Item key='Home'>
-              <HomeLink />
-            </Menu.Item>
             <Menu.Item key='Garden'>
               <GardenLink />
             </Menu.Item>
@@ -85,13 +93,7 @@ export const SideBar: React.FC<any> = () => {
             </Menu.Item>
           </Menu>
         </Col>
-
-        <Col span={8}>
-          <div className='weather-search-outer'>
-            <Search />
-          </div>
-        </Col>
-        <Col span={6}></Col>
+        <Col span={4}></Col>
         <Col span={2}>
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
             <Menu.Item key='Login'>

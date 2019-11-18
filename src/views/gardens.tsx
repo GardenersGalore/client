@@ -1,15 +1,33 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, List, Icon } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, List, Icon, Avatar, Timeline, Button, Radio, Divider } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Garden } from '../constants/types';
 import { getPlantData, getGardensData } from '../store/actions';
+import { GardenDisplay } from '../components/garden-display';
 
 type IconType = {
   type: string;
   text: string;
 };
+
+const { Meta } = Card;
+
+const data = [
+  {
+    title: 'Ant Design Title 1',
+  },
+  {
+    title: 'Ant Design Title 2',
+  },
+  {
+    title: 'Ant Design Title 3',
+  },
+  {
+    title: 'Ant Design Title 4',
+  },
+];
 
 export const Gardens: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -32,7 +50,7 @@ export const Gardens: React.FC<any> = () => {
     </span>
   );
 
-  const renderPlant = () => {
+  const renderUser = () => {
     if (error) {
       return (
         <div>
@@ -44,41 +62,106 @@ export const Gardens: React.FC<any> = () => {
         </div>
       );
     } else if (gardens) {
+
+
+
       console.log(gardens);
       return (
-        <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>My Gardens</h1>
-            <Card style={{ width: 1400 }}>
-              <List
-                itemLayout='vertical'
-                size='large'
-                dataSource={gardens}
-                renderItem={garden => (
-                  <List.Item
-                    key={garden.name}
-                    actions={[
-                      <IconText type='star-o' text='156' key='list-vertical-star-o' />,
-                      <IconText type='like-o' text='156' key='list-vertical-like-o' />,
-                      <IconText type='message' text='2' key='list-vertical-message' />,
-                    ]}
-                    extra={
-                      <img
-                        width={272}
-                        alt='logo'
-                        src='https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png'
-                      />
-                    }>
-                    <List.Item.Meta
-                      // avatar={<Avatar src={item.name} />}
-                      title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
-                      description={garden.location_name}
-                    />
-                    {garden.description}
-                  </List.Item>
-                )}></List>
-            </Card>
-          </Row>
+        <div className="user-page">
+            <Row type='flex' justify='center' className="user-row">
+
+              <Card className="user-card">
+                <Col span={6}>
+                  <Avatar size={200} src="https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg" />
+                </Col>
+                <Col span={18}>
+                  Johnny
+                </Col>               
+              </Card>
+            </Row>
+            <Row>
+            <Col span={16} className="left-column">
+            <Row className="user-row">
+              <Card title="Gardens" size="default" >
+                <div className="gardens-add-button">
+                  <Button type="primary" shape="round" icon="plus" size="default">
+                    Add Garden
+                  </Button>
+                </div>
+
+                <Divider />
+                  <Card size="default" >
+                    <GardenDisplay gardenName="Garden A">
+
+                    </GardenDisplay>
+                  </Card>
+                <Divider />
+                <List
+                  itemLayout='vertical'
+                  grid={{
+                    gutter: 16,
+                    xs: 1,
+                    sm: 2,
+                    md: 4,
+                    lg: 4,
+                    xl: 6,
+                    xxl: 3,
+                  }}
+                  size='small'
+                  dataSource={gardens}
+                  renderItem={garden => (
+                    <List.Item>
+                        <Card
+                          hoverable
+                          cover={<img alt="example" src="https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png" />}
+                          actions={[
+                            <Icon type="setting" key="setting" />,
+                            <Icon type="edit" key="edit" />,
+                            <Icon type="ellipsis" key="ellipsis" />,
+                          ]}
+                        >
+                          <Meta title={<a href={`/garden/${garden.name}`}>{garden.name}</a>} description={garden.location_name} />
+                          {garden.description}
+                        </Card>                     
+                    </List.Item>
+                  )}></List>
+              </Card>
+            </Row>
+            </Col>
+
+            <Col span={8} className="right-column">
+              <Row className="user-row">
+                <Card title="Favourite Plants">
+                <List
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={item => (
+                      <List.Item>
+                        <List.Item.Meta
+                          avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                          title={<a href="https://ant.design">{item.title}</a>}
+                          description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                        />
+                      </List.Item>
+                    )}
+                  />
+                </Card>
+              </Row>
+              <Row className="user-row">
+                <Card title="Recent Blogs">
+                  <Timeline>
+                    <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+                    <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+                    <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
+                    <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+                  </Timeline>
+                </Card>
+              </Row>
+            </Col>
+            </Row>
+
+
+
         </div>
       );
     }
@@ -92,7 +175,7 @@ export const Gardens: React.FC<any> = () => {
           <h2>Loading...</h2>
         </Row>
       ) : (
-        renderPlant()
+        renderUser()
       )}
     </div>
   );

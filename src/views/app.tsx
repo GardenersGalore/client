@@ -12,6 +12,7 @@ import { GardenView } from './garden';
 import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
+import { PageNotFound } from './page-not-found';
 import Search from '../../node_modules/antd/lib/transfer/search';
 import { SearchFor } from './search-results';
 
@@ -34,7 +35,7 @@ export const App: React.FC<any> = () => {
                 <Route path='/plant/:name' component={Plant} />
                 <Route path='/search-result/:name' component={SearchFor} />
                 <Route path='/garden/:name' component={GardenView} />
-                <Route render={() => <div>Page not found!</div>} />
+                <Route component={PageNotFound}/>
               </Switch>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Gardeners Galore ©2019</Footer>

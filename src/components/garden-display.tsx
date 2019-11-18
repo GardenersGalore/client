@@ -7,6 +7,7 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { Planting, RootState, Garden } from '../constants/types';
 import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
 import { addPlantingToGarden, setGarden, setSelectedGardenCell, getGardenData } from '../store/actions';
+import { PlantingDisplay } from './garden/planting-display';
 
 export interface GardenDisplayProps {
   gardenName : string;
@@ -172,65 +173,11 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
   
           for (let j = 0; j < garden.garden_width; j++) {
             const p = findPlanting(garden.plantings, i, j);
-            let z: any = null;
-            let content;
-            let title;
-            
-
-
-            if (p != null) {
-                let plantIcon;
-                if (p.plant.svg_icon === undefined){
-                    console.log("this plant does not have icon: ", p.plant);
-                    plantIcon = "../assets/unown_icon.svg";
-                } else{
-                    const blob = new Blob([p.plant.svg_icon], { type: 'image/svg+xml' });
-                    plantIcon = URL.createObjectURL(blob);
-                }
   
-              z = (
-                <div className='garden-cell-occupied'>
-                  <img src={plantIcon} className='garden-plant-icon' alt={p.plant_name} />
-                </div>
-              );
-
-              content = (
-                <div>
-                <p>content</p>
-                <p>Content</p>
-                </div>
-              );
-              title = p.plant_name;
-            } else {
-              z = <div className='garden-cell-unoccupied'>+</div>;
-
-              content = renderNewPlantForm();
-              title = "NONE"
-            }
-   
 
             gardenRow.push(
               <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
-                {isSelected(i, j) ? (
-                    <Popover content={content} title={title} trigger="click">
-                        <div
-                            className='garden-cell garden-cell-selected'
-                            style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
-                            {z}
-                        </div>
-                    </Popover>
-                ) : (
-                  <Popover content={content} title={title} trigger="click">
-                    <Badge count={109} style={{ backgroundColor: '#52c41a' }}>
-                    <div className='garden-cell' style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
-                        {z}
-                    </div>
-                    </Badge>
-
-                    
-                  </Popover>
-                )}
-                
+                <PlantingDisplay isSelected={isSelected(i, j)} planting={p} />                
               </Col>
             );
           }

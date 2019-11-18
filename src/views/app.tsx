@@ -2,8 +2,7 @@ import Layout from 'antd/lib/layout';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { NavBar } from '../components/nav-bar';
-import { SideBar } from '../components/side-bar';
+import { NavBar } from '../components/nav-bar';
 import store from '../store';
 import { Forum } from './forum';
 import { Home } from './home';
@@ -24,7 +23,7 @@ export const App: React.FC<any> = () => {
       <Router>
         <div>
           <Layout className='layout'>
-            <SideBar />
+            <NavBar />
             <Content className='content'>
               <Switch>
                 <Route exact={true} path='/' component={Home} />

@@ -2,8 +2,7 @@ import Layout from 'antd/lib/layout';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { NavBar } from '../components/nav-bar';
-import { SideBar } from '../components/side-bar';
+import { NavBar } from '../components/nav-bar';
 import store from '../store';
 import { Forum } from './forum';
 import { Home } from './home';
@@ -13,9 +12,9 @@ import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
 import { Questions } from './questions';
-import Search from '../../node_modules/antd/lib/transfer/search';
+import { PageNotFound } from './page-not-found';
+import { UserView } from './user';
 import { SearchFor } from './search-results';
-
 const { Header, Content, Footer } = Layout;
 
 export const App: React.FC<any> = () => {
@@ -24,7 +23,7 @@ export const App: React.FC<any> = () => {
       <Router>
         <div>
           <Layout className='layout'>
-            <SideBar />
+            <NavBar />
             <Content className='content'>
               <Switch>
                 <Route exact={true} path='/' component={Home} />
@@ -33,10 +32,11 @@ export const App: React.FC<any> = () => {
                 <Route exact={true} path='/login' component={Login} />
                 <Route exact={true} path='/register' component={Register} />
                 <Route path='/plant/:name' component={Plant} />
+                <Route path='/user/:name' component={UserView} />
                 <Route path='/search-result/:name' component={SearchFor} />
                 <Route path='/garden/:name' component={GardenView} />
                 <Route path='/question/:question_title' component={Questions} />
-                <Route render={() => <div>Page not found!</div>} />
+                <Route component={PageNotFound}/>
               </Switch>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Gardeners Galore ©2019</Footer>

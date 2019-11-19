@@ -1,20 +1,19 @@
-import { Layout, Menu, Breadcrumb, Icon, Row, Col } from 'antd';
-import { withRouter, Redirect } from 'react-router';
+import { Layout, Menu, Row, Col } from 'antd';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Header} = Layout;
 import * as React from 'react';
-// import Search from 'antd/lib/input/Search';
 import { WeatherSearch } from './weather-search';
 
-export const SideBar: React.FC<any> = () => {
+export const NavBar: React.FC<any> = () => {
   const HomeLink = withRouter(({ history }) => (
     <Link
       to='/'
       onClick={() => {
         history.push('/');
       }}>
-      Home
+      <img className="gardeners-galore-icon" src='../assets/gardeners_galore_white.ico'  alt='' />
+
     </Link>
   ));
 
@@ -71,12 +70,19 @@ export const SideBar: React.FC<any> = () => {
   return (
     <Header className='nav-bar'>
       <Row>
-        <Col span={4}>Logo</Col>
+        <Col span={2}/>
         <Col span={4}>
+          <HomeLink>
+          </HomeLink>
+        </Col>
+        <Col span={8}>
+          <div className='weather-search-outer'>
+            <Search />
+          </div>
+        </Col>
+        <Col span={4}>
+          
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
-            <Menu.Item key='Home'>
-              <HomeLink />
-            </Menu.Item>
             <Menu.Item key='Garden'>
               <GardenLink />
             </Menu.Item>
@@ -85,13 +91,7 @@ export const SideBar: React.FC<any> = () => {
             </Menu.Item>
           </Menu>
         </Col>
-
-        <Col span={8}>
-          <div className='weather-search-outer'>
-            <Search />
-          </div>
-        </Col>
-        <Col span={6}></Col>
+        <Col span={4}></Col>
         <Col span={2}>
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
             <Menu.Item key='Login'>

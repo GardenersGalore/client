@@ -11,6 +11,8 @@ type PathParamsType = {
   name: string;
 };
 
+
+
 // Your component own properties
 type GardenProps = RouteComponentProps<PathParamsType> & {};
 

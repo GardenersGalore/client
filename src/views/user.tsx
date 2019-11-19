@@ -1,66 +1,86 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, List, Icon, Avatar, Timeline, Button, Radio, Divider } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Form, Input, Button, Avatar, Divider, List, Icon, Timeline } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Garden } from '../constants/types';
-import { getPlantData, getGardensData } from '../store/actions';
-import { GardenDisplay } from '../components/garden-display';
+import { RootState, User } from '../constants/types';
+import { getUserData } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
+import { GardenDisplay } from '../components/garden-display';
+import Meta from 'antd/lib/card/Meta';
+import { color } from 'd3';
 
-type IconType = {
-  type: string;
-  text: string;
+type PathParamsType = {
+  name: string;
 };
 
-const { Meta } = Card;
+// Your component own properties
+type UserProps = RouteComponentProps<PathParamsType> & {};
 
-const data = [
-  {
-    title: 'Ant Design Title 1',
-  },
-  {
-    title: 'Ant Design Title 2',
-  },
-  {
-    title: 'Ant Design Title 3',
-  },
-  {
-    title: 'Ant Design Title 4',
-  },
-];
 
-export const Gardens: React.FC<any> = () => {
+export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const dispatch = useDispatch();
 
-  const username: string = useSelector((state: RootState) => state.gg.username);
-  const gardens: Garden[] = useSelector((state: RootState) => state.gg.gardens);
+  const user = useSelector((state: RootState) => state.gg.user);
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
   useEffect(() => {
-    if (gardens.length < 1) {
-      dispatch(getGardensData(username));
+    if (!isLoading) {
+      if (!user) {
+        dispatch(getUserData(props.match.params.name));
+      } else if (user.username != props.match.params.name) {
+        dispatch(getUserData(props.match.params.name));
+      }
     }
   });
+
+  const createIcon = (svg_icon : any) => {
+    let plantIcon;
+    if (svg_icon === undefined){
+      plantIcon = "../assets/unown_icon.svg";
+    } else{
+        const blob = new Blob([svg_icon], { type: 'image/svg+xml' });
+        plantIcon = URL.createObjectURL(blob);
+    }
+    return plantIcon;
+  }
+
+  const capitaliseFirstLetter = (word : string) => {
+    return word[0].toUpperCase() + word.slice(1);
+  }
+
+  const truncateText = (text : string, truncatedAmount : number) => {
+      if (text.length >= truncatedAmount){
+        return text.slice(0,truncatedAmount-1) + "...";
+      } else{
+        return text;
+      }
+  }
 
   const renderUser = () => {
     if (error) {
       return (
         <Error error={error}/>
       );
-    } else if (gardens) {
+    } else if (user) {
       return (
         <div className="user-page">
             <Row type='flex' justify='center' className="user-row">
-
               <Card className="user-card">
-                <Col span={6}>
-                  <Avatar size={200} src="https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg" />
+                <Col span={5} >
+                    <div className="userlogo-shadow">
+                        <Avatar size={200} className="userlogo" src="https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg" />
+                    </div>
                 </Col>
-                <Col span={18}>
-                  Johnny
+                
+                <Col span={19}>
+                    <div >
+                        <h1 style={{color: "white"}} className="username">
+                        {capitaliseFirstLetter(user.username)}
+                        </h1>
+                    </div>
                 </Col>               
               </Card>
             </Row>
@@ -93,7 +113,7 @@ export const Gardens: React.FC<any> = () => {
                     xxl: 3,
                   }}
                   size='small'
-                  dataSource={gardens}
+                  dataSource={user.gardens}
                   renderItem={garden => (
                     <List.Item>
                         <Card
@@ -119,13 +139,14 @@ export const Gardens: React.FC<any> = () => {
                 <Card title="Favourite Plants">
                 <List
                     itemLayout="horizontal"
-                    dataSource={data}
+                    dataSource={user.favourite_plants}
                     renderItem={item => (
+
                       <List.Item>
                         <List.Item.Meta
-                          avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                          title={<a href="https://ant.design">{item.title}</a>}
-                          description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                          avatar={<Avatar src={createIcon(item.plant.svg_icon)} />}
+                          title={<a href={`/plant/${item.plant.name}`}>{capitaliseFirstLetter(item.plant.name)}</a>}
+                          description={truncateText(item.plant.description, 100)}
                         />
                       </List.Item>
                     )}

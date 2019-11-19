@@ -72,6 +72,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
               </Row>
             </div>
           );
+          
         } else {
           return (
             <div>

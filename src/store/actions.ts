@@ -1,13 +1,14 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlanting } from '../api';
-import { RootState, GG, Plant, SearchState, Garden, Planting } from '../constants/types';
+import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlanting, getUser } from '../api';
+import { RootState, GG, Plant, SearchState, Garden, Planting, User } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FETCHING_DATA_SUCCESS = 'FETCHING_DATA_SUCCESS';
 export const FETCHING_DATA_FAILURE = 'FETCHING_DATA_FAILURE';
 
 export const SET_PLANT = 'SET_PLANT';
+export const SET_USER = 'SET_USER';
 export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
@@ -35,6 +36,13 @@ export const setGarden = (garden: Garden) => {
   return {
     type: SET_GARDEN,
     garden,
+  };
+};
+
+export const setUser = (user: User) => {
+  return {
+    type: SET_USER,
+    user,
   };
 };
 
@@ -105,6 +113,20 @@ export const getPlantData = (name: string) => {
     }
   };
 };
+
+export const getUserData = (username: string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      const results: User = await getUser(username);
+      dispatch(setUser(results));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
 
 export const getGardenPlantData = (plant: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {

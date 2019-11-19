@@ -13,6 +13,7 @@ body {
 .content {
   min-height: 100%;
   width: 100%;
+  margin: 0;
 }
 
 .login-form {
@@ -101,6 +102,26 @@ USER LANDING PAGE
 
 */
 
+.username{
+  bottom: -180px;
+  left: -5px;
+  position: absolute;
+  font-size: 200%;
+  text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+}
+
+.userlogo img{
+  border: 4px solid #fff;
+  border-radius: 100%;
+}
+
+.userlogo-shadow{
+  height: 202px;
+  width: 202px;
+  background: rgba(0, 0, 0, .15);
+  border-radius: 100%;
+}
+
 .user-page{
   width: 60%;
   margin-left: auto;
@@ -112,6 +133,8 @@ USER LANDING PAGE
 }
 .user-card{
   width : 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(0, 20, 41) 80%, rgb(255, 255, 255) 20%);
 }
 
 .gardens-card{
@@ -185,89 +208,11 @@ USER LANDING PAGE
   padding: 2rem 2rem;
 }
 
-.fetching-weather-content {
-  padding: 4rem 2rem;
-}
-
-.fetching-weather-spinner {
-  padding-left: 0.5rem;
-}
-
-/* Current weather section */
-.current-weather-top {
-  background: #fafafa;
-  padding: 0.5rem 2rem;
-}
-
-.current-weather-top-item {
-  text-align: center;
-  font-size: 0.8rem;
-}
-
-.current-weather-location {
-  padding: 0.5rem 1rem;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.current-weather-summary {
-  padding-top: 1rem;
-  font-size: 1rem;
-}
-
-.current-weather-icon {
-  margin: 0.7rem 1rem 0 0;
-}
-
-/* Current weather section */
-
-.forecast-summary {
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.forecast-title {
-  font-size: 1.8rem;
-  font-weight: 500;
-}
-
-.daily-forecast-table-outer {
-  padding: 1rem 0;
-}
-
-.daily-forecast-item {
-  font-size: 0.8rem;
-}
-
-.daily-forecast-sub-item-wrapper {
-  text-align: center;
-}
-
-.daily-forecast-sub-item-summary {
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-/* Weather chart section */
-#weather-chart-wrapper {
-  padding: 0 2rem;
-}
-
-.weather-chart {
-  height: 20rem;
-  width: 50rem;
-}
-
-.weather-chart-tooltip-time {
-  font-size: 0.9rem;
-  color: #949494;
-  line-height: 1.1rem;
-}
-
-.weather-chart-tooltip-item {
-  color: #2e2e2e;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 0.5rem;
+.loading{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

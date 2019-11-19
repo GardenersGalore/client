@@ -8,6 +8,7 @@ import { Planting, RootState, Garden } from '../constants/types';
 import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
 import { addPlantingToGarden, setGarden, setSelectedGardenCell, getGardenData } from '../store/actions';
 import { PlantingDisplay } from './garden/planting-display';
+import { Loading } from './loading';
 
 export interface GardenDisplayProps {
   gardenName : string;
@@ -39,10 +40,8 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     useEffect(() => {
       if (!isLoading) {
         if (!garden) {
-          console.log('GETTING DATA AS NO GARDEN THIS WAY');
           dispatch(getGardenData(props.gardenName));
         } else if (garden.name != props.gardenName) {
-          console.log('GETTING DATA THIS WAY');
           dispatch(getGardenData(props.gardenName));
         }
       }
@@ -88,37 +87,32 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
   
     const renderGardenInfo = () => {
       return (
-        <div className='garden-info'>
-          <h1>{garden.name}</h1>
-  
-          <p className='garden-info-p'>
-            <b>About:</b> {garden.description}
-            <br />
-            <b>Location:</b> {garden.location_name}
-            <br />
-            <b>User:</b> {garden.username}
-            <br />
-            <b>Width:</b> {garden.garden_width}
-            <b className='garden-size-button' onClick={() => setWidth(garden.garden_width - 1)}>
-              {' '}
-              -{' '}
-            </b>
-            <b className='garden-size-button' onClick={() => setWidth(garden.garden_width + 1)}>
-              {' '}
-              +{' '}
-            </b>
-            <br />
-            <b>Height:</b> {garden.garden_height}
-            <b className='garden-size-button' onClick={() => setHeight(garden.garden_height - 1)}>
-              {' '}
-              -{' '}
-            </b>
-            <b className='garden-size-button' onClick={() => setHeight(garden.garden_height + 1)}>
-              {' '}
-              +{' '}
-            </b>
-          </p>
-        </div>
+        <Descriptions title={garden.name} size="small">
+            <Descriptions.Item label="Garden Height">
+                <Button type="primary" icon="minus" size="small" onClick={() => setHeight(garden.garden_height - 1)}/>
+                <b style={{padding : "6px"}}>
+                {garden.garden_height}
+                </b>
+                <Button type="primary" icon="plus" size="small" onClick={() => setHeight(garden.garden_height + 1)}/> 
+            </Descriptions.Item>
+            <Descriptions.Item label="Garden Width">
+                <Button type="primary" icon="minus" size="small" onClick={() => setWidth(garden.garden_width - 1)}/>
+                <b style={{padding : "6px"}}>
+                {garden.garden_width}
+                </b>
+                <Button type="primary" icon="plus" size="small" onClick={() => setWidth(garden.garden_width + 1)}/> 
+            </Descriptions.Item>
+            {(garden.description != null) ? (
+              <Descriptions.Item label="About">{garden.description}</Descriptions.Item>
+            ) : (
+              <div/>
+            )}
+            {(garden.location_name != null) ? (
+              <Descriptions.Item label="Location">{garden.location_name}</Descriptions.Item>
+            ) : (
+              <div/>
+            )}
+        </Descriptions>
       );
     };
   
@@ -192,15 +186,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
   
         return (
           <div>
-            <Descriptions title="Garden Info" bordered size="small">
-                <Descriptions.Item label="Garden Height">
-                    <Button type="primary" icon="minus" size="small"/>
-                    5
-                    <Button type="primary" icon="plus" size="small"/> 
-                </Descriptions.Item>
-                <Descriptions.Item label="Garden Width">5</Descriptions.Item>
-                <Descriptions.Item label="Automatic Renewal">YES</Descriptions.Item>
-            </Descriptions>
+            {renderGardenInfo()}
             <Card className='garden-card'>
                 {patch}
             </Card>
@@ -212,10 +198,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     return (
       <div>
         {isLoading ? (
-          <Row type='flex' justify='center' className='fetching-weather-content'>
-            <Spin className='fetching-weather-spinner' size='large' />
-            <h2>Loading...</h2>
-          </Row>
+          <Loading/>
         ) : (
           renderGarden()
         )}

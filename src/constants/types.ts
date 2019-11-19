@@ -4,6 +4,7 @@ export interface RootState {
 
 export interface GG {
   username: string;
+  user : User;
   gardens: Garden[];
   garden: Garden;
   plant: Plant;
@@ -12,6 +13,23 @@ export interface GG {
   isLoading: boolean;
   selectedGardenCell: [number, number];
 }
+
+export interface User {
+  name: string,
+  username: string,
+  email: string,
+  password: string,
+  phone_number: string,
+  experience: string,
+  gardens : Garden[];
+  favourite_plants: PlantLike[];
+}
+
+export interface PlantLike {
+  plant : Plant
+  count : number
+}
+
 
 export interface Planting {
   plant_name: string;

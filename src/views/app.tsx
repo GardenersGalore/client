@@ -12,9 +12,8 @@ import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
 import { PageNotFound } from './page-not-found';
-import Search from '../../node_modules/antd/lib/transfer/search';
+import { UserView } from './user';
 import { SearchFor } from './search-results';
-
 const { Header, Content, Footer } = Layout;
 
 export const App: React.FC<any> = () => {
@@ -32,6 +31,7 @@ export const App: React.FC<any> = () => {
                 <Route exact={true} path='/login' component={Login} />
                 <Route exact={true} path='/register' component={Register} />
                 <Route path='/plant/:name' component={Plant} />
+                <Route path='/user/:name' component={UserView} />
                 <Route path='/search-result/:name' component={SearchFor} />
                 <Route path='/garden/:name' component={GardenView} />
                 <Route component={PageNotFound}/>

@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, List, Icon } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, List, Icon, Button, Input, Form } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ type IconType = {
   type: string;
   text: string;
 };
+
+const { TextArea } = Input;
 
 export const Questions: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -47,11 +49,13 @@ export const Questions: React.FC<any> = () => {
       console.log(questions);
       return (
         <div>
+        <br></br>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 1000 }} title='Questions'>
               <List
                 itemLayout='vertical'
                 size='large'
+                bordered={true}
                 dataSource={questions}
                 renderItem={question => (
                   <List.Item
@@ -61,23 +65,26 @@ export const Questions: React.FC<any> = () => {
                       <IconText type='like-o' text='156' key='list-vertical-like-o' />,
                       <IconText type='message' text='2' key='list-vertical-message' />,
                     ]}
-                    extra={
-                      <img
-                        width={272}
-                        alt='logo'
-                        src='https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-                      />
-                    }>
+                    >
                     <List.Item.Meta
                       // avatar={<Avatar src={item.name} />}
-                      title={<a href={`/question/${question.question_title}`}>{question.question_title}</a>}
+                      title={<a href={`/forum/question/${question.question_title}`}>{question.question_title}</a>}
                       description={question.description}
-                    />
-                    {question.description}
+                    />                    
                   </List.Item>
                 )}></List>
+                <br></br>
+                <div>
+                <Form.Item>
+                  <Button htmlType="submit" type="primary" href='/forum/question'>
+                    Ask a question
+                  </Button>
+                </Form.Item>
+              </div>    
             </Card>
+            
           </Row>
+          
         </div>
       );
     }

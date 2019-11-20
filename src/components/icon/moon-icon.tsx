@@ -6,7 +6,6 @@ interface MoonIconProps {
   size: string;
 }
 
-
 export class MoonIcon extends React.Component<MoonIconProps, any> {
   render() {
     const { moonPhase, latitude, size } = this.props;

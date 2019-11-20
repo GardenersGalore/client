@@ -4,7 +4,7 @@ import * as ACTION from './actions';
 const initialState: GG = {
   username: 'test',
   garden: null,
-  user : null,
+  user: null,
   gardens: [],
   isLoading: false,
   plant: null,
@@ -56,10 +56,10 @@ export const reducers = (state: any = initialState, action: any) => {
       };
 
     case ACTION.SET_USER:
-        return {
-          ...state,
-          user: action.user,
-        };
+      return {
+        ...state,
+        user: action.user,
+      };
 
     case ACTION.SET_GARDENS:
       return {

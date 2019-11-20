@@ -1,6 +1,18 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlanting, getUser, getQuestions, getQuestion, getAnswers } from '../api';
+import {
+  getPlant,
+  getGardens,
+  getGarden,
+  getPlantings,
+  getGardenPlant,
+  postPlanting,
+  getUser,
+  getQuestions,
+  getQuestion,
+  getAnswers,
+  postNewQuestion,
+} from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting, User, Question, Answer } from '../constants/types';
 import { Questions } from '../views/questions';
 
@@ -20,6 +32,14 @@ export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_ANSWER = 'SET_ANSWER';
 export const SET_QUESTION = 'SET_QUESTION';
+export const POST_NEW_QUESTION = 'POST_NEW_QUESTION';
+
+const postNewQuestionAction = (question: Question) => {
+  return {
+    type: POST_NEW_QUESTION,
+    question,
+  };
+};
 
 const setQuestions = (questions: Question[]) => {
   return {
@@ -124,6 +144,7 @@ export const getPlantData = (name: string) => {
     dispatch(fetchingData());
     try {
       const results: Plant = await getPlant(name);
+
       dispatch(setPlant(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -144,7 +165,6 @@ export const getUserData = (username: string) => {
     }
   };
 };
-
 
 export const getGardenPlantData = (plant: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
@@ -253,6 +273,19 @@ export const getQuestionData = (question_title: string) => {
     }
   };
 };
+
+export const postNewQuestionData = (question: Question) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      dispatch(postNewQuestionAction(question));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
 // export const postPlantingData = ( planting : Planting )=> {
 //   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
 //     dispatch(fetchingData());

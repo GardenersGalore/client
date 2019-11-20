@@ -35,7 +35,6 @@ export const getUser = (username: string): Promise<User> => {
     .then((data: User) => data);
 };
 
-
 export const getGardens = (username: string): Promise<Garden[]> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}gardens?username=${username}`;
   return fetch(requestUrl)
@@ -123,3 +122,31 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
     .then(readResponse)
     .then((data: Planting) => data);
 };
+
+export const postNewQuestion = (question: Question): Promise<Question> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/question`;
+
+  const body = JSON.stringify({
+    question_title: question.question_title,
+    description: question.description,
+    author: question.author
+   });
+  console.log('POSTING NEW QUESTION');
+  console.log(question);
+  console.log(body);
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Question) => data);
+
+    getQuestions(question.author);
+};
+

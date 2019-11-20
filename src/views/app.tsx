@@ -15,6 +15,7 @@ import { Questions } from './questions';
 import { PageNotFound } from './page-not-found';
 import { UserView } from './user';
 import { SearchFor } from './search-results';
+import { QuestionView } from './question';
 const { Header, Content, Footer } = Layout;
 
 export const App: React.FC<any> = () => {
@@ -29,14 +30,15 @@ export const App: React.FC<any> = () => {
                 <Route exact={true} path='/' component={Home} />
                 <Route exact={true} path='/gardens' component={Gardens} />
                 <Route exact={true} path='/forum/questions' component={Questions} />
+                <Route exact={true} path='/forum/question' component={QuestionView} />
                 <Route exact={true} path='/login' component={Login} />
                 <Route exact={true} path='/register' component={Register} />
                 <Route path='/plant/:name' component={Plant} />
                 <Route path='/user/:name' component={UserView} />
                 <Route path='/search-result/:name' component={SearchFor} />
                 <Route path='/garden/:name' component={GardenView} />
-                <Route path='/question/:question_title' component={Questions} />
-                <Route component={PageNotFound}/>
+                <Route path='/forum/question/:question_title' component={Questions} />
+                <Route component={PageNotFound} />
               </Switch>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Gardeners Galore ©2019</Footer>

@@ -71,7 +71,7 @@ body {
 .garden-card {
   background-image: url("../assets/soil.jpg");
   background-color: #49372e;
-  background-size: cover;
+  background-size: contain;
 }
 
 .garden-plant-icon {
@@ -123,7 +123,7 @@ USER LANDING PAGE
 }
 
 .user-page{
-  width: 60%;
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
 }

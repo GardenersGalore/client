@@ -49,7 +49,7 @@ export const Questions: React.FC<any> = () => {
       console.log(questions);
       return (
         <div>
-        <br></br>
+          <br></br>
           <Row type='flex' justify='center' className='fetching-weather-content'>
             <Card style={{ width: 1000 }} title='Questions'>
               <List
@@ -64,27 +64,24 @@ export const Questions: React.FC<any> = () => {
                       <IconText type='star-o' text='156' key='list-vertical-star-o' />,
                       <IconText type='like-o' text='156' key='list-vertical-like-o' />,
                       <IconText type='message' text='2' key='list-vertical-message' />,
-                    ]}
-                    >
+                    ]}>
                     <List.Item.Meta
                       // avatar={<Avatar src={item.name} />}
                       title={<a href={`/forum/question/${question.question_title}`}>{question.question_title}</a>}
                       description={question.description}
-                    />                    
+                    />
                   </List.Item>
                 )}></List>
-                <br></br>
-                <div>
+              <br></br>
+              <div>
                 <Form.Item>
-                  <Button htmlType="submit" type="primary" href='/forum/question'>
+                  <Button htmlType='submit' type='primary' href='/forum/question'>
                     Ask a question
                   </Button>
                 </Form.Item>
-              </div>    
+              </div>
             </Card>
-            
           </Row>
-          
         </div>
       );
     }

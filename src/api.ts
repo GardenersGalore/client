@@ -129,8 +129,8 @@ export const postNewQuestion = (question: Question): Promise<Question> => {
   const body = JSON.stringify({
     question_title: question.question_title,
     description: question.description,
-    author: question.author
-   });
+    author: question.author,
+  });
   console.log('POSTING NEW QUESTION');
   console.log(question);
   console.log(body);
@@ -147,6 +147,5 @@ export const postNewQuestion = (question: Question): Promise<Question> => {
     .then(readResponse)
     .then((data: Question) => data);
 
-    getQuestions(question.author);
+  getQuestions(question.author);
 };
-

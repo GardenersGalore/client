@@ -1,7 +1,7 @@
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import * as React from 'react';
 import { useEffect } from 'react';
-import { getPlant,postPlanting, postNewQuestion } from '../api';
+import { getPlant, postPlanting, postNewQuestion } from '../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { addPlantingToGarden, setGarden, getGardenData, postNewQuestionData, getQuestionsData } from '../store/actions';
@@ -21,20 +21,20 @@ export class QuestionForm extends React.Component<QuestionProps> {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        
+
         const newQuestion: Question = {
           question_title: values.question_title,
           author: 'test',
           description: values.description,
-          answers: []
-          };
+          answers: [],
+        };
 
         this.props.dispatch(postNewQuestionData(newQuestion));
         const posted = postNewQuestion(newQuestion);
 
         console.log(posted);
-        this.props.dispatch(getQuestionsData('test'))
-        
+        this.props.dispatch(getQuestionsData('test'));
+
         //this.props.dispatch(getGardenData(this.props.garden.name));
       }
     });

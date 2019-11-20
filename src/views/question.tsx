@@ -4,28 +4,22 @@ import { QuestionForm, QuestionProps } from '../components/question-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const renderQuestionForm = () => {
-        const MyNewForm = Form.create<QuestionProps>()(QuestionForm);
-    
-        return (
+  const renderQuestionForm = () => {
+    const MyNewForm = Form.create<QuestionProps>()(QuestionForm);
 
-          <div className='garden-info'>
-          <br></br>
-            <Row type='flex' justify='center'>
-            <Card style={{ width: 450 }}>
-                <MyNewForm dispatch={dispatch} />
-            </Card>
-            </Row>
-          </div>
-        );
-      };
+    return (
+      <div className='garden-info'>
+        <br></br>
+        <Row type='flex' justify='center'>
+          <Card style={{ width: 450 }}>
+            <MyNewForm dispatch={dispatch} />
+          </Card>
+        </Row>
+      </div>
+    );
+  };
 
-  return (
-    <div>
-      { renderQuestionForm() }
-    </div>
-  );
-
+  return <div>{renderQuestionForm()}</div>;
 };

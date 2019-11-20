@@ -5,6 +5,7 @@ import { Planting } from '../../constants/types';
 export interface PlantingDisplayProps {
     planting : Planting;
     isSelected : boolean;
+    cellSizePx: string;
   }
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
@@ -77,7 +78,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
             </div>
     } else {
       cell =<Badge count={109} style={{ backgroundColor: '#52c41a' }}>
-              <div className='garden-cell' style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+              <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
                   {content}
               </div>
             </Badge>

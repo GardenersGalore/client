@@ -9,6 +9,7 @@ export const FETCHING_DATA_FAILURE = 'FETCHING_DATA_FAILURE';
 
 export const SET_PLANT = 'SET_PLANT';
 export const SET_USER = 'SET_USER';
+export const SET_USERNAME = 'SET_USERNAME';
 export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
@@ -26,6 +27,8 @@ const setPlant = (plant: Plant) => {
   };
 };
 
+
+
 const setGardens = (gardens: Garden[]) => {
   return {
     type: SET_GARDENS,
@@ -37,6 +40,13 @@ export const setGarden = (garden: Garden) => {
   return {
     type: SET_GARDEN,
     garden,
+  };
+};
+
+export const setUsername = (username: string) => {
+  return {
+    type: SET_USERNAME,
+    username,
   };
 };
 
@@ -127,6 +137,7 @@ export const getUserData = (username: string) => {
     dispatch(fetchingData());
     try {
       const results: User = await getUser(username);
+      console.log("RECEIVED USER", results);
       dispatch(setUser(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {

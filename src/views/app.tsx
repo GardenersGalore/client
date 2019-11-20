@@ -8,7 +8,6 @@ import { Forum } from './forum';
 import { Home } from './home';
 import { Plant } from './plant';
 import { GardenView } from './garden';
-import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
 import { PageNotFound } from './page-not-found';
@@ -26,7 +25,6 @@ export const App: React.FC<any> = () => {
             <Content className='content'>
               <Switch>
                 <Route exact={true} path='/' component={Home} />
-                <Route exact={true} path='/gardens' component={Gardens} />
                 <Route exact={true} path='/forum' component={Forum} />
                 <Route exact={true} path='/login' component={Login} />
                 <Route exact={true} path='/register' component={Register} />

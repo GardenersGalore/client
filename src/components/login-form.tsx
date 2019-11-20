@@ -1,11 +1,15 @@
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import * as React from 'react';
 import {FormComponentProps} from 'antd/lib/form/Form';
+import { connect } from 'react-redux';
+import { setUsername } from '../store/actions';
 
+export interface NormalLoginFormProps extends FormComponentProps {
+  dispatch: any;
+}
 
-
-class NormalLoginForm extends React.Component<FormComponentProps> {
-    constructor(props: FormComponentProps) {
+class NormalLoginForm extends React.Component<NormalLoginFormProps> {
+    constructor(props: NormalLoginFormProps) {
         super(props);
     }
 
@@ -14,7 +18,8 @@ class NormalLoginForm extends React.Component<FormComponentProps> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values.username);
+        this.props.dispatch(setUsername(values.username));
       }
     });
   };
@@ -54,5 +59,5 @@ class NormalLoginForm extends React.Component<FormComponentProps> {
     );
   }
 }
-
-export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+//export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+export const ConnectedLoginForm =  connect()(NormalLoginForm);

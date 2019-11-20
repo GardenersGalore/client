@@ -7,7 +7,7 @@ import { RootState } from '../constants/types';
 import { getUserData } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
-import { GardensDisplay } from '../components/gardens-display';
+import { GardensDisplay } from '../components/garden/gardens-display';
 
 
 type PathParamsType = {
@@ -23,13 +23,17 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
 
   const user = useSelector((state: RootState) => state.gg.user);
   const error = useSelector((state: RootState) => state.gg.error);
+  const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && !isError) {
+      console.log("NOT LOADING");
       if (!user) {
+        console.log("NO USER", user);
         dispatch(getUserData(props.match.params.name));
-      } else if (user.username != props.match.params.name) {
+      } else if (user.username !== props.match.params.name) {
+        console.log(user.username, props.match.params.name)
         dispatch(getUserData(props.match.params.name));
       }
     }
@@ -59,7 +63,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   }
 
   const renderUser = () => {
-    if (error) {
+    if (isError) {
       return (
         <Error error={error}/>
       );

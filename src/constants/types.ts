@@ -11,6 +11,7 @@ export interface GG {
   error: string;
   search: SearchState;
   isLoading: boolean;
+  isError : boolean;
   selectedGardenCell: [number, number];
   selectedGarden : string;
 }

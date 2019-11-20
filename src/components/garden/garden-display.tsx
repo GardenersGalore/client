@@ -2,11 +2,11 @@ import { Alert, Col, Row,  Card, Form,  Button,  Descriptions } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { Planting, RootState, Garden } from '../constants/types';
-import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
-import { setGarden, setSelectedGardenCell, getGardenData } from '../store/actions';
-import { PlantingDisplay } from './garden/planting-display';
-import { Loading } from './loading';
+import { Planting, RootState, Garden } from '../../constants/types';
+import { NewPlantingForm, NewPlantingProps } from '../new-planting-form';
+import { setGarden, setSelectedGardenCell, getGardenData } from '../../store/actions';
+import { PlantingDisplay } from './planting-display';
+import { Loading } from '../loading';
 
 export interface GardenDisplayProps {
   garden : Garden;

@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 const { Header} = Layout;
 import * as React from 'react';
 import { WeatherSearch } from './weather-search';
+import { useSelector } from 'react-redux';
+import { RootState } from '../constants/types';
 
 export const NavBar: React.FC<any> = () => {
+
+  const username = useSelector((state: RootState) => state.gg.username);
+
   const HomeLink = withRouter(({ history }) => (
     <Link
       to='/'
@@ -19,9 +24,9 @@ export const NavBar: React.FC<any> = () => {
 
   const GardenLink = withRouter(({ history }) => (
     <Link
-      to='/gardens'
+      to={'/user/' + username}
       onClick={() => {
-        history.push('/gardens');
+        history.push('/user/' + username);
       }}>
       My Gardens
     </Link>

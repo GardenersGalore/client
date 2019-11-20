@@ -1,9 +1,9 @@
 import { Card, List, Divider, Icon } from 'antd/lib';
 import * as React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { RootState, Garden, User } from '../constants/types';
-import { setSelectedGarden } from '../store/actions';
-import {GardenDisplay} from './garden-display'
+import { RootState, Garden, User } from '../../constants/types';
+import { setSelectedGarden } from '../../store/actions';
+import { GardenDisplay } from '../garden/garden-display'
 import Meta from 'antd/lib/card/Meta';
 
 export interface GardensDisplayProps {

@@ -7,6 +7,7 @@ const initialState: GG = {
   user : null,
   gardens: [],
   isLoading: false,
+  isError : false,
   plant: null,
   search: null,
   error: '',
@@ -45,6 +46,7 @@ export const reducers = (state: any = initialState, action: any) => {
       return {
         ...state,
         isLoading: false,
+        isError : true,
         error: action.error,
       };
 
@@ -53,6 +55,13 @@ export const reducers = (state: any = initialState, action: any) => {
         ...state,
         plant: action.plant,
       };
+
+    case ACTION.SET_USERNAME:
+      return {
+        ...state,
+        username: action.username,
+      };
+
 
     case ACTION.SET_USER:
         return {

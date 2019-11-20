@@ -72,8 +72,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     let cell;
     if (props.isSelected === true){
       cell = <div
-                className='garden-cell garden-cell-selected'
-                style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+                className='garden-cell garden-cell-selected' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
                 {content}
             </div>
     } else {

@@ -52,7 +52,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     };
 
   const calculateCellSize = () => {
-    const cellSize = (window.innerWidth * 0.25) / garden.garden_width - 8;
+    const cellSize = (window.innerWidth * 0.29) / garden.garden_width - 8;
     return cellSize + 'px';
   };
   

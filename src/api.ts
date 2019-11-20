@@ -97,3 +97,32 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
     .then(readResponse)
     .then((data: Planting) => data);
 };
+
+export const deletePlanting = (planting: Planting): Promise<Planting> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
+
+  const body = JSON.stringify({
+    plant_name: planting.plant_name,
+    garden_name: planting.garden_name,
+    x_coord: planting.x_coord,
+    y_coord: planting.y_coord,
+    description: planting.description,
+    planted_from: planting.planted_from,
+    harvest_count: planting.harvest_count,
+  });
+  console.log('POSTING PLANTING!');
+  console.log(planting);
+  console.log(body);
+  return fetch(requestUrl, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Planting) => data);
+};

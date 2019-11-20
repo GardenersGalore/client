@@ -1,17 +1,28 @@
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Row } from 'antd';
 import * as React from 'react';
 import {FormComponentProps} from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { setUsername } from '../store/actions';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export interface NormalLoginFormProps extends FormComponentProps {
   dispatch: any;
 }
 
-class NormalLoginForm extends React.Component<NormalLoginFormProps> {
-    constructor(props: NormalLoginFormProps) {
+
+// // Your component own properties
+// type PropsType = RouteComponentProps<NormalLoginFormProps> & {
+//   someString: string,
+// }
+
+
+
+class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteComponentProps> {
+    constructor(props: NormalLoginFormProps & RouteComponentProps) {
         super(props);
     }
+
 
 
   handleSubmit = (e : any) => {
@@ -20,6 +31,7 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps> {
       if (!err) {
         console.log('Received values of form: ', values.username);
         this.props.dispatch(setUsername(values.username));
+        this.props.history.push('/user/' + values.username);
       }
     });
   };
@@ -60,4 +72,4 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps> {
   }
 }
 //export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
-export const ConnectedLoginForm =  connect()(NormalLoginForm);
+export const ConnectedLoginForm =  connect()(withRouter(NormalLoginForm));

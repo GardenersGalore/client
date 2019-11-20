@@ -2,7 +2,7 @@ import { GG, Garden } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {
-  username: 'test',
+  username: "",
   garden: null,
   user : null,
   gardens: [],

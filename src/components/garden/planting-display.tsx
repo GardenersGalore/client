@@ -1,10 +1,11 @@
-import { Alert, Col, Row, Spin, Card, Form, Input, Button, Popover, Descriptions, Badge, Icon } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Form, Input, Button, Popover, Descriptions, Badge, Icon, Popconfirm, message } from 'antd/lib';
 import * as React from 'react';
 import { Planting } from '../../constants/types';
 
 export interface PlantingDisplayProps {
     planting : Planting;
     isSelected : boolean;
+    cellSizePx: string;
   }
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
@@ -66,21 +67,50 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     return plantingInformation
   }
 
+  // const confirm = (e) => {
+  //   console.log(e);
+  //   message.success('Click on Yes');
+  // }
+  
+  // const cancel = (e) => {
+  //   console.log(e);
+  //   message.error('Click on No');
+  // }
+
+
+  const badgePlanting = (content : any) => {
+    console.log(props.cellSizePx);
+    const badgeOffset = +(props.cellSizePx.slice(0,-2)); 
+    return(
+      // <Popconfirm
+      // title="Are you sure delete this task?"
+      // onConfirm={confirm}
+      // onCancel={cancel}
+      // okText="Yes"
+      // cancelText="No"
+      // >
+      <Badge offset={[-10,0]}  count={8} style={{ backgroundColor: '#52c41a' }}>
+        <Badge offset={[-badgeOffset,0]} count={<Icon type="minus-circle" style={{ color: '#FFFFFF' }} />} >
+          <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+              {content}
+          </div>
+        </Badge>
+      </Badge>
+    // </Popconfirm>
+    );
+  }
+
   const renderPlanting = () => {
     let content = createContent();
     let cell;
     if (props.isSelected === true){
       cell = <div
-                className='garden-cell garden-cell-selected'
-                style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
+                className='garden-cell garden-cell-selected' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
                 {content}
             </div>
     } else {
-      cell =<Badge count={109} style={{ backgroundColor: '#52c41a' }}>
-              <div className='garden-cell' style={{ width: "100px", height: "100px", lineHeight: "100px" }}>
-                  {content}
-              </div>
-            </Badge>
+
+      cell = badgePlanting(content);
     }
 
     let popover = createPopover(cell);

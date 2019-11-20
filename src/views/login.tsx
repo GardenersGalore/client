@@ -15,7 +15,7 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <Row type='flex' justify='center'>
+    <Row type='flex' justify='center' style={{paddingTop : "100px"}}>
       <Card style={{ width: 350 }}>
           {renderLoginForm()}
       </Card>

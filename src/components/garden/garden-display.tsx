@@ -79,13 +79,11 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
       new_garden.garden_width = newWidth;
       dispatch(setGarden(new_garden));
     };
-  
-    const calculateCellSize = () => {
-      const cellHeight = 100 / garden.garden_height;
-      const cellWidth = 100 / garden.garden_width;
-      const cellSize = Math.min(cellHeight, cellWidth);
-      return cellSize + '%';
-    };
+
+  const calculateCellSize = () => {
+    const cellSize = (window.innerWidth * 0.29) / garden.garden_width - 8;
+    return cellSize + 'px';
+  };
   
     const renderGardenInfo = () => {
       return (
@@ -163,6 +161,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         );
       } else if (garden) {
         const patch: any[] = [];
+        const cellSizePx = calculateCellSize();
   
         for (let i = 0; i < garden.garden_height; i++) {
           const gardenRow: any[] = [];
@@ -173,8 +172,8 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
             const gardenWidth = 24/garden.garden_width;
             console.log(gardenWidth);
             gardenRow.push(
-              <Col span={24/garden.garden_width} className='garden-col' onClick={() => toggleSelected(i, j)}>
-                <PlantingDisplay isSelected={isSelected(i, j)} planting={p} />                
+              <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
+                <PlantingDisplay isSelected={isSelected(i, j)} planting={p} cellSizePx={cellSizePx} />
               </Col>
             );
           }

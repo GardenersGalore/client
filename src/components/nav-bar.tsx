@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 const { Header} = Layout;
 import * as React from 'react';
 import { WeatherSearch } from './weather-search';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../constants/types';
+import { setUsername } from '../store/actions';
 
 export const NavBar: React.FC<any> = () => {
-
+  const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.gg.username);
 
   const HomeLink = withRouter(({ history }) => (
@@ -54,10 +55,11 @@ export const NavBar: React.FC<any> = () => {
 
   const LogoutLink = withRouter(({ history }) => (
     <Link
-      to='/logout'
+      to='/'
       onClick={() => {
-        history.push('/logout');
+        history.push('/');
         // also need to log the user out!!
+        dispatch(setUsername(""))
       }}>
       Logout
     </Link>
@@ -71,6 +73,35 @@ export const NavBar: React.FC<any> = () => {
   const Search = withRouter(({ history }) => {
     return <WeatherSearch onSearch={handleSearch} history={history} />;
   });
+
+  const myGardens = () => {
+    if (username !== ""){
+      return(
+        <Menu.Item key='Garden'>
+          <GardenLink />
+        </Menu.Item>)
+    }
+  }
+
+  const toLogout = () => {
+    if (username !== ""){
+      return(
+        <Menu.Item key='Logout'>
+          <LogoutLink />
+        </Menu.Item>
+      )
+    }
+  }
+
+  const toLogin = () => {
+    if (username === ""){
+      return(
+        <Menu.Item key='Login'>
+          <LoginLink />
+        </Menu.Item>
+      )
+    }
+  }
 
   return (
     <Header className='nav-bar'>
@@ -88,23 +119,17 @@ export const NavBar: React.FC<any> = () => {
         <Col span={4}>
           
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
-            <Menu.Item key='Garden'>
-              <GardenLink />
-            </Menu.Item>
+            {myGardens()}            
             <Menu.Item key='Forum'>
               <ForumLink />
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={4}></Col>
-        <Col span={2}>
+        <Col span={3}></Col>
+        <Col span={3}>
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
-            <Menu.Item key='Login'>
-              <LoginLink />
-            </Menu.Item>
-            <Menu.Item key='Logout'>
-              <LogoutLink />
-            </Menu.Item>
+            {toLogin()}
+            {toLogout()}
           </Menu>
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import { GG } from '../constants/types';
+import { GG, Garden } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {
@@ -15,7 +15,7 @@ const initialState: GG = {
   selectedGarden : ""
 };
 
-export const reducers = (state: any = initialState, action: any) => {
+export const reducers = (state: GG = initialState, action: any) => {
   switch (action.type) {
     case ACTION.FETCHING_DATA:
       return {
@@ -39,6 +39,7 @@ export const reducers = (state: any = initialState, action: any) => {
     case ACTION.FETCHING_DATA_SUCCESS:
       return {
         ...state,
+        isError : false,
         isLoading: false,
       };
 
@@ -82,10 +83,26 @@ export const reducers = (state: any = initialState, action: any) => {
       };
 
     case ACTION.SET_GARDEN:
+      let newGardens : Garden[] = [];
+
+      state.user.gardens.forEach((g : Garden) => {
+        if (g.name === action.garden.name){
+          newGardens.push(action.garden);
+        } else{
+          newGardens.push(g);
+        }
+      });
+      const newUser = state.user;
+      newUser.gardens = newGardens;
       return {
         ...state,
-        garden: action.garden,
+        user : newUser,
+        //garden: newGarden,
       };
+      // return {
+      //   ...state,
+      //   garden: action.garden,
+      // };
 
     default:
       return state;

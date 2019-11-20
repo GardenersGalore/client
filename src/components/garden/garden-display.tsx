@@ -10,16 +10,45 @@ import { Loading } from '../loading';
 
 export interface GardenDisplayProps {
   garden : Garden;
+  //gardenSetter : any; // this is the function to change the result of the garden
 }
 
 export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplayProps) => {
     const dispatch = useDispatch();
-    const garden = props.garden;
+    //const garden = props.garden;
+
+    // const garden = useSelector(
+    //   (state: RootState) => state.gg.garden,
+    //   (left: Garden, right: Garden) => {
+    //     if (left === right) {
+    //       console.log('IN THE SELECTOR :D');
+    //       console.log(left, right);
+    //       if (left.garden_height === right.garden_height && left.garden_width === right.garden_width) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     } else {
+    //       return false;
+    //     }
+    //   }
+    // );
+    const garden = useSelector((state : RootState) => {
+      let selected : Garden = null;
+      state.gg.user.gardens.forEach(g => {
+        if (props.garden.name == g.name){
+          selected = g;
+        }
+      });
+      if (selected === null){
+        selected = props.garden;
+      }
+      return selected;
+    })
     const isLoading = useSelector((state: RootState) => state.gg.isLoading);
     const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
     const error = useSelector((state: RootState) => state.gg.error);
 
-  
     const findPlanting = (plantings: Planting[], rowIndex: number, colIndex: number): Planting | null => {
       //console.log(plantings, rowIndex, colIndex);
       let r = null;
@@ -141,9 +170,10 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
           for (let j = 0; j < garden.garden_width; j++) {
             const p = findPlanting(garden.plantings, i, j);
   
-
+            const gardenWidth = 24/garden.garden_width;
+            console.log(gardenWidth);
             gardenRow.push(
-              <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
+              <Col span={24/garden.garden_width} className='garden-col' onClick={() => toggleSelected(i, j)}>
                 <PlantingDisplay isSelected={isSelected(i, j)} planting={p} />                
               </Col>
             );

@@ -13,6 +13,7 @@ export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
 export const SET_SELECTED_GARDEN_CELL = 'SET_SELECTED_GARDEN_CELL';
+export const SET_SELECTED_GARDEN = 'SET_SELECTED_GARDEN';
 export const SET_GARDEN_HEIGHT = 'SET_GARDEN_HEIGHT';
 export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
 
@@ -60,6 +61,13 @@ export const setSelectedGardenCell = (x: number, y: number) => {
     y,
   };
 };
+
+export const setSelectedGarden = (gardenName : string) => {
+  return {
+    type : SET_SELECTED_GARDEN,
+    gardenName
+  }
+}
 
 export const setGardenHeight = (newHeight: number) => {
   return {

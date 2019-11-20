@@ -11,6 +11,7 @@ const initialState: GG = {
   search: null,
   error: '',
   selectedGardenCell: [-1, -1],
+  selectedGarden : ""
 };
 
 export const reducers = (state: any = initialState, action: any) => {
@@ -58,6 +59,12 @@ export const reducers = (state: any = initialState, action: any) => {
           ...state,
           user: action.user,
         };
+
+    case ACTION.SET_SELECTED_GARDEN:
+      return {
+        ...state,
+        selectedGarden: action.gardenName,
+      };
 
     case ACTION.SET_GARDENS:
       return {

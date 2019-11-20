@@ -3,13 +3,12 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, User } from '../constants/types';
+import { RootState } from '../constants/types';
 import { getUserData } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
-import { GardenDisplay } from '../components/garden-display';
-import Meta from 'antd/lib/card/Meta';
-import { color } from 'd3';
+import { GardensDisplay } from '../components/gardens-display';
+
 
 type PathParamsType = {
   name: string;
@@ -74,7 +73,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                         <Avatar size={200} className="userlogo" src="https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg" />
                     </div>
                 </Col>
-                
+
                 <Col span={19}>
                     <div >
                         <h1 style={{color: "white"}} className="username">
@@ -93,43 +92,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                     Add Garden
                   </Button>
                 </div>
-
                 <Divider />
-                  <Card size="default" >
-                    <GardenDisplay gardenName="Garden A">
-
-                    </GardenDisplay>
-                  </Card>
-                <Divider />
-                <List
-                  itemLayout='vertical'
-                  grid={{
-                    gutter: 16,
-                    xs: 1,
-                    sm: 2,
-                    md: 4,
-                    lg: 4,
-                    xl: 6,
-                    xxl: 3,
-                  }}
-                  size='small'
-                  dataSource={user.gardens}
-                  renderItem={garden => (
-                    <List.Item>
-                        <Card
-                          hoverable
-                          cover={<img alt="example" src="https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png" />}
-                          actions={[
-                            <Icon type="setting" key="setting" />,
-                            <Icon type="edit" key="edit" />,
-                            <Icon type="ellipsis" key="ellipsis" />,
-                          ]}
-                        >
-                          <Meta title={<a href={`/garden/${garden.name}`}>{garden.name}</a>} description={garden.location_name} />
-                          {garden.description}
-                        </Card>                     
-                    </List.Item>
-                  )}></List>
+                <GardensDisplay user={user}></GardensDisplay>
               </Card>
             </Row>
             </Col>

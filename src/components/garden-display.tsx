@@ -1,51 +1,24 @@
-import { Alert, Col, Row, Spin, Card, Form, Input, Button, Popover, Descriptions, Badge, Icon } from 'antd/lib';
+import { Alert, Col, Row,  Card, Form,  Button,  Descriptions } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
-import { getPlant, getGardens, getGarden, getPlantings, postPlanting } from '../api';
-import { FormComponentProps } from 'antd/lib/form/Form';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { useDispatch, useSelector, } from 'react-redux';
 import { Planting, RootState, Garden } from '../constants/types';
 import { NewPlantingForm, NewPlantingProps } from '../components/new-planting-form';
-import { addPlantingToGarden, setGarden, setSelectedGardenCell, getGardenData } from '../store/actions';
+import { setGarden, setSelectedGardenCell, getGardenData } from '../store/actions';
 import { PlantingDisplay } from './garden/planting-display';
 import { Loading } from './loading';
 
 export interface GardenDisplayProps {
-  gardenName : string;
+  garden : Garden;
 }
 
 export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplayProps) => {
     const dispatch = useDispatch();
-  
-    const garden = useSelector(
-      (state: RootState) => state.gg.garden,
-      (left: Garden, right: Garden) => {
-        if (left === right) {
-          console.log('IN THE SELECTOR :D');
-          console.log(left, right);
-          if (left.garden_height === right.garden_height && left.garden_width === right.garden_width) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      }
-    );
-    const error = useSelector((state: RootState) => state.gg.error);
+    const garden = props.garden;
     const isLoading = useSelector((state: RootState) => state.gg.isLoading);
     const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
-  
-    useEffect(() => {
-      if (!isLoading) {
-        if (!garden) {
-          dispatch(getGardenData(props.gardenName));
-        } else if (garden.name != props.gardenName) {
-          dispatch(getGardenData(props.gardenName));
-        }
-      }
-    });
+    const error = useSelector((state: RootState) => state.gg.error);
+
   
     const findPlanting = (plantings: Planting[], rowIndex: number, colIndex: number): Planting | null => {
       //console.log(plantings, rowIndex, colIndex);

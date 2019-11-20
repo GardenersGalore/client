@@ -9,7 +9,7 @@ export interface PlantingDisplayProps {
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
 
-
+  const planting = props.planting;
   const createIcon = () => {
       let plantIcon;
       if (props.planting.plant.svg_icon === undefined){
@@ -27,8 +27,13 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     if (props.planting != null){
       popoverContent = (
         <div>
-        <p>content</p>
-        <p>Content</p>
+            <b>About:</b> {planting.description}
+            <br />
+            <b>Date planted:</b> {planting.planted_at.toDateString}
+            <br />
+            <b>Harvest count: </b> {planting.harvest_count}
+            <br />
+            <b>Planted from:</b> {planting.planted_from}
         </div>
       );
       popoverTitle = props.planting.plant_name;

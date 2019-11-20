@@ -76,9 +76,9 @@ export const Gardens: React.FC<any> = () => {
 
                 <Divider />
                   <Card size="default" >
-                    <GardenDisplay gardenName="Garden A">
+                    {/* <GardenDisplay gardenName="Garden A">
 
-                    </GardenDisplay>
+                    </GardenDisplay> */}
                   </Card>
                 <Divider />
                 <List

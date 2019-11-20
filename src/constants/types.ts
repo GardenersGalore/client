@@ -12,6 +12,7 @@ export interface GG {
   search: SearchState;
   isLoading: boolean;
   selectedGardenCell: [number, number];
+  selectedGarden : string;
 }
 
 export interface User {

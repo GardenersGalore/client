@@ -2,17 +2,18 @@ import { GG, Garden } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {
-  username: "",
+  username: '',
   garden: null,
-  user : null,
+  user: null,
   gardens: [],
   isLoading: false,
-  isError : false,
+  isError: false,
   plant: null,
+  plantAll: [],
   search: null,
   error: '',
   selectedGardenCell: [-1, -1],
-  selectedGarden : ""
+  selectedGarden: '',
 };
 
 export const reducers = (state: GG = initialState, action: any) => {
@@ -39,7 +40,7 @@ export const reducers = (state: GG = initialState, action: any) => {
     case ACTION.FETCHING_DATA_SUCCESS:
       return {
         ...state,
-        isError : false,
+        isError: false,
         isLoading: false,
       };
 
@@ -47,7 +48,7 @@ export const reducers = (state: GG = initialState, action: any) => {
       return {
         ...state,
         isLoading: false,
-        isError : true,
+        isError: true,
         error: action.error,
       };
 
@@ -63,12 +64,11 @@ export const reducers = (state: GG = initialState, action: any) => {
         username: action.username,
       };
 
-
     case ACTION.SET_USER:
-        return {
-          ...state,
-          user: action.user,
-        };
+      return {
+        ...state,
+        user: action.user,
+      };
 
     case ACTION.SET_SELECTED_GARDEN:
       return {
@@ -83,12 +83,12 @@ export const reducers = (state: GG = initialState, action: any) => {
       };
 
     case ACTION.SET_GARDEN:
-      let newGardens : Garden[] = [];
+      const newGardens: Garden[] = [];
 
-      state.user.gardens.forEach((g : Garden) => {
-        if (g.name === action.garden.name){
+      state.user.gardens.forEach((g: Garden) => {
+        if (g.name === action.garden.name) {
           newGardens.push(action.garden);
-        } else{
+        } else {
           newGardens.push(g);
         }
       });
@@ -96,13 +96,13 @@ export const reducers = (state: GG = initialState, action: any) => {
       newUser.gardens = newGardens;
       return {
         ...state,
-        user : newUser,
+        user: newUser,
         //garden: newGarden,
       };
-      // return {
-      //   ...state,
-      //   garden: action.garden,
-      // };
+    // return {
+    //   ...state,
+    //   garden: action.garden,
+    // };
 
     default:
       return state;

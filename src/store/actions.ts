@@ -1,6 +1,15 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { getPlant, getGardens, getGarden, getPlantings, getGardenPlant, postPlanting, getUser } from '../api';
+import {
+  getPlant,
+  getGardens,
+  getGarden,
+  getPlantings,
+  getGardenPlant,
+  postPlanting,
+  getUser,
+  getAllPlant,
+} from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting, User } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
@@ -17,6 +26,7 @@ export const SET_SELECTED_GARDEN_CELL = 'SET_SELECTED_GARDEN_CELL';
 export const SET_SELECTED_GARDEN = 'SET_SELECTED_GARDEN';
 export const SET_GARDEN_HEIGHT = 'SET_GARDEN_HEIGHT';
 export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
+export const SET_PLANTSEARCH = 'SET_PLANTSEARCH';
 
 export const ADD_PLANTING_TO_GARDEN = 'ADD_PLANTING_TO_GARDEN';
 
@@ -27,12 +37,17 @@ const setPlant = (plant: Plant) => {
   };
 };
 
-
-
 const setGardens = (gardens: Garden[]) => {
   return {
     type: SET_GARDENS,
     gardens,
+  };
+};
+
+const setPlantSearch = (plants: Plant[]) => {
+  return {
+    type: SET_PLANTSEARCH,
+    plants,
   };
 };
 
@@ -72,12 +87,12 @@ export const setSelectedGardenCell = (x: number, y: number) => {
   };
 };
 
-export const setSelectedGarden = (gardenName : string) => {
+export const setSelectedGarden = (gardenName: string) => {
   return {
-    type : SET_SELECTED_GARDEN,
-    gardenName
-  }
-}
+    type: SET_SELECTED_GARDEN,
+    gardenName,
+  };
+};
 
 export const setGardenHeight = (newHeight: number) => {
   return {
@@ -132,13 +147,13 @@ export const getPlantData = (name: string) => {
   };
 };
 
-export const getUserData = (username: string) => {
+export const getAllPlantData = (name: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      const results: User = await getUser(username);
-      console.log("RECEIVED USER", results);
-      dispatch(setUser(results));
+      const results: Plant[] = await getAllPlant(name);
+      console.log(results);
+      dispatch(setPlantSearch(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
       dispatch(fetchingDataFailure(error.message));
@@ -146,6 +161,19 @@ export const getUserData = (username: string) => {
   };
 };
 
+export const getUserData = (username: string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      const results: User = await getUser(username);
+      console.log('RECEIVED USER', results);
+      dispatch(setUser(results));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
 
 export const getGardenPlantData = (plant: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
@@ -175,21 +203,20 @@ export const getGardensData = (username: string) => {
   };
 };
 
-
 async function asyncForEach(array: any[], callback: any) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
 }
 
-export const getGardenData = (garden_name: string) => {
+export const getGardenData = (gardenName: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting: ${garden_name}`);
-      const garden: Garden = await getGarden(garden_name);
+      console.log(`Getting: ${gardenName}`);
+      const garden: Garden = await getGarden(gardenName);
       console.log(garden);
-      const plantings: Planting[] = await getPlantings(garden_name);
+      const plantings: Planting[] = await getPlantings(gardenName);
 
       const unique = [...new Set(plantings.map(item => item.plant_name))];
       console.log('aa', garden);
@@ -198,10 +225,10 @@ export const getGardenData = (garden_name: string) => {
       console.log(unique);
 
       await asyncForEach(unique, async (u: string) => {
-        const unique_plant = await getPlant(u);
+        const uniquePlant = await getPlant(u);
         plantings.forEach((planting: Planting) => {
           if (planting.plant_name === u) {
-            planting.plant = unique_plant;
+            planting.plant = uniquePlant;
           }
         });
       });

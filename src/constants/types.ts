@@ -4,34 +4,34 @@ export interface RootState {
 
 export interface GG {
   username: string;
-  user : User;
+  user: User;
   gardens: Garden[];
   garden: Garden;
   plant: Plant;
+  plantAll: Plant[];
   error: string;
   search: SearchState;
   isLoading: boolean;
-  isError : boolean;
+  isError: boolean;
   selectedGardenCell: [number, number];
-  selectedGarden : string;
+  selectedGarden: string;
 }
 
 export interface User {
-  name: string,
-  username: string,
-  email: string,
-  password: string,
-  phone_number: string,
-  experience: string,
-  gardens : Garden[];
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  phone_number: string;
+  experience: string;
+  gardens: Garden[];
   favourite_plants: PlantLike[];
 }
 
 export interface PlantLike {
-  plant : Plant
-  count : number
+  plant: Plant;
+  count: number;
 }
-
 
 export interface Planting {
   plant_name: string;

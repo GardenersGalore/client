@@ -26,6 +26,14 @@ export const getPlant = (name: string): Promise<Plant> => {
     .then((data: Plant) => data);
 };
 
+export const getAllPlant = (name: string): Promise<Plant[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}plant-search?name=${name}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Plant[]) => data);
+};
+
 export const getUser = (username: string): Promise<User> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}userall?username=${username}`;
   return fetch(requestUrl)
@@ -33,7 +41,6 @@ export const getUser = (username: string): Promise<User> => {
     .then(parseJSON)
     .then((data: User) => data);
 };
-
 
 export const getGardens = (username: string): Promise<Garden[]> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}gardens?username=${username}`;
@@ -73,13 +80,13 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
 
   const body = JSON.stringify({
-    plant_name: planting.plant_name,
-    garden_name: planting.garden_name,
-    x_coord: planting.x_coord,
-    y_coord: planting.y_coord,
+    plantName: planting.plant_name,
+    gardenName: planting.garden_name,
+    xCoord: planting.x_coord,
+    yCoord: planting.y_coord,
     description: planting.description,
-    planted_from: planting.planted_from,
-    harvest_count: planting.harvest_count,
+    plantedFrom: planting.planted_from,
+    harvestCount: planting.harvest_count,
   });
   console.log('POSTING PLANTING!');
   console.log(planting);
@@ -102,13 +109,13 @@ export const deletePlanting = (planting: Planting): Promise<Planting> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
 
   const body = JSON.stringify({
-    plant_name: planting.plant_name,
-    garden_name: planting.garden_name,
-    x_coord: planting.x_coord,
-    y_coord: planting.y_coord,
+    plantName: planting.plant_name,
+    gardenName: planting.garden_name,
+    xCoord: planting.x_coord,
+    yCoord: planting.y_coord,
     description: planting.description,
-    planted_from: planting.planted_from,
-    harvest_count: planting.harvest_count,
+    plantedFrom: planting.planted_from,
+    harvestCount: planting.harvest_count,
   });
   console.log('POSTING PLANTING!');
   console.log(planting);

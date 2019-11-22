@@ -9,13 +9,19 @@ import {
   postPlanting,
   getUser,
   getAllPlant,
+  getForecast,
 } from '../api';
-import { RootState, GG, Plant, SearchState, Garden, Planting, User } from '../constants/types';
+import { RootState, GG, Plant, SearchState, Garden, Planting, User, Forecast } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FETCHING_DATA_SUCCESS = 'FETCHING_DATA_SUCCESS';
 export const FETCHING_DATA_FAILURE = 'FETCHING_DATA_FAILURE';
 
+export const FETCHING_DATA_FORECAST = 'FETCHING_DATA_FORECAST';
+export const FETCHING_DATA_SUCCESS_FORECAST = 'FETCHING_DATA_SUCCESS_FORECAST';
+export const FETCHING_DATA_FAILURE_FORECAST = 'FETCHING_DATA_FAILURE_FORECAST';
+
+export const SET_FORECAST = 'SET_FORECAST';
 export const SET_PLANT = 'SET_PLANT';
 export const SET_USER = 'SET_USER';
 export const SET_USERNAME = 'SET_USERNAME';
@@ -71,6 +77,13 @@ export const setUser = (user: User) => {
     user,
   };
 };
+
+export const setForecast = (forecast : Forecast) => {
+  return {
+    type : SET_FORECAST,
+    forecast
+  }
+}
 
 export const setSearch = (search: SearchState) => {
   return {
@@ -130,6 +143,26 @@ const fetchingDataSuccess = () => {
 export const fetchingDataFailure = (error: string) => {
   return {
     type: FETCHING_DATA_FAILURE,
+    error,
+  };
+};
+
+
+export const fetchingDataForecast = () => {
+  return {
+    type: FETCHING_DATA_FORECAST,
+  };
+};
+
+const fetchingDataSuccessForecast = () => {
+  return {
+    type: FETCHING_DATA_SUCCESS_FORECAST,
+  };
+};
+
+export const fetchingDataFailureForecast = (error: string) => {
+  return {
+    type: FETCHING_DATA_FAILURE_FORECAST,
     error,
   };
 };
@@ -250,24 +283,16 @@ export const getGardenData = (gardenName: string) => {
   };
 };
 
-// export const postPlantingData = ( planting : Planting )=> {
-//   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
-//     dispatch(fetchingData());
-//     try {
-//       console.log(`Getting: ${garden_name}`);
-//       const garden: Garden = await getGarden(garden_name);
-//       console.log(garden);
-//       const plantings: Planting[] = await getPlantings(garden_name);
-
-//       await asyncForEach(plantings, async (planting: Planting) => {
-//         planting.plant = await getPlant(planting.plant_name);
-//       });
-
-//       garden.plantings = plantings;
-//       dispatch(setGarden(garden));
-//       dispatch(fetchingDataSuccess());
-//     } catch (error) {
-//       dispatch(fetchingDataFailure(error.message));
-//     }
-//   };
-// };
+export const getForecastData = (city_name: string, country_name : string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingDataForecast());
+    try {
+      const results: Forecast = await getForecast(city_name, country_name);
+      console.log(results);
+      dispatch(setForecast(results));
+      dispatch(fetchingDataSuccessForecast());
+    } catch (error) {
+      dispatch(fetchingDataFailureForecast(error.message));
+    }
+  };
+};

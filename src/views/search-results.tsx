@@ -106,7 +106,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                       <List.Item key={garden.name}>
                         <List.Item.Meta
                           title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
-                          description={garden.location_name}
+                          description={garden.city_name}
                         />
                       </List.Item>
                     )}></List>

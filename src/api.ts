@@ -1,4 +1,4 @@
-import { Plant, Garden, Planting, User } from './constants/types';
+import { Plant, Garden, Planting, User, Weather, Forecast } from './constants/types';
 import { resolve } from 'dns';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
@@ -41,6 +41,15 @@ export const getUser = (username: string): Promise<User> => {
     .then(parseJSON)
     .then((data: User) => data);
 };
+
+export const getForecast = (city_name: string, country_name : string): Promise<Forecast> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}weather?city_name=${city_name}&country_name=${country_name}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Forecast) => data);
+};
+
 
 export const postUser = (user: User): Promise<User> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}user`;
@@ -152,7 +161,8 @@ export const postGarden = (garden: Garden): Promise<Garden> => {
   const body = JSON.stringify({
     name: garden.name,
     username: garden.username,
-    locationName: garden.location_name,
+    city_name: garden.city_name,
+    country_name : garden.country_name,
     description: garden.description,
     garden_width: garden.garden_width,
     garden_height: garden.garden_height,
@@ -180,8 +190,8 @@ export const deleteGarden = (garden: Garden): Promise<Garden> => {
   const body = JSON.stringify({
     name: garden.name,
     username: garden.username,
-    location: garden.location,
-    locationName: garden.location_name,
+    city_name: garden.city_name,
+    country_name : garden.country_name,
     description: garden.description,
     gardenWidth: garden.garden_width,
     gardenHeight: garden.garden_height,

@@ -8,6 +8,7 @@ import { setGarden, setSelectedGardenCell, getGardenData } from '../../store/act
 import { PlantingDisplay } from './planting-display';
 import { Loading } from '../loading';
 import { deletePlanting } from '../../api';
+import { WeatherDisplay } from './weather-display';
 
 export interface GardenDisplayProps {
   garden : Garden;
@@ -105,11 +106,17 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
             ) : (
               <div/>
             )}
-            {(garden.location_name != null) ? (
-              <Descriptions.Item label="Location">{garden.location_name}</Descriptions.Item>
+            {(garden.city_name != null) ? (
+              <Descriptions.Item label="City">{garden.city_name}</Descriptions.Item>
             ) : (
               <div/>
             )}
+            {(garden.country_name != null) ? (
+              <Descriptions.Item label="Country">{garden.country_name}</Descriptions.Item>
+            ) : (
+              <div/>
+            )}
+
         </Descriptions>
       );
     };
@@ -171,6 +178,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         return (
           <div>
             {renderGardenInfo()}
+            <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
             <Card className='garden-card'>
                 {patch}
             </Card>

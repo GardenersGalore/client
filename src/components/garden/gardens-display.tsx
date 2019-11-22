@@ -37,7 +37,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
             <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,
           ]}
           onClick={() => toggleGardenSelected(garden.name)}>
-          <Meta title={<a href={`/garden/${garden.name}`}>{garden.name}</a>} description={garden.location_name} />
+          <Meta title={<a href={`/garden/${garden.name}`}>{garden.name}</a>} description={garden.city_name} />
           {garden.description}
         </Card>
       </List.Item>

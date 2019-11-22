@@ -14,6 +14,10 @@ const initialState: GG = {
   error: '',
   selectedGardenCell: [-1, -1],
   selectedGarden: '',
+  forecast : null,
+  forecastIsError : false,
+  forecastIsLoading : false,
+  forecastError : ""
 };
 
 export const reducers = (state: GG = initialState, action: any) => {
@@ -23,6 +27,13 @@ export const reducers = (state: GG = initialState, action: any) => {
         ...state,
         isLoading: true,
         error: '',
+      };
+
+    case ACTION.FETCHING_DATA_FORECAST:
+      return {
+        ...state,
+        forecastIsLoading: true,
+        forecastError: '',
       };
 
     case ACTION.SET_SEARCH:
@@ -44,6 +55,13 @@ export const reducers = (state: GG = initialState, action: any) => {
         isLoading: false,
       };
 
+    case ACTION.FETCHING_DATA_SUCCESS_FORECAST:
+        return {
+          ...state,
+          forecastIsError: false,
+          forecastIsLoading: false,
+        };
+
     case ACTION.FETCHING_DATA_FAILURE:
       return {
         ...state,
@@ -51,6 +69,14 @@ export const reducers = (state: GG = initialState, action: any) => {
         isError: true,
         error: action.error,
       };
+
+    case ACTION.FETCHING_DATA_FAILURE_FORECAST:
+        return {
+          ...state,
+          forecastIsError: true,
+          forecastIsLoading: false,
+          forecastError : action.error
+        };
 
     case ACTION.SET_PLANT:
       return {
@@ -82,6 +108,12 @@ export const reducers = (state: GG = initialState, action: any) => {
         gardens: action.gardens,
       };
 
+    case ACTION.SET_FORECAST:
+      return {
+        ...state,
+        forecast : action.forecast
+      }
+
     case ACTION.SET_PLANTSEARCH:
       console.log("in reducer");
         return {
@@ -104,12 +136,8 @@ export const reducers = (state: GG = initialState, action: any) => {
       return {
         ...state,
         user: newUser,
-        //garden: newGarden,
       };
-    // return {
-    //   ...state,
-    //   garden: action.garden,
-    // };
+
 
     default:
       return state;

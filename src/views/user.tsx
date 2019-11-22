@@ -9,6 +9,8 @@ import { Loading } from '../components/loading';
 import { Error } from '../components/error';
 import { GardensDisplay } from '../components/garden/gardens-display';
 import { postGarden } from '../api';
+import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/new-garden-form';
+import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
 
 type PathParamsType = {
   name: string;
@@ -24,6 +26,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
+
+  let showAddGardenForm = false;
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -49,7 +53,13 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     return plantIcon;
   };
 
-  const capitaliseFirstLetter = (word: string) => {
+  const capitaliseFirstLetter = (word : string) => {
+    if(word.length === 0){
+      return "";
+    }
+    if(word.length === 1){
+      return word[0].toUpperCase()
+    }
     return word[0].toUpperCase() + word.slice(1);
   };
 
@@ -61,20 +71,19 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
-  const addGarden = () => {
-    const garden: Garden = {
-      description: '',
-      garden_height: 5,
-      garden_width: 5,
-      location: undefined,
-      location_name: '',
-      name: 'New Garden',
-      plantings: [],
-      username: user.username,
-    };
+  const renderAddGarden = () => {
+    const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
 
-    postGarden(garden);
-  };
+    return !showAddGardenForm ? (
+      <div className='gardens-add-button'>
+        <Button type='primary' shape='round' icon='plus' size='default' onClick={() => {showAddGardenForm = true;}}>
+          Add Garden
+        </Button>
+      </div>
+    ) : (
+      <MyNewForm username={user.username}/>
+    );
+  }
 
   const renderUser = () => {
     if (isError) {
@@ -93,7 +102,6 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                   />
                 </div>
               </Col>
-
               <Col span={19}>
                 <div>
                   <h1 style={{ color: 'white' }} className='username'>
@@ -107,11 +115,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
             <Col span={16} className='left-column'>
               <Row className='user-row'>
                 <Card title='Gardens' size='default'>
-                  <div className='gardens-add-button'>
-                    <Button type='primary' shape='round' icon='plus' size='default' onClick={() => addGarden()}>
-                      Add Garden
-                    </Button>
-                  </div>
+                  {renderAddGarden()}
                   <Divider />
                   <GardensDisplay user={user}></GardensDisplay>
                 </Card>

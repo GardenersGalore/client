@@ -3,12 +3,9 @@ import * as React from 'react';
 import {WrappedRegisterForm} from '../components/register-form';
 
 export const Register: React.FC = () => (
-
-  <Row type='flex' justify='center'>
-
+  <Row type='flex' justify='center' style={{paddingTop : "100px"}}>
     <Card style={{ width: 450 }}>
-        <WrappedRegisterForm/>
+      <WrappedRegisterForm/>
     </Card>
   </Row>
-
 );

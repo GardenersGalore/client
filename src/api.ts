@@ -42,6 +42,34 @@ export const getUser = (username: string): Promise<User> => {
     .then((data: User) => data);
 };
 
+export const postUser = (user: User): Promise<User> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}user`;
+
+  const body = JSON.stringify({
+    name :  user.name,
+    username : user.username,
+    email : user.email,
+    password : user.password,
+    phone_number : user.phone_number,
+    experience : user.experience,
+    pictureURL : user.pictureURL
+  });
+  console.log('POSTING USER!');
+  console.log(body);
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: User) => data);
+};
+
 export const getGardens = (username: string): Promise<Garden[]> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}gardens?username=${username}`;
   return fetch(requestUrl)

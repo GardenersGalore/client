@@ -24,6 +24,7 @@ export interface User {
   password: string;
   phone_number: string;
   experience: string;
+  pictureURL : string;
   gardens: Garden[];
   favourite_plants: PlantLike[];
 }

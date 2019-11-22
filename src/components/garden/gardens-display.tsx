@@ -5,10 +5,10 @@ import { RootState, Garden, User } from '../../constants/types';
 import { setSelectedGarden, setGarden } from '../../store/actions';
 import { GardenDisplay } from './garden-display';
 import Meta from 'antd/lib/card/Meta';
-import { deleteGarden } from '../../api';
 
 export interface GardensDisplayProps {
   user: User;
+  removeGarden : any;
 }
 
 export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisplayProps) => {
@@ -34,7 +34,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
             <img alt='example' src='https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png' />
           }
           actions={[
-            <Icon type='delete' key='delete' onClick={() => deleteGarden(garden)} />,
+            <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,
           ]}
           onClick={() => toggleGardenSelected(garden.name)}>
           <Meta title={<a href={`/garden/${garden.name}`}>{garden.name}</a>} description={garden.location_name} />

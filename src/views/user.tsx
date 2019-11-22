@@ -4,11 +4,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Garden, RootState } from '../constants/types';
-import { getUserData } from '../store/actions';
+import { getUserData, setUser } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
 import { GardensDisplay } from '../components/garden/gardens-display';
 import { postGarden } from '../api';
+import { deleteGarden } from '../api';
+
 
 type PathParamsType = {
   name: string;
@@ -80,7 +82,24 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     };
 
     postGarden(garden);
+
+    const updated_user = { ...user };
+    updated_user.gardens.push(garden);
+    dispatch(setUser(updated_user));
   };
+
+  const removeGarden = (garden : Garden) => {
+    deleteGarden(garden);
+    const updated_user = { ...user };
+    updated_user.gardens.filter(g => {
+      if (g.name === garden.name){
+        return false;
+      } else {
+        return true;
+      }
+    })
+    dispatch(setUser(updated_user));
+  }
 
   const renderUser = () => {
     if (isError) {
@@ -114,7 +133,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                     </Button>
                   </div>
                   <Divider />
-                  <GardensDisplay user={user}></GardensDisplay>
+                  <GardensDisplay user={user} removeGarden={removeGarden}></GardensDisplay>
                 </Card>
               </Row>
             </Col>

@@ -10,24 +10,27 @@ import {
     Checkbox,
     Button,
     AutoComplete,
+    message,
   } from 'antd';
 import * as React from 'react';
 import {FormComponentProps} from 'antd/lib/form/Form';
 import { postUser } from '../api';
 import { User } from '../constants/types';
+import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { setUsername } from '../store/actions';
 
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
 
-interface RegisterFormProps {
+export interface RegisterFormProps extends FormComponentProps {
     confirmDirty: false,
-    autoCompleteResult: [],
+    dispatch: any;
 }
 
 
-class NormalRegisterForm extends React.Component<RegisterFormProps & FormComponentProps> {
-    constructor(props: RegisterFormProps & FormComponentProps) {
+class NormalRegisterForm extends React.Component<RegisterFormProps & RouteComponentProps> {
+    constructor(props: RegisterFormProps & RouteComponentProps) {
         super(props);
     }
     handleSubmit = (e : any) => {
@@ -48,6 +51,9 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
               favourite_plants: []
             }
             postUser(newUser);
+            message.success('User Added');
+            this.props.dispatch(setUsername(values.username));
+            this.props.history.push('/user/' + values.username);
           }
         });
       };
@@ -213,4 +219,4 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
   }
 }
 
-export const WrappedRegisterForm = Form.create({ name: 'register_form' })(NormalRegisterForm);
+export const ConnectedRegisterForm = connect()(withRouter(NormalRegisterForm));

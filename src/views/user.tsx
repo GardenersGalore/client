@@ -51,6 +51,12 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   }
 
   const capitaliseFirstLetter = (word : string) => {
+    if(word.length === 0){
+      return "";
+    }
+    if(word.length === 1){
+      return word[0].toUpperCase() 
+    }
     return word[0].toUpperCase() + word.slice(1);
   }
 
@@ -74,7 +80,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
               <Card className="user-card">
                 <Col span={5} >
                     <div className="userlogo-shadow">
-                        <Avatar size={200} className="userlogo" src="https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg" />
+                        <Avatar size={200} className="userlogo" src={user.pictureURL} />
                     </div>
                 </Col>
 

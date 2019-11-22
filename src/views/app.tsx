@@ -7,7 +7,6 @@ import store from '../store';
 import { Forum } from './forum';
 import { Home } from './home';
 import { Plant } from './plant';
-import { GardenView } from './garden';
 import { Login } from './login';
 import { Register } from './register';
 import { PageNotFound } from './page-not-found';
@@ -31,7 +30,6 @@ export const App: React.FC<any> = () => {
                 <Route path='/plant/:name' component={Plant} />
                 <Route path='/user/:name' component={UserView} />
                 <Route path='/search-result/:name' component={SearchFor} />
-                <Route path='/garden/:name' component={GardenView} />
                 <Route component={PageNotFound}/>
               </Switch>
             </Content>

@@ -82,6 +82,13 @@ export const reducers = (state: GG = initialState, action: any) => {
         gardens: action.gardens,
       };
 
+    case ACTION.SET_PLANTSEARCH:
+      console.log("in reducer");
+        return {
+          ...state,
+          plantAll: action.plantAll,
+        };
+
     case ACTION.SET_GARDEN:
       const newGardens: Garden[] = [];
 

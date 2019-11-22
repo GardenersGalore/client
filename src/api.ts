@@ -80,13 +80,13 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
 
   const body = JSON.stringify({
-    plantName: planting.plant_name,
-    gardenName: planting.garden_name,
-    xCoord: planting.x_coord,
-    yCoord: planting.y_coord,
+    plant_name: planting.plant_name,
+    garden_name: planting.garden_name,
+    x_coord: planting.x_coord,
+    y_coord: planting.y_coord,
     description: planting.description,
-    plantedFrom: planting.planted_from,
-    harvestCount: planting.harvest_count,
+    planted_from: planting.planted_from,
+    harvest_count: planting.harvest_count,
   });
   console.log('POSTING PLANTING!');
   console.log(planting);
@@ -106,27 +106,11 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
 };
 
 export const deletePlanting = (planting: Planting): Promise<Planting> => {
-  const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
-
-  const body = JSON.stringify({
-    plantName: planting.plant_name,
-    gardenName: planting.garden_name,
-    xCoord: planting.x_coord,
-    yCoord: planting.y_coord,
-    description: planting.description,
-    plantedFrom: planting.planted_from,
-    harvestCount: planting.harvest_count,
-  });
-  console.log('POSTING PLANTING!');
+  const requestUrl = `${CLOUD_FUNCTION_URL}planting?garden_name=${planting.garden_name}&x_coord=${planting.x_coord}&y_coord=${planting.y_coord}`;
+  console.log('DELETING PLANTING!');
   console.log(planting);
-  console.log(body);
   return fetch(requestUrl, {
-    method: 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: body,
+    method: 'DELETE'
   })
     .then(checkStatus)
     .then(parseJSON)

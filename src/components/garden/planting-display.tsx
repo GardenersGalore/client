@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Form, Input, Button, Popover, Descriptions, Badge, Icon, Popconfirm, message } from 'antd/lib';
+import { Popover, Badge, Icon, Button, Popconfirm, message} from 'antd/lib';
 import * as React from 'react';
 import { Planting } from '../../constants/types';
 
@@ -6,9 +6,12 @@ export interface PlantingDisplayProps {
     planting : Planting;
     isSelected : boolean;
     cellSizePx: string;
+    renderNewPlantForm : any;
+    deletePlanting : any;
   }
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
+
 
   const planting = props.planting;
   const createIcon = () => {
@@ -21,6 +24,17 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
       }
       return plantIcon;
   }
+
+  const confirm = (e : any) => {
+    props.deletePlanting(planting);
+    message.success('Planting Deleted');
+  }
+  
+  const cancel = (e : any) => {
+    console.log(e);
+    message.error('Planting not deleted');
+  }
+
 
   const createPopover = (element : any) => {
     let popoverContent;
@@ -35,13 +49,24 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
             <b>Harvest count: </b> {planting.harvest_count}
             <br />
             <b>Planted from:</b> {planting.planted_from}
+            <br />
+            <Popconfirm
+            title="Are you sure delete this planting?"
+            onConfirm={confirm}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+            >
+              <Button>
+                Delete
+              </Button>
+            </Popconfirm>
         </div>
       );
       popoverTitle = props.planting.plant_name;
     }
     else {
-      popoverContent = "NONE";  //renderNewPlantForm();
-      popoverTitle = "NONE";
+      popoverContent = props.renderNewPlantForm();
     }
     return(
       <Popover content={popoverContent} title={popoverTitle} trigger="click">
@@ -67,34 +92,16 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     return plantingInformation
   }
 
-  // const confirm = (e) => {
-  //   console.log(e);
-  //   message.success('Click on Yes');
-  // }
-  
-  // const cancel = (e) => {
-  //   console.log(e);
-  //   message.error('Click on No');
-  // }
+
 
 
   const badgePlanting = (content : any) => {
-    console.log(props.cellSizePx);
-    const badgeOffset = +(props.cellSizePx.slice(0,-2)); 
     return(
-      // <Popconfirm
-      // title="Are you sure delete this task?"
-      // onConfirm={confirm}
-      // onCancel={cancel}
-      // okText="Yes"
-      // cancelText="No"
-      // >
+
       <Badge offset={[-10,0]}  count={8} style={{ backgroundColor: '#52c41a' }}>
-        <Badge offset={[-badgeOffset,0]} count={<Icon type="minus-circle" style={{ color: '#FFFFFF' }} />} >
           <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
               {content}
           </div>
-        </Badge>
       </Badge>
     // </Popconfirm>
     );

@@ -3,10 +3,11 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { Planting, RootState, Garden } from '../../constants/types';
-import { NewPlantingForm, NewPlantingProps } from '../new-planting-form';
+import { NewPlantingForm, NewPlantingProps } from './new-planting-form';
 import { setGarden, setSelectedGardenCell, getGardenData } from '../../store/actions';
 import { PlantingDisplay } from './planting-display';
 import { Loading } from '../loading';
+import { deletePlanting } from '../../api';
 
 export interface GardenDisplayProps {
   garden : Garden;
@@ -15,24 +16,6 @@ export interface GardenDisplayProps {
 
 export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplayProps) => {
     const dispatch = useDispatch();
-    //const garden = props.garden;
-
-    // const garden = useSelector(
-    //   (state: RootState) => state.gg.garden,
-    //   (left: Garden, right: Garden) => {
-    //     if (left === right) {
-    //       console.log('IN THE SELECTOR :D');
-    //       console.log(left, right);
-    //       if (left.garden_height === right.garden_height && left.garden_width === right.garden_width) {
-    //         return true;
-    //       } else {
-    //         return false;
-    //       }
-    //     } else {
-    //       return false;
-    //     }
-    //   }
-    // );
     const garden = useSelector((state : RootState) => {
       let selected : Garden = null;
       state.gg.user.gardens.forEach(g => {
@@ -50,7 +33,6 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     const error = useSelector((state: RootState) => state.gg.error);
 
     const findPlanting = (plantings: Planting[], rowIndex: number, colIndex: number): Planting | null => {
-      //console.log(plantings, rowIndex, colIndex);
       let r = null;
       plantings.forEach(planting => {
         if (planting.x_coord === rowIndex && planting.y_coord === colIndex) {
@@ -65,7 +47,10 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     };
   
     const toggleSelected = (x: number, y: number) => {
-      isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
+      //isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
+      if (!isSelected(x,y)){
+        dispatch(setSelectedGardenCell(x, y));
+      }
     };
   
     const setHeight = (newHeight: number) => {
@@ -79,6 +64,19 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
       new_garden.garden_width = newWidth;
       dispatch(setGarden(new_garden));
     };
+
+    const deleteAPlanting = (planting : Planting) => {
+      let new_garden = { ...garden };
+      new_garden.plantings = new_garden.plantings.filter(p => {
+        if (p.x_coord === planting.x_coord && p.y_coord === planting.y_coord){
+          return false; 
+        } else {
+          return true;
+        }
+      });    
+      dispatch(setGarden(new_garden));
+      deletePlanting(planting);
+    }
 
   const calculateCellSize = () => {
     const cellSize = (window.innerWidth * 0.35) / garden.garden_width - 8;
@@ -115,34 +113,13 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         </Descriptions>
       );
     };
-  
-    const renderPlantInfo = () => {
-      const planting: Planting = findPlanting(garden.plantings, selectedCell[0], selectedCell[1]);
-  
-      return (
-        <div className='garden-info'>
-          <h1>{planting.plant_name}</h1>
-  
-          <p className='garden-info-p'>
-            <b>About:</b> {planting.description}
-            <br />
-            <b>Date planted:</b> {planting.planted_at.toDateString}
-            <br />
-            <b>Harvest count: </b> {planting.harvest_count}
-            <br />
-            <b>Planted from:</b> {planting.planted_from}
-            {/*TODO: more*/}
-          </p>
-        </div>
-      );
-    };
-  
+   
     const renderNewPlantForm = () => {
       const MyNewForm = Form.create<NewPlantingProps>()(NewPlantingForm);
   
       return (
-        <div className='garden-info'>
-          <h1>Add new plant</h1>
+        <div>
+          Add new plant
           <MyNewForm garden={garden} dispatch={dispatch} xcoord={selectedCell[0]} ycoord={selectedCell[1]} />
         </div>
       );
@@ -173,7 +150,12 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
             console.log(gardenWidth);
             gardenRow.push(
               <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
-                <PlantingDisplay isSelected={isSelected(i, j)} planting={p} cellSizePx={cellSizePx} />
+                <PlantingDisplay
+                isSelected={isSelected(i, j)}
+                planting={p} 
+                cellSizePx={cellSizePx}
+                renderNewPlantForm={renderNewPlantForm}
+                deletePlanting ={deleteAPlanting}/>
               </Col>
             );
           }

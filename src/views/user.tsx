@@ -70,7 +70,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
       location_name: '',
       name: 'New Garden',
       plantings: [],
-      username: user.name,
+      username: user.username,
     };
 
     postGarden(garden);

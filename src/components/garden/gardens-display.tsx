@@ -34,8 +34,6 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
             <img alt='example' src='https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png' />
           }
           actions={[
-            <Icon type='setting' key='setting' />,
-            <Icon type='edit' key='edit' />,
             <Icon type='delete' key='delete' onClick={() => deleteGarden(garden)} />,
           ]}
           onClick={() => toggleGardenSelected(garden.name)}>

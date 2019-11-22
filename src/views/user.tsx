@@ -74,16 +74,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderAddGarden = () => {
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
 
-    return !showAddGardenForm ? (
-      <div className='gardens-add-button'>
-        <Button type='primary' shape='round' icon='plus' size='default' onClick={() => {showAddGardenForm = true;}}>
-          Add Garden
-        </Button>
-      </div>
-    ) : (
-      <MyNewForm username={user.username}/>
-    );
-  }
+    return <MyNewForm username={user.username}/>;
+  };
 
   const renderUser = () => {
     if (isError) {

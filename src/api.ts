@@ -124,7 +124,7 @@ export const postGarden = (garden: Garden): Promise<Garden> => {
   const body = JSON.stringify({
     name: garden.name,
     username: garden.username,
-    locationName: garden.location_name,
+    location_name: garden.location_name,
     description: garden.description,
     garden_width: garden.garden_width,
     garden_height: garden.garden_height,

@@ -10,10 +10,14 @@ export interface NewGardenFormProps extends FormComponentProps {
   username: string;
 }
 
-class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentProps> {
+interface IState {
+  showForm : boolean;
+}
+
+class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentProps, IState> {
   constructor(props: NewGardenFormProps & RouteComponentProps) {
     super(props);
-    this.state = {showForm: false}
+    this.state = {showForm : false}
   }
 
   handleSubmit = (e : any) => {

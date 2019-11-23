@@ -1,6 +1,9 @@
 import { Popover, Badge, Icon, Button, Popconfirm, message} from 'antd/lib';
 import * as React from 'react';
-import { Planting } from '../../constants/types';
+import { Planting, RootState } from '../../constants/types';
+import { useSelector } from 'react-redux';
+import { waterIcon } from './water-icon';
+import { frostIcon } from './frost-icon';
 
 export interface PlantingDisplayProps {
     planting : Planting;
@@ -12,6 +15,8 @@ export interface PlantingDisplayProps {
   }
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
+
+  const forecast = useSelector((state: RootState) => state.gg.forecast);
 
 
   const planting = props.planting;
@@ -96,19 +101,44 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     return plantingInformation
   }
 
-
-
-
   const badgePlanting = (content : any) => {
-    return(
-
-      <Badge offset={[-10,0]}  count={8} style={{ backgroundColor: '#52c41a' }}>
+    if(forecast && props.planting !== null){
+      if (forecast.data[0].snow > 0.5){
+        return(
+          <Badge count={frostIcon()} offset={[-10,0]}>
+              <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+                  {content}
+              </div>
+          </Badge>
+        );
+      } 
+      else if(forecast.data[0].rainfall_amount < 3 || forecast.data[0].rainfall_probability < 50){
+        return(
+          <Badge count={waterIcon()} offset={[-10,0]}>
+              <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+                  {content}
+              </div>
+          </Badge>
+        );
+      }    
+      else {
+        return(
           <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
               {content}
           </div>
-      </Badge>
-    // </Popconfirm>
-    );
+        )
+      }
+
+
+    } else {
+      return(
+        <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+            {content}
+        </div>
+      )
+    }
+
+
   }
 
   const renderPlanting = () => {
@@ -120,7 +150,6 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
                 {content}
             </div>
     } else {
-
       cell = badgePlanting(content);
     }
 

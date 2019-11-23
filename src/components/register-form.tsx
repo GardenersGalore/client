@@ -47,6 +47,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
               phone_number : values.phone,
               experience : values.experience,
               pictureURL : values.pictureURL,
+              blogs : [],
               gardens : [],
               favourite_plants: []
             }

@@ -1,12 +1,10 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, Icon } from 'antd/lib';
-import * as React from 'react';
+import * as React from "react";
+import { Icon } from "antd";
 
-export const Home: React.FC = () => {
-
-  const waterSVG = () => {
+const waterSVG = () => {
     return(
       <svg width="2em" height="2em" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 508 508" >
-   <circle fill="#324A5E" cx="254" cy="254" r="254"/>
+   <circle fill="#FFFFFF" cx="254" cy="254" r="254"/>
    <path fill="#54C0EB" d="M252,414h4c62.8,0,115.2-50.4,114-113.2c0-8-1.2-15.6-2.8-22.8C360,246.4,324,210,298,170.8
      c-27.2-37.6-44-77.6-44-76.4c-0.4-0.8-17.2,39.2-44,76.4c-25.6,39.2-62,76-69.2,106.8c-2,7.2-2.8,14.8-2.8,22.8
      C136.8,363.2,189.2,414,252,414z"/>
@@ -51,19 +49,8 @@ export const Home: React.FC = () => {
     
   }
 
-  const waterIcon = () => {
+export const waterIcon = () => {
     return (
-      <Icon component={waterSVG} style={{ color: '#1890ff' }} />
+        <Icon component={waterSVG} style={{ color: '#1890ff' }} />
     )
-  }
-
-  return(
-    <Row type='flex' justify='center'>
-      <Card style={{ width: 1400 }}>
-        {waterIcon()}
-      </Card>
-    </Row>
-  )
-  
-
-};
+}

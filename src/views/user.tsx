@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Form, Input, Button, Avatar, Divider, List, Icon, Timeline } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Form, Input, Button, Avatar, Divider, List, Icon, Timeline, Tag } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -93,6 +93,46 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     dispatch(setUser(updated_user));
   }
 
+  const renderBlogs = () => {
+    if(user.blogs.length > 0){
+      let b : any[] = [];
+      user.blogs.forEach(blog => {
+        let tags : any[] = [];
+        blog.tags.forEach(tag => {
+          tags.push(
+            <Tag color="green">{tag}</Tag>
+          )
+        })
+        console.log(tags);
+        b.push( 
+          <Timeline.Item>
+            {blog.name}
+            <br/>
+            {tags}
+            <br/>
+            {blog.content}
+          </Timeline.Item>
+        )
+      })
+
+      return(
+        <Card title='Recent Blogs'>
+        <Timeline>
+          {b}
+        </Timeline>
+        </Card>
+        )
+    } else {
+      return(
+        <Card title='Recent Blogs'>
+            ADD BLOG
+        </Card>
+        )
+    }
+
+    
+  }
+
   
   const renderUser = () => {
     if (isError) {
@@ -145,13 +185,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                 </Card>
               </Row>
               <Row className='user-row'>
-                <Card title='Recent Blogs'>
-                  <Timeline>
-                    <Timeline.Item>I planted something!</Timeline.Item>
-                    <Timeline.Item>I planted another thing!</Timeline.Item>
-                    <Timeline.Item>Been planting more things</Timeline.Item>
-                  </Timeline>
-                </Card>
+                  {renderBlogs()}
               </Row>
             </Col>
           </Row>

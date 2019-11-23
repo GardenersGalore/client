@@ -31,6 +31,15 @@ export interface User {
   pictureURL: string;
   gardens: Garden[];
   favourite_plants: PlantLike[];
+  blogs : Blog[];
+}
+
+export interface Blog{
+  date : Date;
+  name : string;
+  username : string;
+  content : string;
+  tags : string[];
 }
 
 export interface Plant {
@@ -49,6 +58,15 @@ export interface Plant {
   svg_icon: string;
 }
 
+export interface BlogInfo{
+  date : number;
+  name : string;
+  username : string;
+  content : string;
+  tags : string[];
+  user : User;
+}
+
 export interface PlantInfo {
   name: string;
   en_wikipedia_url: string;
@@ -64,6 +82,7 @@ export interface PlantInfo {
   sun_requirements: string;
   svg_icon: string;
   plantings : PlantingInfo[];
+  blogs : BlogInfo[];
 }
 
 export interface PlantingInfo {

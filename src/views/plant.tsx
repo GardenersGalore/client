@@ -1,11 +1,11 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, Carousel } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Carousel, Avatar, Comment, Tooltip } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps} from 'react-router-dom';
 import { RootState } from '../constants/types';
 import { getPlantData} from '../store/actions';
-
+import * as moment from 'moment';
 
 const { Meta } = Card;
 type PathParamsType = {
@@ -58,6 +58,48 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
     return c
   }
 
+  const renderTopTips = () => {
+    let b : any[] = [];
+    plant.blogs.forEach(blog => {
+      let d : any = null;
+      if (blog.date !== undefined){
+        d = moment(blog.date);
+        console.log(d);
+      }
+      b.push(
+        <Comment
+        author={<a>{blog.username}</a>}
+        avatar={
+          <Avatar
+            src={blog.user.pictureURL}
+            alt=""
+          />
+        }
+        content={
+          <p>
+            {blog.content}
+          </p>
+        }
+        datetime={
+          <Tooltip title={d.format('YYYY-MM-DD HH:mm:ss')}>
+            <span>{d.fromNow()}</span>
+          </Tooltip>
+        }
+      />
+        // <div>
+        //   <Avatar size={50} src={blog.user.pictureURL} />
+        //   {blog.name}
+        //   {blog.content}
+        // </div>
+      )
+    })
+    return (
+      <Card title="Top Tips">
+        {b}
+      </Card>
+    )
+  }
+
   const renderPlant = () => {
     if (error) {
       return (
@@ -107,6 +149,9 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
                   {renderCarousel()}
                 </Carousel>
               </Card>
+            </Row>
+            <Row>
+              {renderTopTips()}
             </Row>
           </Col>
          

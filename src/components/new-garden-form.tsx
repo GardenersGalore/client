@@ -8,6 +8,7 @@ import { postGarden } from '../api';
 
 export interface NewGardenFormProps extends FormComponentProps {
   username: string;
+  addGarden: any;
 }
 
 interface IState {
@@ -24,18 +25,7 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const garden: Garden = {
-          description: '',
-          garden_height: 5,
-          garden_width: 5,
-          city_name: '',
-          country_name: '',
-          name: values.gname,
-          plantings: [],
-          username: this.props.username,
-        };
-
-        postGarden(garden);
+        this.props.addGarden(values.gname);
         this.setState({ showForm: false });
       }
     });

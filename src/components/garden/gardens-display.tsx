@@ -9,6 +9,7 @@ import Meta from 'antd/lib/card/Meta';
 export interface GardensDisplayProps {
   user: User;
   removeGarden : any;
+  isLoggedInUser: boolean;
 }
 
 export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisplayProps) => {
@@ -27,6 +28,9 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
 
   const renderGardenCard = (garden: Garden) => {
     const cover = garden.pictureURL ? garden.pictureURL : 'https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png';
+    const actions = props.isLoggedInUser ? [
+      <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,
+    ] : [];
 
     return (
       <List.Item key={garden.name}>
@@ -35,9 +39,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
           cover={
             <img alt='example' src={cover} />
           }
-          actions={[
-            <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,
-          ]}
+          actions={actions}
           onClick={() => toggleGardenSelected(garden.name)}>
           <Meta title={garden.name} description={garden.city_name} />
           {garden.description}
@@ -60,7 +62,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
       // dispatch(setGarden(g));
       return (
         <Card size='default'>
-          <GardenDisplay garden={g}></GardenDisplay>
+          <GardenDisplay garden={g} isLoggedInUser={props.isLoggedInUser}></GardenDisplay>
         </Card>
       );
     } else {

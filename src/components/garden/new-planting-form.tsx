@@ -57,7 +57,7 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
             rules: [{ required: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label='Picture Url'>
+        <Form.Item label='Picture URL'>
           {getFieldDecorator('pictureURL', {
             rules: [{ required: true }],
           })(<Input />)}

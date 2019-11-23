@@ -12,7 +12,7 @@ import { WeatherDisplay } from './weather-display';
 
 export interface GardenDisplayProps {
   garden : Garden;
-  //gardenSetter : any; // this is the function to change the result of the garden
+  isLoggedInUser: boolean;
 }
 
 export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplayProps) => {
@@ -162,7 +162,8 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
                 planting={p} 
                 cellSizePx={cellSizePx}
                 renderNewPlantForm={renderNewPlantForm}
-                deletePlanting ={deleteAPlanting}/>
+                deletePlanting ={deleteAPlanting}
+                isLoggedInUser={props.isLoggedInUser}/>
               </Col>
             );
           }

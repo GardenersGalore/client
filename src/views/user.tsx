@@ -11,6 +11,8 @@ import { GardensDisplay } from '../components/garden/gardens-display';
 import { postGarden } from '../api';
 import { deleteGarden } from '../api';
 
+import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/new-garden-form';
+import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
 
 type PathParamsType = {
   name: string;
@@ -26,6 +28,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
+
+  let showAddGardenForm = false;
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -56,7 +60,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
       return "";
     }
     if(word.length === 1){
-      return word[0].toUpperCase() 
+      return word[0].toUpperCase()
     }
     return word[0].toUpperCase() + word.slice(1);
   };
@@ -88,6 +92,12 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     dispatch(setUser(updated_user));
   };
 
+  const renderAddGarden = () => {
+    const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
+
+    return <MyNewForm username={user.username}/>;
+  };
+
   const removeGarden = (garden : Garden) => {
     deleteGarden(garden);
     const updated_user = { ...user };
@@ -106,14 +116,14 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
       return <Error error={error} />;
     } else if (user) {
       return (
-        <div className="user-page">
-            <Row type='flex' justify='center' className="user-row">
-              <Card className="user-card">
-                <Col span={5} >
-                    <div className="userlogo-shadow">
-                        <Avatar size={200} className="userlogo" src={user.pictureURL} />
-                    </div>
-                </Col>
+        <div className='user-page'>
+          <Row type='flex' justify='center' className='user-row'>
+            <Card className='user-card'>
+              <Col span={5}>
+                <div className="userlogo-shadow">
+                  <Avatar size={200} className="userlogo" src={user.pictureURL} />
+                </div>
+              </Col>
               <Col span={19}>
                 <div>
                   <h1 style={{ color: 'white' }} className='username'>
@@ -127,11 +137,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
             <Col span={16} className='left-column'>
               <Row className='user-row'>
                 <Card title='Gardens' size='default'>
-                  <div className='gardens-add-button'>
-                    <Button type='primary' shape='round' icon='plus' size='default' onClick={() => addGarden()}>
-                      Add Garden
-                    </Button>
-                  </div>
+                  {renderAddGarden()}
                   <Divider />
                   <GardensDisplay user={user} removeGarden={removeGarden}></GardensDisplay>
                 </Card>

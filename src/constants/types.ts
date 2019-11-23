@@ -35,6 +35,7 @@ export interface Question {
   question_title: string;
   author: string;
   description: string;
+  _id: string;
 }
 
 export interface PlantLike {

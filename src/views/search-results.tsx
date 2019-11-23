@@ -1,10 +1,12 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, List } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Avatar, List } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Planting, Garden, Plant, User, Question } from '../constants/types';
 import { getAllPlantData, getAllGardenData, getAllUserData, getAllQuestionData } from '../store/actions';
+import Title from '../../node_modules/antd/lib/typography/Title';
+import { keys } from '../../node_modules/@types/d3';
 
 type PathParamsType = {
   name: string;
@@ -42,135 +44,267 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     }
   });
 
-  console.log(gardens, plants, users);
+  console.log(gardens, plants, questions);
 
+  const capitaliseFirstLetter = (word: string) => {
+    return word[0].toUpperCase() + word.slice(1);
+  };
+
+  const truncateText = (text: string, truncatedAmount: number) => {
+    if (text == undefined) {
+      return '';
+    } else {
+      return text.slice(0, truncatedAmount - 1) + '...';
+    }
+  };
+
+  const createIcon = (svgIcon: any) => {
+    let plantIcon;
+    if (svgIcon === undefined) {
+      plantIcon = '../assets/unown_icon.svg';
+    } else {
+      const blob = new Blob([svgIcon], { type: 'image/svg+xml' });
+      plantIcon = URL.createObjectURL(blob);
+    }
+    return plantIcon;
+  };
+
+  const scope = {
+    splitterStyle: {
+      height: 580,
+    },
+  };
   const renderPlant = () => {
-    const plantPic = '../assets/4.jpg';
-    const userPic = '../assets/user.jpg';
-    const gardenPic = '../assets/garden.jpg';
+    const userPic = '../assets/user.svg';
+    const gardenPic = '../assets/garden.svg';
+    const questionPic = '../assets/question.svg';
 
     if (!isEmpty(plants) && gardens.length > 0 && users.length > 0) {
       console.log('PK');
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>Fruits/Veges</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={plants}
-                renderItem={plant => (
-                  <List.Item key={plant.name}>
-                    <img src={plantPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                          <p> {truncateText(item.description, 60)}</p>
+                        </div>
+                      }
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
-            <h1>Garden</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={gardens}
-                renderItem={garden => (
-                  <List.Item key={garden.name}>
-                    <img src={gardenPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/garden/${garden.name}`}>{garden.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={gardenPic} />}
+                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <p>
+                            Heigh: {item.garden_height} Width: {item.garden_width}
+                          </p>
+                        </div>
+                      }
+                    />
+                    <p> User: {item.username}</p>
                   </List.Item>
-                )}></List>
-              <h1>Users</h1>
+                )}
+              />
             </Card>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={users}
-                renderItem={user => (
-                  <List.Item key={user.name}>
-                    <h1>{<a href={`/user/${user.name}`}>{user.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={userPic} />}
+                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={`Experience: ${item.experience}`}
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
       );
-    } else if (!isEmpty(plants) && gardens.length) {
-      console.log('In render plant', gardens.length);
+    } else if (!isEmpty(plants) && gardens.length > 0) {
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>Fruits/Veges</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={plants}
-                renderItem={plant => (
-                  <List.Item key={plant.name}>
-                    <img src={plantPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                          <p> {truncateText(item.description, 60)}</p>
+                        </div>
+                      }
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
-            <h1>Garden</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={gardens}
-                renderItem={garden => (
-                  <List.Item key={garden.name}>
-                    <img src={gardenPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/garden/${garden.name}`}>{garden.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={gardenPic} />}
+                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <p>
+                            Heigh: {item.garden_height} Width: {item.garden_width}
+                          </p>
+                        </div>
+                      }
+                    />
+                    <p> User: {item.username}</p>
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
       );
     } else if (!isEmpty(plants) && users.length > 0) {
-      console.log('here', users[0].name);
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>Fruits/Veges</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={plants}
-                renderItem={plant => (
-                  <List.Item key={plant.name}>
-                    <img src={plantPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                          <p> {truncateText(item.description, 60)}</p>
+                        </div>
+                      }
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
-            <h1>Users</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={users}
-                renderItem={user => (
-                  <List.Item key={user.name}>
-                    <img src={userPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/user/${user.name}`}>{user.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={userPic} />}
+                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={`Experience: ${item.experience}`}
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
+            </Card>
+          </Row>
+        </div>
+      );
+    } else if (!isEmpty(plants) && questions.length > 0) {
+      console.log('here', questions[0]._id['$oid']);
+      return (
+        <div>
+          <Row type='flex' justify='center' className='fetching-weather-content'>
+            <Card style={{ width: 800 }}>
+              <List
+                itemLayout='horizontal'
+                dataSource={plants}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                          <p>{truncateText(item.description, 60)}</p>
+                        </div>
+                      }
+                    />
+                  </List.Item>
+                )}
+              />
+            </Card>
+            <Card style={{ width: 800 }}>
+              <List
+                itemLayout='horizontal'
+                dataSource={questions}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={questionPic} />}
+                      title={
+                        <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
+                      }
+                      description={truncateText(item.description, 50) + `...`}
+                    />
+                    <p>Author: {item.author}</p>
+                  </List.Item>
+                )}
+              />
             </Card>
           </Row>
         </div>
       );
     } else if (!isEmpty(plants)) {
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>Fruits/Veges</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={plants}
-                renderItem={plant => (
-                  <List.Item key={plant.name}>
-                    <img src={plantPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      key={item.name}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                          <p>{truncateText(item.description, 60)}</p>
+                        </div>
+                      }
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
@@ -178,19 +312,22 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (users.length > 0) {
       console.log('IGI');
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>User</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={users}
-                renderItem={user => (
-                  <List.Item key={user.name}>
-                    <img src={userPic} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/user/${user.name}`}>{user.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={userPic} />}
+                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={`Experience: ${item.experience}`}
+                    />
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
@@ -198,48 +335,65 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (gardens.length > 0) {
       console.log('ggg');
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>User</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={gardens}
-                renderItem={garden => (
-                  <List.Item key={garden.name}>
-                    <img src={garden.name} style={{ width: 150, height: 100, marginLeft: 1170 }} />
-                    <h1>{<a href={`/user/${garden.name}`}>{garden.name}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={gardenPic} />}
+                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                      description={
+                        <div>
+                          <p>
+                            Heigh: {item.garden_height} Width: {item.garden_width}
+                          </p>
+                        </div>
+                      }
+                    />
+                    <p> User: {item.username}</p>
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
       );
     } else if (questions.length > 0) {
-      console.log('ggg');
+      console.log('quest');
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <h1>Forum</h1>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <List
-                itemLayout='vertical'
+                itemLayout='horizontal'
                 dataSource={questions}
-                renderItem={question => (
-                  <List.Item key={question.question_title}>
-                    <h1>{<a href={`/question/${question.question_title}`}>{question.question_title}</a>}</h1>
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      key={item.question_title}
+                      avatar={<Avatar src={questionPic} />}
+                      title={
+                        <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
+                      }
+                      description={truncateText(item.description, 50) + `...`}
+                    />
+                    <p>Author: {item.author}</p>
                   </List.Item>
-                )}></List>
+                )}
+              />
             </Card>
           </Row>
         </div>
       );
     } else {
-      console.log('gegeg');
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-weather-content'>
-            <Card style={{ width: 1400 }}>
+            <Card style={{ width: 800 }}>
               <h1>No data found</h1>
             </Card>
           </Row>

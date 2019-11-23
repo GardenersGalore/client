@@ -3,13 +3,16 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, User } from '../constants/types';
-import { getUserData } from '../store/actions';
+import { Garden, RootState } from '../constants/types';
+import { getUserData, setUser } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
-import { GardenDisplay } from '../components/garden-display';
-import Meta from 'antd/lib/card/Meta';
-import { color } from 'd3';
+import { GardensDisplay } from '../components/garden/gardens-display';
+import { postGarden } from '../api';
+import { deleteGarden } from '../api';
+
+import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/new-garden-form';
+import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
 
 type PathParamsType = {
   name: string;
@@ -23,13 +26,19 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
 
   const user = useSelector((state: RootState) => state.gg.user);
   const error = useSelector((state: RootState) => state.gg.error);
+  const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 
+  let showAddGardenForm = false;
+
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && !isError) {
+      console.log('NOT LOADING');
       if (!user) {
+        console.log('NO USER', user);
         dispatch(getUserData(props.match.params.name));
-      } else if (user.username != props.match.params.name) {
+      } else if (user.username !== props.match.params.name) {
+        console.log(user.username, props.match.params.name);
         dispatch(getUserData(props.match.params.name));
       }
     }
@@ -46,7 +55,13 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     return plantIcon;
   };
 
-  const capitaliseFirstLetter = (word: string) => {
+  const capitaliseFirstLetter = (word : string) => {
+    if(word.length === 0){
+      return "";
+    }
+    if(word.length === 1){
+      return word[0].toUpperCase()
+    }
     return word[0].toUpperCase() + word.slice(1);
   };
 
@@ -58,8 +73,27 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
+  const renderAddGarden = () => {
+    const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
+
+    return <MyNewForm user={user} dispatch={dispatch}/>;
+  };
+
+  const removeGarden = (garden : Garden) => {
+    deleteGarden(garden);
+    const updated_user = { ...user };
+    updated_user.gardens.filter(g => {
+      if (g.name === garden.name){
+        return false;
+      } else {
+        return true;
+      }
+    })
+    dispatch(setUser(updated_user));
+  }
+
   const renderUser = () => {
-    if (error) {
+    if (isError) {
       return <Error error={error} />;
     } else if (user) {
       return (
@@ -67,15 +101,10 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
           <Row type='flex' justify='center' className='user-row'>
             <Card className='user-card'>
               <Col span={5}>
-                <div className='userlogo-shadow'>
-                  <Avatar
-                    size={200}
-                    className='userlogo'
-                    src='https://www.myjobquote.co.uk/assets/img/cost-of-hiring-a-gardener-for-maintenance-1.jpg'
-                  />
+                <div className="userlogo-shadow">
+                  <Avatar size={200} className="userlogo" src={user.pictureURL} />
                 </div>
               </Col>
-
               <Col span={19}>
                 <div>
                   <h1 style={{ color: 'white' }} className='username'>
@@ -89,53 +118,9 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
             <Col span={16} className='left-column'>
               <Row className='user-row'>
                 <Card title='Gardens' size='default'>
-                  <div className='gardens-add-button'>
-                    <Button type='primary' shape='round' icon='plus' size='default'>
-                      Add Garden
-                    </Button>
-                  </div>
-
+                  {renderAddGarden()}
                   <Divider />
-                  <Card size='default'>
-                    <GardenDisplay gardenName='Garden A'></GardenDisplay>
-                  </Card>
-                  <Divider />
-                  <List
-                    itemLayout='vertical'
-                    grid={{
-                      gutter: 16,
-                      xs: 1,
-                      sm: 2,
-                      md: 4,
-                      lg: 4,
-                      xl: 6,
-                      xxl: 3,
-                    }}
-                    size='small'
-                    dataSource={user.gardens}
-                    renderItem={garden => (
-                      <List.Item>
-                        <Card
-                          hoverable
-                          cover={
-                            <img
-                              alt='example'
-                              src='https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png'
-                            />
-                          }
-                          actions={[
-                            <Icon type='setting' key='setting' />,
-                            <Icon type='edit' key='edit' />,
-                            <Icon type='ellipsis' key='ellipsis' />,
-                          ]}>
-                          <Meta
-                            title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
-                            description={garden.location_name}
-                          />
-                          {garden.description}
-                        </Card>
-                      </List.Item>
-                    )}></List>
+                  <GardensDisplay user={user} removeGarden={removeGarden}></GardensDisplay>
                 </Card>
               </Row>
             </Col>
@@ -161,10 +146,9 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
               <Row className='user-row'>
                 <Card title='Recent Blogs'>
                   <Timeline>
-                    <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-                    <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-                    <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-                    <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+                    <Timeline.Item>I planted something!</Timeline.Item>
+                    <Timeline.Item>I planted another thing!</Timeline.Item>
+                    <Timeline.Item>Been planting more things</Timeline.Item>
                   </Timeline>
                 </Card>
               </Row>

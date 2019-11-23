@@ -1,17 +1,37 @@
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Row } from 'antd';
 import * as React from 'react';
-import { FormComponentProps } from 'antd/lib/form/Form';
+import {FormComponentProps} from 'antd/lib/form/Form';
+import { connect } from 'react-redux';
+import { setUsername } from '../store/actions';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
-class NormalLoginForm extends React.Component<FormComponentProps> {
-  constructor(props: FormComponentProps) {
-    super(props);
-  }
+export interface NormalLoginFormProps extends FormComponentProps {
+  dispatch: any;
+}
 
-  handleSubmit = (e: any) => {
+
+// // Your component own properties
+// type PropsType = RouteComponentProps<NormalLoginFormProps> & {
+//   someString: string,
+// }
+
+
+
+class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteComponentProps> {
+    constructor(props: NormalLoginFormProps & RouteComponentProps) {
+        super(props);
+    }
+
+
+
+  handleSubmit = (e : any) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values.username);
+        this.props.dispatch(setUsername(values.username));
+        this.props.history.push('/user/' + values.username);
       }
     });
   };
@@ -46,5 +66,5 @@ class NormalLoginForm extends React.Component<FormComponentProps> {
     );
   }
 }
-
-export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+//export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
+export const ConnectedLoginForm =  connect()(withRouter(NormalLoginForm));

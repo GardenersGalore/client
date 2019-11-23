@@ -22,6 +22,9 @@ import 'antd/lib/result/style/css';
 import 'antd/lib/divider/style/css';
 import 'antd/lib/popover/style/css';
 import 'antd/lib/badge/style/css';
+import 'antd/lib/popconfirm/style/css';
+import 'antd/lib/message/style/css';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './css/index.css';

@@ -6,8 +6,6 @@ import { NavBar } from '../components/nav-bar';
 import store from '../store';
 import { Home } from './home';
 import { Plant } from './plant';
-import { GardenView } from './garden';
-import { Gardens } from './gardens';
 import { Login } from './login';
 import { Register } from './register';
 import { Questions } from './questions';
@@ -28,7 +26,6 @@ export const App: React.FC<any> = () => {
             <Content className='content'>
               <Switch>
                 <Route exact={true} path='/' component={Home} />
-                <Route exact={true} path='/gardens' component={Gardens} />
                 <Route exact={true} path='/forum/questions' component={Questions} />
                 <Route exact={true} path='/forum/ask-a-question' component={AskAQuestion} />
                 <Route exact={true} path='/login' component={Login} />
@@ -36,7 +33,6 @@ export const App: React.FC<any> = () => {
                 <Route path='/plant/:name' component={Plant} />
                 <Route path='/user/:name' component={UserView} />
                 <Route path='/search-result/:name' component={SearchFor} />
-                <Route path='/garden/:name' component={GardenView} />
                 <Route path='/forum/question/:_id' component={QuestionView} />
                 <Route component={PageNotFound} />
               </Switch>

@@ -1,11 +1,26 @@
-import { Alert, Col, Row, Spin, Card, Descriptions } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Form } from 'antd/lib';
 import * as React from 'react';
-import { WrappedNormalLoginForm } from '../components/login-form';
+import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
+import { useDispatch } from 'react-redux';
 
-export const Login: React.FC = () => (
-  <Row type='flex' justify='center'>
-    <Card style={{ width: 350 }}>
-      <WrappedNormalLoginForm />
-    </Card>
-  </Row>
-);
+export const Login: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const renderLoginForm = () => {
+    const MyNewForm = Form.create<NormalLoginFormProps>()(ConnectedLoginForm);
+
+    return (
+        <MyNewForm dispatch={dispatch} />
+    );
+  };
+
+  return (
+    <Row type='flex' justify='center' style={{paddingTop : "100px"}}>
+      <Card style={{ width: 350 }}>
+          {renderLoginForm()}
+      </Card>
+    </Row>
+  )
+
+
+};

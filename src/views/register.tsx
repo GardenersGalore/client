@@ -1,11 +1,24 @@
-import { Alert, Col, Row, Spin, Card, Descriptions } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Form } from 'antd/lib';
 import * as React from 'react';
-import { WrappedRegisterForm } from '../components/register-form';
+import {ConnectedRegisterForm, RegisterFormProps} from '../components/register-form';
+import { useDispatch } from 'react-redux';
 
-export const Register: React.FC = () => (
-  <Row type='flex' justify='center'>
+export const Register: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const renderLoginForm = () => {
+    const MyNewForm = Form.create<RegisterFormProps>()(ConnectedRegisterForm);
+
+    return (
+        <MyNewForm dispatch={dispatch} confirmDirty={false}/>
+    );
+  };
+
+  return (
+  <Row type='flex' justify='center' style={{paddingTop : "100px"}}>
     <Card style={{ width: 450 }}>
-      <WrappedRegisterForm />
+      {renderLoginForm()}
     </Card>
   </Row>
-);
+) 
+}

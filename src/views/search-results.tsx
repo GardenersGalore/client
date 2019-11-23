@@ -3,8 +3,10 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Planting, Garden } from '../constants/types';
-import { getPlantData, getGardenData, getGardenPlantData } from '../store/actions';
+import { RootState, Planting, Garden, Plant } from '../constants/types';
+import { getPlantData, getGardenData, getGardenPlantData, getAllPlantData } from '../store/actions';
+import { getAllPlant } from '../api';
+import store from '../store';
 
 type PathParamsType = {
   name: string;
@@ -25,7 +27,7 @@ type PlantProps = RouteComponentProps<PathParamsType> & {};
 export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const dispatch = useDispatch();
 
-  const plant = useSelector((state: RootState) => state.gg.plant);
+  const plants: Plant[] = useSelector((state: RootState) => state.gg.plantAll);
   const gardens: Garden[] = useSelector((state: RootState) => state.gg.gardens);
   const garden: Garden = useSelector((state: RootState) => state.gg.garden);
   // const error = useSelector((state: RootState) => state.gg.error);
@@ -34,16 +36,18 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   useEffect(() => {
     if (a !== props.match.params.name) {
       a = props.match.params.name;
-      dispatch(getPlantData(props.match.params.name));
+      dispatch(getAllPlantData(props.match.params.name));
+      console.log('asasfas');
       dispatch(getGardenPlantData(props.match.params.name));
       dispatch(getGardenData(props.match.params.name));
     }
   });
 
-  console.log(gardens, plant, garden);
+  console.log(gardens, plants, garden);
 
   const renderPlant = () => {
-    if (!isEmpty(plant)) {
+    console.log('In render plant');
+    if (!isEmpty(plants)) {
       console.log('PK');
       if (gardens.length > 0) {
         if (garden && garden.plantings.length > 0) {
@@ -52,8 +56,14 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
               <Row type='flex' justify='center' className='fetching-weather-content'>
                 <h1>Fruit/Plant</h1>
                 <Card style={{ width: 1400 }}>
-                  <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
-                  {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
+                  <List
+                    itemLayout='vertical'
+                    dataSource={plants}
+                    renderItem={plant => (
+                      <List.Item key={plant.name}>
+                        <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                      </List.Item>
+                    )}></List>
                 </Card>
                 <h1>Garden</h1>
                 <Card style={{ width: 1400 }}>
@@ -78,8 +88,14 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
               <Row type='flex' justify='center' className='fetching-weather-content'>
                 <h1>Fruit/Plant</h1>
                 <Card style={{ width: 1400 }}>
-                  <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
-                  {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
+                  <List
+                    itemLayout='vertical'
+                    dataSource={plants}
+                    renderItem={plant => (
+                      <List.Item key={plant.name}>
+                        <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                      </List.Item>
+                    )}></List>
                 </Card>
                 <h1>Garden</h1>
                 <Card style={{ width: 1400 }}>
@@ -90,7 +106,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                       <List.Item key={garden.name}>
                         <List.Item.Meta
                           title={<a href={`/garden/${garden.name}`}>{garden.name}</a>}
-                          description={garden.location_name}
+                          description={garden.city_name}
                         />
                       </List.Item>
                     )}></List>
@@ -106,8 +122,14 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
               <h1>Fruit/Plant</h1>
 
               <Card style={{ width: 1400 }}>
-                <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
-                {<a href={plant.en_wikipedia_url}>{plant.en_wikipedia_url}</a>}
+                <List
+                  itemLayout='vertical'
+                  dataSource={plants}
+                  renderItem={plant => (
+                    <List.Item key={plant.name}>
+                      <h1>{<a href={`/plant/${plant.name}`}>{plant.name}</a>}</h1>
+                    </List.Item>
+                  )}></List>
               </Card>
             </Row>
           </div>

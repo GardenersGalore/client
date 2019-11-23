@@ -1,4 +1,4 @@
-import { Alert, Col, Row,  Card, Form,  Button,  Descriptions } from 'antd/lib';
+import { Alert, Col, Row, Card, Form, Button, Descriptions, Divider } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
@@ -179,10 +179,12 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         return (
           <div>
             {renderGardenInfo()}
-            <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
             <Card className='garden-card'>
                 {patch}
             </Card>
+            <Divider />
+            <h3>Weather</h3>
+            <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
           </div>
         );
       }

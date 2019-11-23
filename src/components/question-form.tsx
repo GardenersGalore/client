@@ -1,20 +1,28 @@
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import * as React from 'react';
-import { useEffect } from 'react';
-import { getPlant, postPlanting, postNewQuestion } from '../api';
+import { postNewQuestion } from '../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { addPlantingToGarden, setGarden, getGardenData, postNewQuestionData, getQuestionsData } from '../store/actions';
-import { Plant, Planting, RootState, Garden, Question } from '../constants/types';
+import { setQuestion, setQuestions } from '../store/actions';
+import { Question } from '../constants/types';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-export interface QuestionProps extends FormComponentProps {
+const { TextArea } = Input;
+
+export interface QuestionProps extends FormComponentProps, RouteComponentProps {
   dispatch: any;
+  question: Question;
+  username: string;
+  questions: Question[];
 }
 
 export class QuestionForm extends React.Component<QuestionProps> {
   constructor(props: QuestionProps) {
     super(props);
   }
+
+  goToForum = () => {
+    this.props.history.push('/forum/questions');
+  };
 
   handleSubmit = (e: any) => {
     e.preventDefault();
@@ -24,18 +32,23 @@ export class QuestionForm extends React.Component<QuestionProps> {
 
         const newQuestion: Question = {
           question_title: values.question_title,
-          author: 'test',
+          author: this.props.username,
           description: values.description,
           answers: [],
+          _id: { $oid: '' },
         };
 
-        this.props.dispatch(postNewQuestionData(newQuestion));
+        const questions_list = [...this.props.questions];
+
         const posted = postNewQuestion(newQuestion);
-
-        console.log(posted);
-        this.props.dispatch(getQuestionsData('test'));
-
-        //this.props.dispatch(getGardenData(this.props.garden.name));
+        posted
+          .then(function(question: Question) {
+            newQuestion._id = question._id;
+            questions_list.push(newQuestion);
+          })
+          .then(this.props.dispatch(setQuestions(questions_list)))
+          .then(this.props.dispatch(setQuestion(newQuestion)))
+          .then(this.goToForum);
       }
     });
   };
@@ -43,7 +56,7 @@ export class QuestionForm extends React.Component<QuestionProps> {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className='login-form'>
+      <Form onSubmit={this.handleSubmit} className='my-form'>
         <Form.Item label='Title'>
           {getFieldDecorator('question_title', {
             rules: [{ required: true }],
@@ -52,10 +65,10 @@ export class QuestionForm extends React.Component<QuestionProps> {
         <Form.Item label='Description'>
           {getFieldDecorator('description', {
             rules: [{ required: true }],
-          })(<Input />)}
+          })(<TextArea rows={4} />)}
         </Form.Item>
         <Form.Item>
-          <Button type='primary' htmlType='submit' className='login-form-button'>
+          <Button type='primary' htmlType='submit'>
             Submit
           </Button>
         </Form.Item>
@@ -64,4 +77,4 @@ export class QuestionForm extends React.Component<QuestionProps> {
   }
 }
 
-export default connect()(QuestionForm);
+export default withRouter(QuestionForm);

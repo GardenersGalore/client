@@ -91,6 +91,11 @@ export interface Question {
   author: string;
   description: string;
   answers: Answer[];
+  _id: _id;
+}
+
+export interface _id {
+  $oid: string;
 }
 
 /*

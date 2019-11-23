@@ -79,6 +79,24 @@ export const reducers = (state: any = initialState, action: any) => {
         questions: action.questions,
       };
 
+    case ACTION.SET_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_ANSWER:
+      return {
+        ...state,
+        answer: action.answer,
+      };
+
     default:
       return state;
   }

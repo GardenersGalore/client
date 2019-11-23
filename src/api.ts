@@ -78,20 +78,12 @@ export const getQuestions = (username: string): Promise<Question[]> => {
     .then((data: Question[]) => data);
 };
 
-export const getQuestion = (question: string): Promise<Question> => {
-  const requestUrl = `${CLOUD_FUNCTION_URL}answers?question=${question}`;
+export const getQuestion = (_id: string): Promise<Question> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/question?_id=${_id}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
     .then((data: Question) => data);
-};
-
-export const getAnswers = (question: string): Promise<Answer[]> => {
-  const requestUrl = `${CLOUD_FUNCTION_URL}answers?question=${question}`;
-  return fetch(requestUrl)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then((data: Answer[]) => data);
 };
 
 export const postPlanting = (planting: Planting): Promise<Planting> => {
@@ -146,6 +138,27 @@ export const postNewQuestion = (question: Question): Promise<Question> => {
     .then(parseJSON)
     .then(readResponse)
     .then((data: Question) => data);
+};
 
-  getQuestions(question.author);
+export const postNewAnswer = (answer: Answer): Promise<Answer> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/answer`;
+
+  const body = JSON.stringify({
+    question_title: answer.question_title,
+    answer: answer.answer,
+    author: answer.author,
+  });
+  console.log('POSTING NEW ANSWER');
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Answer) => data);
 };

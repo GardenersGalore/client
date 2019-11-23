@@ -10,8 +10,6 @@ import {
   getUser,
   getQuestions,
   getQuestion,
-  getAnswers,
-  postNewQuestion,
 } from '../api';
 import { RootState, GG, Plant, SearchState, Garden, Planting, User, Question, Answer } from '../constants/types';
 import { Questions } from '../views/questions';
@@ -33,27 +31,8 @@ export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_ANSWER = 'SET_ANSWER';
 export const SET_QUESTION = 'SET_QUESTION';
 export const POST_NEW_QUESTION = 'POST_NEW_QUESTION';
+export const POST_NEW_ANSWER = 'POST_NEW_ANSWER';
 
-const postNewQuestionAction = (question: Question) => {
-  return {
-    type: POST_NEW_QUESTION,
-    question,
-  };
-};
-
-const setQuestions = (questions: Question[]) => {
-  return {
-    type: SET_QUESTIONS,
-    questions,
-  };
-};
-
-const setQuestion = (question: Question) => {
-  return {
-    type: SET_QUESTION,
-    question,
-  };
-};
 export const ADD_PLANTING_TO_GARDEN = 'ADD_PLANTING_TO_GARDEN';
 
 const setPlant = (plant: Plant) => {
@@ -136,6 +115,20 @@ export const fetchingDataFailure = (error: string) => {
   return {
     type: FETCHING_DATA_FAILURE,
     error,
+  };
+};
+
+export const setQuestions = (questions: Question[]) => {
+  return {
+    type: SET_QUESTIONS,
+    questions,
+  };
+};
+
+export const setQuestion = (question: Question) => {
+  return {
+    type: SET_QUESTION,
+    question,
   };
 };
 
@@ -256,16 +249,13 @@ export const getQuestionsData = (username: string) => {
   };
 };
 
-export const getQuestionData = (question_title: string) => {
+export const getQuestionData = (_id: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting: ${question_title}`);
-      const question: Question = await getQuestion(question_title);
+      console.log(`Getting: ${_id}`);
+      const question: Question = await getQuestion(_id);
       console.log(question);
-      const answers: Answer[] = await getAnswers(question_title);
-
-      question.answers = answers;
       dispatch(setQuestion(question));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -307,3 +297,17 @@ export const postNewQuestionData = (question: Question) => {
 //     }
 //   };
 // };
+
+export const postNewAnswerAction = (answer: Answer) => {
+  return {
+    type: POST_NEW_ANSWER,
+    answer,
+  };
+};
+
+export const postNewQuestionAction = (question: Question) => {
+  return {
+    type: POST_NEW_QUESTION,
+    question,
+  };
+};

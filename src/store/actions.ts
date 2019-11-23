@@ -9,8 +9,11 @@ import {
   postPlanting,
   getUser,
   getAllPlant,
+  getAllGarden,
+  getAllUser,
+  getAllQuestion,
 } from '../api';
-import { RootState, GG, Plant, SearchState, Garden, Planting, User } from '../constants/types';
+import { RootState, GG, Plant, SearchState, Garden, Planting, User, Question } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FETCHING_DATA_SUCCESS = 'FETCHING_DATA_SUCCESS';
@@ -22,11 +25,15 @@ export const SET_USERNAME = 'SET_USERNAME';
 export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
+export const SET_GARDENSEARCH = 'SET_GARDENSEARCH';
+
 export const SET_SELECTED_GARDEN_CELL = 'SET_SELECTED_GARDEN_CELL';
 export const SET_SELECTED_GARDEN = 'SET_SELECTED_GARDEN';
 export const SET_GARDEN_HEIGHT = 'SET_GARDEN_HEIGHT';
 export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
 export const SET_PLANTSEARCH = 'SET_PLANTSEARCH';
+export const SET_USERSEARCH = 'SET_USERSEARCH';
+export const SET_QUESTION = 'SET_QUESTION';
 
 export const ADD_PLANTING_TO_GARDEN = 'ADD_PLANTING_TO_GARDEN';
 
@@ -48,6 +55,27 @@ const setPlantSearch = (plants: Plant[]) => {
   return {
     type: SET_PLANTSEARCH,
     plants,
+  };
+};
+
+const setGardenSearch = (gardens: Garden[]) => {
+  return {
+    type: SET_GARDENSEARCH,
+    gardens,
+  };
+};
+
+const setUserSearch = (users: User[]) => {
+  return {
+    type: SET_USERSEARCH,
+    users,
+  };
+};
+
+const setQuestionSearch = (questions: Question[]) => {
+  return {
+    type: SET_QUESTION,
+    questions,
   };
 };
 
@@ -152,8 +180,48 @@ export const getAllPlantData = (name: string) => {
     dispatch(fetchingData());
     try {
       const results: Plant[] = await getAllPlant(name);
-      console.log(results);
+      console.log(results.length, 'asfsafas');
       dispatch(setPlantSearch(results));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
+export const getAllGardenData = (name: string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      const results: Garden[] = await getAllGarden(name);
+      dispatch(setGardenSearch(results));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
+export const getAllUserData = (name: string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      const results: User[] = await getAllUser(name);
+      dispatch(setUserSearch(results));
+      dispatch(fetchingDataSuccess());
+    } catch (error) {
+      dispatch(fetchingDataFailure(error.message));
+    }
+  };
+};
+
+export const getAllQuestionData = (name: string) => {
+  return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
+    dispatch(fetchingData());
+    try {
+      const results: Question[] = await getAllQuestion(name);
+      console.log(results.length, 'asfsafas');
+      dispatch(setQuestionSearch(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
       dispatch(fetchingDataFailure(error.message));

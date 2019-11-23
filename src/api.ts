@@ -1,4 +1,4 @@
-import { Plant, Garden, Planting, User } from './constants/types';
+import { Plant, Garden, Planting, User, Question } from './constants/types';
 import { resolve } from 'dns';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
@@ -34,6 +34,30 @@ export const getAllPlant = (name: string): Promise<Plant[]> => {
     .then((data: Plant[]) => data);
 };
 
+export const getAllGarden = (name: string): Promise<Garden[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}garden-search?name=${name}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Garden[]) => data);
+};
+
+export const getAllUser = (name: string): Promise<User[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}user-search?name=${name}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: User[]) => data);
+};
+
+export const getAllQuestion = (name: string): Promise<Question[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}question-search?name=${name}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Question[]) => data);
+};
+
 export const getUser = (username: string): Promise<User> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}userall?username=${username}`;
   return fetch(requestUrl)
@@ -52,7 +76,7 @@ export const getGardens = (username: string): Promise<Garden[]> => {
 };
 
 export const getGardenPlant = (plant: string): Promise<Garden[]> => {
-  const requestUrl = `${CLOUD_FUNCTION_URL}plant-garden?plant=${plant}`;
+  const requestUrl = `${CLOUD_FUNCTION_URL}gardenPlant-search?name=${plant}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)

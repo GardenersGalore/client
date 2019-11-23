@@ -5,11 +5,13 @@ const initialState: GG = {
   username: '',
   garden: null,
   user: null,
+  userAll: [],
   gardens: [],
   isLoading: false,
   isError: false,
   plant: null,
   plantAll: [],
+  question: [],
   search: null,
   error: '',
   selectedGardenCell: [-1, -1],
@@ -80,6 +82,34 @@ export const reducers = (state: GG = initialState, action: any) => {
       return {
         ...state,
         gardens: action.gardens,
+      };
+
+    case ACTION.SET_PLANTSEARCH:
+      console.log('in reducer');
+      return {
+        ...state,
+        plantAll: action.plants,
+      };
+
+    case ACTION.SET_GARDENSEARCH:
+      console.log('in reducer');
+      return {
+        ...state,
+        gardens: action.gardens,
+      };
+
+    case ACTION.SET_USERSEARCH:
+      console.log('in reducer');
+      return {
+        ...state,
+        userAll: action.users,
+      };
+
+    case ACTION.SET_QUESTION:
+      console.log('in reducer');
+      return {
+        ...state,
+        question: action.questions,
       };
 
     case ACTION.SET_GARDEN:

@@ -9,6 +9,8 @@ export interface GG {
   garden: Garden;
   plant: Plant;
   plantAll: Plant[];
+  userAll: User[];
+  question: Question[];
   error: string;
   search: SearchState;
   isLoading: boolean;
@@ -26,6 +28,13 @@ export interface User {
   experience: string;
   gardens: Garden[];
   favourite_plants: PlantLike[];
+  pictureURL: string;
+}
+
+export interface Question {
+  question_title: string;
+  author: string;
+  description: string;
 }
 
 export interface PlantLike {
@@ -82,7 +91,7 @@ export interface SearchState {
 }
 
 /*
-Old Types
+Oles
 
 */
 

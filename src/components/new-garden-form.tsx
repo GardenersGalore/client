@@ -3,12 +3,13 @@ import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { Garden } from '../constants/types';
+import { Garden, User } from '../constants/types';
 import { postGarden } from '../api';
+import { setUser } from '../store/actions';
 
 export interface NewGardenFormProps extends FormComponentProps {
-  username: string;
-  addGarden: any;
+  user: User;
+  dispatch: any;
 }
 
 interface IState {
@@ -25,7 +26,22 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.addGarden(values.gname);
+        const garden: Garden = {
+          description: values.description,
+          garden_height: 5,
+          garden_width: 5,
+          city_name: values.city,
+          country_name: values.country,
+          name: values.gname,
+          plantings: [],
+          username: this.props.user.username,
+        };
+
+        postGarden(garden);
+
+        const updated_user = { ...this.props.user };
+        updated_user.gardens.push(garden);
+        this.props.dispatch(setUser(updated_user));
         this.setState({ showForm: false });
       }
     });
@@ -39,6 +55,21 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
           {getFieldDecorator('gname', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
           })(<Input placeholder='New garden name' />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('description', {
+            rules: [{ required: true, message: 'Please input the description!' }],
+          })(<Input placeholder='Description' />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('city', {
+            rules: [{ required: true, message: 'Please input the name of the city!' }],
+          })(<Input placeholder='City' />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('country', {
+            rules: [{ required: true, message: 'Please input the name of the country!' }],
+          })(<Input placeholder='Country' />)}
         </Form.Item>
 
         <Form.Item>

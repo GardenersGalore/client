@@ -73,29 +73,10 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
-  const addGarden = (name: string) => {
-    const garden: Garden = {
-      description: '',
-      garden_height: 5,
-      garden_width: 5,
-      city_name: "Sydney",
-      country_name: "Australia",
-      name: name,
-      plantings: [],
-      username: user.username,
-    };
-
-    postGarden(garden);
-
-    const updated_user = { ...user };
-    updated_user.gardens.push(garden);
-    dispatch(setUser(updated_user));
-  };
-
   const renderAddGarden = () => {
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
 
-    return <MyNewForm username={user.username} addGarden={addGarden}/>;
+    return <MyNewForm user={user} dispatch={dispatch}/>;
   };
 
   const removeGarden = (garden : Garden) => {

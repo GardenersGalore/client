@@ -38,6 +38,8 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
 
 
   const createPopover = (element : any) => {
+    if (!props.isLoggedInUser && props.planting == null) return element;
+
     let popoverContent;
     let popoverTitle;
     if (props.planting != null){

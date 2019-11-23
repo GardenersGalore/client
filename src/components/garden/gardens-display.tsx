@@ -26,12 +26,14 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
   };
 
   const renderGardenCard = (garden: Garden) => {
+    const cover = garden.pictureURL ? garden.pictureURL : 'https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png';
+
     return (
       <List.Item key={garden.name}>
         <Card
           hoverable
           cover={
-            <img alt='example' src='https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png' />
+            <img alt='example' src={cover} />
           }
           actions={[
             <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,

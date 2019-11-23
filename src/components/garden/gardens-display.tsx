@@ -49,7 +49,6 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
           cover={
             <img alt='example' src={cover} />
           }
-<<<<<<< HEAD
           actions={[
             <Popconfirm
             title="Are you sure delete this garden?"
@@ -65,11 +64,6 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
           ]}
           >
           <Meta title={<a onClick={() => toggleGardenSelected(garden.name)} >{garden.name}</a>} description={garden.city_name}/>
-=======
-          actions={actions}
-          onClick={() => toggleGardenSelected(garden.name)}>
-          <Meta title={garden.name} description={garden.city_name} />
->>>>>>> ec6b406b640a386298c2013b590c851eb759db74
           {garden.description}
         </Card>
       </List.Item>

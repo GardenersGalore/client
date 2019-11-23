@@ -235,3 +235,41 @@ USER LANDING PAGE
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 400px;
+  background: #9bad89;
+  overflow: auto;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.carosel-cl {
+  margin-left : "auto";
+  margin-right : "auto";
+  padding-bottom: 10px;
+  padding-top: 10px;
+  width : 300px !important;
+}
+
+
+.daily-forecast-table-outer {
+  padding: 1rem 0;
+}
+
+.daily-forecast-item {
+  font-size: 0.8rem;
+}
+
+.daily-forecast-sub-item-wrapper {
+  text-align: center;
+}
+
+.daily-forecast-sub-item-summary {
+  font-size: 0.8rem;
+  font-weight: 700;
+}

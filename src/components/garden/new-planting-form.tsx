@@ -35,17 +35,15 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
           description: 'new plant',
           planted_from: 'seed',
           harvest_count: 1,
+          pictureURL: values.pictureURL,
           plant: p,
         };
 
         const new_garden = { ...this.props.garden };
         new_garden.plantings.push(newPlanting);
-        console.log(new_garden.plantings);
         this.props.dispatch(setGarden(new_garden));
         const posted = postPlanting(newPlanting);
-
-        console.log(posted);
-        //this.props.dispatch(getGardenData(this.props.garden.name));
+        console.log('POSTED', posted);
       }
     });
   };
@@ -56,6 +54,11 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
       <Form onSubmit={this.handleSubmit} className='planting-form'>
         <Form.Item label='Plant type'>
           {getFieldDecorator('name', {
+            rules: [{ required: true }],
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label='Picture URL'>
+          {getFieldDecorator('pictureURL', {
             rules: [{ required: true }],
           })(<Input />)}
         </Form.Item>

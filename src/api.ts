@@ -20,7 +20,7 @@ const readResponse = (response: any): any => {
 };
 
 export const getPlant = (name: string): Promise<Plant> => {
-  const requestUrl = `${CLOUD_FUNCTION_URL}plant?name=${name}`;
+  const requestUrl = `${CLOUD_FUNCTION_URL}plantinfo?name=${name}`;
   return fetch(requestUrl)
     .then(checkStatus)
     .then(parseJSON)
@@ -138,6 +138,7 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
     garden_name: planting.garden_name,
     x_coord: planting.x_coord,
     y_coord: planting.y_coord,
+    pictureURL: planting.pictureURL,
     description: planting.description,
     planted_from: planting.planted_from,
     harvest_count: planting.harvest_count,

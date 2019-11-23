@@ -28,6 +28,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
+  const loggedInUsername = useSelector((state: RootState) => state.gg.username);
 
   let showAddGardenForm = false;
 
@@ -74,8 +75,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   };
 
   const renderAddGarden = () => {
+    if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
-
     return <MyNewForm user={user} dispatch={dispatch}/>;
   };
 
@@ -121,7 +122,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                 <Card title='Gardens' size='default'>
                   {renderAddGarden()}
                   <Divider />
-                  <GardensDisplay user={user} removeGarden={removeGarden}></GardensDisplay>
+                  <GardensDisplay user={user} removeGarden={removeGarden} isLoggedInUser={user.username == loggedInUsername}/>
                 </Card>
               </Row>
             </Col>

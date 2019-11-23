@@ -8,6 +8,7 @@ export interface PlantingDisplayProps {
     cellSizePx: string;
     renderNewPlantForm : any;
     deletePlanting : any;
+    isLoggedInUser: boolean;
   }
   
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
@@ -42,25 +43,28 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     if (props.planting != null){
       popoverContent = (
         <div>
-            <b>About:</b> {planting.description}
-            <br />
-            <b>Date planted:</b> {planting.planted_at.toDateString}
-            <br />
-            <b>Harvest count: </b> {planting.harvest_count}
-            <br />
-            <b>Planted from:</b> {planting.planted_from}
-            <br />
+          <b>About:</b> {planting.description}
+          <br />
+          <b>Date planted:</b> {planting.planted_at.toDateString}
+          <br />
+          <b>Harvest count: </b> {planting.harvest_count}
+          <br />
+          <b>Planted from:</b> {planting.planted_from}
+          <br />
+          {props.isLoggedInUser ? (
             <Popconfirm
-            title="Are you sure delete this planting?"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
+              title="Are you sure delete this planting?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
             >
               <Button>
                 Delete
               </Button>
             </Popconfirm>
+          ) : (<div />)}
+
         </div>
       );
       popoverTitle = props.planting.plant_name;

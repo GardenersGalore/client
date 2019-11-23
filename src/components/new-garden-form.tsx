@@ -49,32 +49,29 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
 
   render() {
     const { getFieldDecorator } = this.props.form;
+
     return this.state.showForm ? (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Item>
+        <Form.Item label='Garden name'>
           {getFieldDecorator('gname', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
-          })(<Input placeholder='New garden name' />)}
+          })(<Input />)}
         </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('description', {
-            rules: [{ required: true, message: 'Please input the description!' }],
-          })(<Input placeholder='Description' />)}
-        </Form.Item>
-        <Form.Item>
+        <Form.Item label='Description'>{getFieldDecorator('description')(<Input />)}</Form.Item>
+        <Form.Item label='City'>
           {getFieldDecorator('city', {
             rules: [{ required: true, message: 'Please input the name of the city!' }],
-          })(<Input placeholder='City' />)}
+          })(<Input />)}
         </Form.Item>
-        <Form.Item>
+        <Form.Item label='Country'>
           {getFieldDecorator('country', {
             rules: [{ required: true, message: 'Please input the name of the country!' }],
-          })(<Input placeholder='Country' />)}
+          })(<Input />)}
         </Form.Item>
 
         <Form.Item>
           <Button type='primary' htmlType='submit'>
-            Done
+            Create Garden
           </Button>
         </Form.Item>
       </Form>

@@ -82,7 +82,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const removeGarden = (garden : Garden) => {
     deleteGarden(garden);
     const updated_user = { ...user };
-    updated_user.gardens.filter(g => {
+    updated_user.gardens = updated_user.gardens.filter(g => {
       if (g.name === garden.name){
         return false;
       } else {

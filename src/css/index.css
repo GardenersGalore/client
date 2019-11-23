@@ -241,3 +241,20 @@ USER LANDING PAGE
   width : 300px !important;
 }
 
+
+.daily-forecast-table-outer {
+  padding: 1rem 0;
+}
+
+.daily-forecast-item {
+  font-size: 0.8rem;
+}
+
+.daily-forecast-sub-item-wrapper {
+  text-align: center;
+}
+
+.daily-forecast-sub-item-summary {
+  font-size: 0.8rem;
+  font-weight: 700;
+}

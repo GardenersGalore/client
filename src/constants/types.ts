@@ -15,10 +15,10 @@ export interface GG {
   isError: boolean;
   selectedGardenCell: [number, number];
   selectedGarden: string;
-  forecast : Forecast;
-  forecastIsLoading : boolean;
-  forecastIsError : boolean;
-  forecastError : string;
+  forecast: Forecast;
+  forecastIsLoading: boolean;
+  forecastIsError: boolean;
+  forecastError: string;
 }
 
 export interface User {
@@ -28,7 +28,7 @@ export interface User {
   password: string;
   phone_number: string;
   experience: string;
-  pictureURL : string;
+  pictureURL: string;
   gardens: Garden[];
   favourite_plants: PlantLike[];
 }
@@ -59,11 +59,12 @@ export interface Garden {
   name: string;
   username: string;
   description: string;
-  city_name : string;
-  country_name : string;
+  city_name: string;
+  country_name: string;
   garden_width: number;
   garden_height: number;
   plantings: Planting[];
+  pictureURL: string;
 }
 
 export interface Plant {
@@ -112,26 +113,26 @@ export interface Timezone {
 }
 
 export interface Forecast {
-  city_name : string,
-  lon : string,
-  lat : string,
-  country_code : string,
-  data : WeatherDay[]
+  city_name: string;
+  lon: string;
+  lat: string;
+  country_code: string;
+  data: WeatherDay[];
 }
 
 export interface WeatherDay {
-  date : string,
-  rainfall_probability : number,
-  rainfall_amount : number,
-  max_temperature : number,
-  min_temperature : number,
-  snow : number,
-  weather : Weather
+  date: string;
+  rainfall_probability: number;
+  rainfall_amount: number;
+  max_temperature: number;
+  min_temperature: number;
+  snow: number;
+  weather: Weather;
 }
 export interface Weather {
-  icon : string,
-  code : number,
-  description : string
+  icon: string;
+  code: number;
+  description: string;
 }
 
 export interface NavBarState {

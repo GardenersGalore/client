@@ -42,7 +42,7 @@ export const getUser = (username: string): Promise<User> => {
     .then((data: User) => data);
 };
 
-export const getForecast = (city_name: string, country_name : string): Promise<Forecast> => {
+export const getForecast = (city_name: string, country_name: string): Promise<Forecast> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}weather?city_name=${city_name}&country_name=${country_name}`;
   return fetch(requestUrl)
     .then(checkStatus)
@@ -50,18 +50,17 @@ export const getForecast = (city_name: string, country_name : string): Promise<F
     .then((data: Forecast) => data);
 };
 
-
 export const postUser = (user: User): Promise<User> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}user`;
 
   const body = JSON.stringify({
-    name :  user.name,
-    username : user.username,
-    email : user.email,
-    password : user.password,
-    phone_number : user.phone_number,
-    experience : user.experience,
-    pictureURL : user.pictureURL
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    password: user.password,
+    phone_number: user.phone_number,
+    experience: user.experience,
+    pictureURL: user.pictureURL,
   });
   console.log('POSTING USER!');
   console.log(body);
@@ -147,7 +146,7 @@ export const deletePlanting = (planting: Planting): Promise<Planting> => {
   console.log('DELETING PLANTING!');
   console.log(planting);
   return fetch(requestUrl, {
-    method: 'DELETE'
+    method: 'DELETE',
   })
     .then(checkStatus)
     .then(parseJSON)
@@ -162,10 +161,11 @@ export const postGarden = (garden: Garden): Promise<Garden> => {
     name: garden.name,
     username: garden.username,
     city_name: garden.city_name,
-    country_name : garden.country_name,
+    country_name: garden.country_name,
     description: garden.description,
     garden_width: garden.garden_width,
     garden_height: garden.garden_height,
+    pictureURL: garden.pictureURL,
   });
   console.log('POSTING GARDEN!');
   console.log(garden);
@@ -191,10 +191,11 @@ export const deleteGarden = (garden: Garden): Promise<Garden> => {
     name: garden.name,
     username: garden.username,
     city_name: garden.city_name,
-    country_name : garden.country_name,
+    country_name: garden.country_name,
     description: garden.description,
     gardenWidth: garden.garden_width,
     gardenHeight: garden.garden_height,
+    pictureURL: garden.pictureURL,
   });
 
   return fetch(requestUrl, {

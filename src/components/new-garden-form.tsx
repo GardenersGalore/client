@@ -35,6 +35,7 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
           name: values.gname,
           plantings: [],
           username: this.props.user.username,
+          pictureURL: values.picture,
         };
 
         postGarden(garden);
@@ -68,6 +69,7 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
             rules: [{ required: true, message: 'Please input the name of the country!' }],
           })(<Input />)}
         </Form.Item>
+        <Form.Item label='Picture'>{getFieldDecorator('picture')(<Input />)}</Form.Item>
 
         <Form.Item>
           <Button type='primary' htmlType='submit'>

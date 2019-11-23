@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Descriptions } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Carousel } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { RootState } from '../constants/types';
 import { getPlantData} from '../store/actions';
 
 
+const { Meta } = Card;
 type PathParamsType = {
   name: string,
 }
@@ -34,6 +35,29 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
     }
   });
 
+  
+  const renderCarousel = () => {
+    let c : any[] = []
+    plant.plantings.forEach(p =>{
+      console.log(p);
+      if(p.pictureURL !== undefined){
+        c.push(
+          <div className="carosel-cl">
+            <Card
+              hoverable
+              bordered={false}
+              style={{ width :300 }}
+              cover={<img alt="example" src={p.pictureURL} width={200} />}
+            >
+            <Meta title={<a href={`/user/${p.garden.username}`}>{p.garden_name}</a>}  description={"Planted by: " + p.garden.username} />
+            </Card>
+          </div>
+        )
+      }
+    })
+    return c
+  }
+
   const renderPlant = () => {
     if (error) {
       return (
@@ -51,9 +75,9 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
       console.log(plant);
       return (
         
-        <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
-
+        <div className="user-page" style={{paddingTop : "10px"}}>
+          <Col span={16} className='left-column'>
+            <Row type='flex' justify='center' className='fetching-weather-content'>
             <Card style={{ width: 1400 }}>
               <img src={plant_icon} className="plantIcon"></img>
               <strong className="plantName"><a href={plant.en_wikipedia_url}>{plant.name}</a></strong>
@@ -74,10 +98,18 @@ export const Plant: React.FC<PlantProps> = (props : PlantProps) => {
 
               </Descriptions>
             </Card>
-          </Row>
-
-
-          
+            </Row>
+          </Col>
+          <Col span={8} className='right-column'>
+            <Row>
+              <Card title={'People Who Have Planted A ' + plant.name } size='default'> 
+                <Carousel autoplay>
+                  {renderCarousel()}
+                </Carousel>
+              </Card>
+            </Row>
+          </Col>
+         
         </div>
       );
     }

@@ -7,7 +7,7 @@ export interface GG {
   user: User;
   gardens: Garden[];
   garden: Garden;
-  plant: Plant;
+  plant: PlantInfo;
   plantAll: Plant[];
   error: string;
   search: SearchState;
@@ -33,6 +33,53 @@ export interface User {
   favourite_plants: PlantLike[];
 }
 
+export interface Plant {
+  name: string;
+  en_wikipedia_url: string;
+  binomial_name: string;
+  description: string;
+  median_lifespan: string;
+  median_days_to_first_harvest: number;
+  median_days_to_last_harvest: number;
+  height: number;
+  spread: number;
+  row_spacing: number;
+  sowing_method: string;
+  sun_requirements: string;
+  svg_icon: string;
+}
+
+export interface PlantInfo {
+  name: string;
+  en_wikipedia_url: string;
+  binomial_name: string;
+  description: string;
+  median_lifespan: string;
+  median_days_to_first_harvest: number;
+  median_days_to_last_harvest: number;
+  height: number;
+  spread: number;
+  row_spacing: number;
+  sowing_method: string;
+  sun_requirements: string;
+  svg_icon: string;
+  plantings : PlantingInfo[];
+}
+
+export interface PlantingInfo {
+  plant_name: string;
+  garden_name: string;
+  x_coord: number;
+  y_coord: number;
+  planted_at: Date;
+  description: string;
+  planted_from: string;
+  harvest_count: number;
+  pictureURL : string;
+  plant: Plant;
+  garden: Garden;
+}
+
 export interface PlantLike {
   plant: Plant;
   count: number;
@@ -47,6 +94,7 @@ export interface Planting {
   description: string;
   planted_from: string;
   harvest_count: number;
+  pictureURL : string;
   plant: Plant;
 }
 
@@ -67,21 +115,6 @@ export interface Garden {
   pictureURL: string;
 }
 
-export interface Plant {
-  name: string;
-  en_wikipedia_url: string;
-  binomial_name: string;
-  description: string;
-  median_lifespan: string;
-  median_days_to_first_harvest: number;
-  median_days_to_last_harvest: number;
-  height: number;
-  spread: number;
-  row_spacing: number;
-  sowing_method: string;
-  sun_requirements: string;
-  svg_icon: string;
-}
 
 export interface SearchState {
   query: string;

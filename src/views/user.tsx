@@ -92,6 +92,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     dispatch(setUser(updated_user));
   }
 
+  
   const renderUser = () => {
     if (isError) {
       return <Error error={error} />;
@@ -124,7 +125,6 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                 </Card>
               </Row>
             </Col>
-
             <Col span={8} className='right-column'>
               <Row className='user-row'>
                 <Card title='Favourite Plants'>

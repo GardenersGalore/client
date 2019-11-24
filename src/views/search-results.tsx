@@ -71,97 +71,107 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   //Function to fetch plants
   const renderPlantSearch = () => {
-    return (
-      <Row type='flex' justify='center' className='fetching-content'>
-      <Card style={{ width: 800 }}>
-        <h2>Plants</h2>
-        <List
-          itemLayout='horizontal'
-          dataSource={plants}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                key={item.name}
-                avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                description={
-                  <div>
-                    <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                    <p>{truncateText(item.description, 60)}</p>
-                  </div>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      </Card>
-      </Row>
-
-    );
+    if (plants.length > 0){
+      return (
+        <Row type='flex' justify='center' className='fetching-content'>
+        <Card style={{ width: 800 }}>
+          <h2>Plants</h2>
+          <List
+            itemLayout='horizontal'
+            dataSource={plants}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  key={item.name}
+                  avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                  title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                  description={
+                    <div>
+                      <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                      <p>{truncateText(item.description, 60)}</p>
+                    </div>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+        </Card>
+        </Row>
+  
+      );
+    }
   };
+
 
   //Function to fetch gardens
   const renderGardenSearch = () => {
-    return (
-      <Row type='flex' justify='center' className='fetching-content'>
-      <Card style={{ width: 800 }}>
-        <h2>Gardens</h2>
-        <List
-          itemLayout='horizontal'
-          dataSource={gardens}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={gardenPic} />}
-                title={<a href={`/user/${item.username}`}>{capitaliseFirstLetter(item.name)}</a>}
-                description={
-                  <div>
-                    <p>
-                      Height: {item.garden_height} Width: {item.garden_width}
-                    </p>
-                  </div>
-                }
-              />
-              <p> User: {item.username}</p>
-            </List.Item>
-          )}
-        />
-      </Card>
-      </Row>
+    if (gardens.length > 0){
+      return (
+        <Row type='flex' justify='center' className='fetching-content'>
+        <Card style={{ width: 800 }}>
+          <h2>Gardens</h2>
+          <List
+            itemLayout='horizontal'
+            dataSource={gardens}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={gardenPic} />}
+                  title={<a href={`/user/${item.username}`}>{capitaliseFirstLetter(item.name)}</a>}
+                  description={
+                    <div>
+                      <p>
+                        Height: {item.garden_height} Width: {item.garden_width}
+                      </p>
+                    </div>
+                  }
+                />
+                <p> User: {item.username}</p>
+              </List.Item>
+            )}
+          />
+        </Card>
+        </Row>
+  
+      );
+    }
 
-    );
   };
 
   //Function to fetch users
   const renderUserSearch = () => {
-    return (
-      <Row type='flex' justify='center' className='fetching-content'>
-      <Card style={{ width: 800 }}>
-        <h2>Users</h2>
-        <List
-          itemLayout='horizontal'
-          dataSource={users}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={userPic} />}
-                title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                description={`Experience: ${item.experience}`}
-              />
-            </List.Item>
-          )}
-        />
-      </Card>
-      </Row>
+    if (users.length > 0) {
+      return (
+        <Row type='flex' justify='center' className='fetching-content'>
+        <Card style={{ width: 800 }}>
+          <h2>Users</h2>
+          <List
+            itemLayout='horizontal'
+            dataSource={users}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={userPic} />}
+                  title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                  description={`Experience: ${item.experience}`}
+                />
+              </List.Item>
+            )}
+          />
+        </Card>
+        </Row>
 
-    );
+      );
+    }
   };
 
   //Function to fetch questions
   const renderQuestionSearch = () => {
+    if (questions.length > 0) {
     return (
       <Row type='flex' justify='center' className='fetching-content'>
         <Card style={{ width: 800 }}>
+        <h2>Questions</h2>
           <List
             itemLayout='horizontal'
             dataSource={questions}
@@ -179,80 +189,22 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         </Card>
       </Row>
     );
+    }
   };
 
   //Main Function
   const renderSearch = () => {
-    if (!isEmpty(plants) && gardens.length > 0 && users.length > 0) {
-      return (
+    if (!isEmpty(plants) || !isEmpty(gardens) || !isEmpty(users) || !isEmpty(questions)){
+      return(
         <div>
-          <Col>
-            {renderPlantSearch()}
-            {renderGardenSearch()}
-            {renderUserSearch()}
-          </Col>
+          {renderPlantSearch()}
+          {renderGardenSearch()}
+          {renderUserSearch()}
+          {renderQuestionSearch()}
         </div>
-      );
-    } else if (!isEmpty(plants) && gardens.length > 0) {
-      return (
-        <div>
-          <Col>
-            {renderPlantSearch()}
-            {renderGardenSearch()}
-          </Col>
-        </div>
-      );
-    } else if (!isEmpty(plants) && users.length > 0) {
-      return (
-        <div >
-          <Col>
-            {renderPlantSearch()}
-            {renderUserSearch()}
-          </Col>
-        </div>
-      );
-    } else if (!isEmpty(plants) && questions.length > 0) {
-      return (
-        <div >
-          <Col>
-            {renderPlantSearch()}
-            {renderQuestionSearch()}
-          </Col>
-        </div>
-      );
-    } else if (!isEmpty(plants)) {
-      return (
-        <div >
-          <Col>
-            {renderPlantSearch()}
-          </Col>
-        </div>
-      );
-    } else if (users.length > 0) {
-      return (
-        <div >
-          <Col>
-            {renderUserSearch()}
-          </Col>
-        </div>
-      );
-    } else if (gardens.length > 0) {
-      return (
-        <div >
-          <Col>
-            {renderGardenSearch()}
-          </Col>
-        </div>
-      );
-    } else if (questions.length > 0) {
-      return (
-        <div >
-          <Col>
-            {renderQuestionSearch()}
-          </Col>
-        </div>
-      );
-    } else {
+      )
+    }
+    else {
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-content'>

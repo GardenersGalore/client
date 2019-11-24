@@ -119,6 +119,18 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
+  const renderUserAvatar = () => {
+    if (user.pictureURL) {
+      return (
+        <Avatar size={200} className='userlogo' src={user.pictureURL} alt="../assets/user.svg" />
+      )
+    } else {
+      return (
+        <Avatar size={200} className='userlogo' src="../assets/user.svg" />
+      )
+    }
+  }
+
   const renderUser = () => {
     if (isError) {
       return <Error error={error} />;
@@ -129,7 +141,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
             <Card className='user-card'>
               <Col span={5}>
                 <div className='userlogo-shadow'>
-                  <Avatar size={200} className='userlogo' src={user.pictureURL} />
+                  {renderUserAvatar()}
                 </div>
               </Col>
               <Col span={19}>

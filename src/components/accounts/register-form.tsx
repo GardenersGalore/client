@@ -21,7 +21,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
 
   handleSubmit = (e: any) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
         const newUser: User = {
           name: values.username,
@@ -35,10 +35,10 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
           gardens: [],
           favourite_plants: [],
         };
-        postUser(newUser);
+        const u = await postUser(newUser);
         message.success('User Added');
-        this.props.dispatch(setUsername(values.username));
-        this.props.history.push('/user/' + values.username);
+        this.props.dispatch(setUsername(u.username));
+        this.props.history.push('/user/' + u.username);
       }
     });
   };

@@ -30,7 +30,10 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const loggedInUsername = useSelector((state: RootState) => state.gg.username); // username of logged in user
 
   useEffect(() => {
+    console.log(user);
+    console.log("GOT HERE")
     if (!isLoading && !isError) {
+      console.log("GOT HERE")
       if (!user) {
         dispatch(getUserData(props.match.params.name));
       } else if (user.username !== props.match.params.name) {
@@ -51,6 +54,9 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   };
 
   const capitaliseFirstLetter = (word: string) => {
+    if (word === undefined){
+      return '';
+    }
     if (word.length === 0) {
       return '';
     }
@@ -128,7 +134,9 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   };
 
   const renderUser = () => {
+    console.log(user);
     if (isError) {
+      console.log("ERROR", error);
       return <Error error={error}/>;
     } else if (user) {
       return (

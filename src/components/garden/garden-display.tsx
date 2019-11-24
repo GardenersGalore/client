@@ -160,25 +160,22 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
           );
         }
 
-  
-        return (
-          <div>
-            {renderGardenInfo()}
-            <Card className='garden-card'>
-                {patch}
-            </Card>
-            <Divider />
-            <h3>Weather</h3>
-            <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
-          </div>
+        patch.push(
+          <Row type='flex' justify='center' className='garden-row'>
+            {gardenRow}
+          </Row>
         );
       }
-
+  
       return (
         <div>
           {renderGardenInfo()}
+          <Card className='garden-card'>
+              {patch}
+          </Card>
+          <Divider />
+          <h3>Weather</h3>
           <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
-          <Card className='garden-card'>{patch}</Card>
         </div>
       );
     }

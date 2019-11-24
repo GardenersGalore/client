@@ -2,16 +2,16 @@ import { Badge, Button, message, Popconfirm, Popover } from 'antd/lib';
 import * as React from 'react';
 import { Planting, RootState } from '../../constants/types';
 import { useSelector } from 'react-redux';
-import { waterIcon } from '../icon/water-icon';
-import { frostIcon } from '../icon/frost-icon';
+import { waterIcon } from '../icons/water-icon';
+import { frostIcon } from '../icons/frost-icon';
 
 export interface PlantingDisplayProps {
-  planting: Planting;
-  isSelected: boolean;
+  planting: Planting; // current planting
+  isSelected: boolean; // is current planting selected
   cellSizePx: string;
-  renderNewPlantForm: any;
-  deletePlanting: any;
-  isLoggedInUser: boolean;
+  renderNewPlantForm: any; // function for showing new plant form
+  deletePlanting: any; // function to delete planting from garden
+  isLoggedInUser: boolean; // is the owner of this planting the currently logged-in user?
 }
 
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
@@ -28,17 +28,21 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     return plantIcon;
   };
 
+  // what to do when user confirms deleting planting
   const confirm = (e: any) => {
     props.deletePlanting(planting);
     message.success('Planting Deleted');
   };
 
+  // what to do when user cancels deleting planting
   const cancel = (e: any) => {
     console.log(e);
     message.error('Planting not deleted');
   };
 
+  // create information "popover" above planting to show info
   const createPopover = (element: any) => {
+    // user shouldn't be allowed to edit others' plants
     if (!props.isLoggedInUser && props.planting == null) return element;
 
     let popoverContent;
@@ -94,6 +98,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     return plantingInformation;
   };
 
+  // which badge to display on planting (eg frost, water)
   const badgePlanting = (content: any) => {
     if (forecast && props.planting !== null) {
       if (forecast.data[0].snow > 0.5) {
@@ -151,9 +156,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
       cell = badgePlanting(content);
     }
 
-    const popover = createPopover(cell);
-
-    return popover;
+    return createPopover(cell);
   };
 
   return <div>{renderPlanting()}</div>;

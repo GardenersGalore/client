@@ -38,6 +38,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
       return <div>{renderDailyForecastTable()}</div>;
     }
   };
+
   const expandedRowRender = (data: WeatherDay) => (
     <div>
       <Row>
@@ -48,6 +49,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
     </div>
   );
 
+  // show table of forecast for next few days
   const renderDailyForecastTable = () => (
     <Table
       dataSource={forecast.data}

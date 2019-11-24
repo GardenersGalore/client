@@ -8,12 +8,12 @@ import { postBlog } from '../../api';
 import { setUser } from '../../store/actions';
 
 export interface NewBlogFormProps extends FormComponentProps {
-  user: User;
-  dispatch: any;
+  user: User; // which user page we're on
+  dispatch: any; // function to retrieve state
 }
 
 interface IState {
-  showForm: boolean;
+  showForm: boolean; // should blog form be shown (false if button should be shown)
 }
 
 let id = 0;
@@ -28,7 +28,6 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
-    // We need at least one passenger
     if (keys.length === 1) {
       return;
     }
@@ -55,8 +54,6 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { keys, names } = values;
-        console.log('Received values of form: ', values);
         const blog: Blog = {
           name: values.name,
           username: this.props.user.username,
@@ -64,11 +61,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
           tags: values.tags,
           date: 0,
         };
-        console.log(blog);
-        const posted = postBlog(blog);
-
-        console.log('POSTED RESULT: ', posted);
-
+        postBlog(blog);
         const updated_user = { ...this.props.user };
         updated_user.blogs.push(blog);
         this.props.dispatch(setUser(updated_user));

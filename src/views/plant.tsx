@@ -12,7 +12,6 @@ type PathParamsType = {
   name: string;
 };
 
-// Your component own properties
 type PlantProps = RouteComponentProps<PathParamsType> & {};
 
 export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
@@ -34,6 +33,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     }
   });
 
+  // show carousel of pictures users have uploaded
   const renderCarousel = () => {
     if (plant.plantings === undefined) {
       return <div>No pictures of {plant.name} in people's gardens!</div>;
@@ -63,6 +63,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     }
   };
 
+  // show top tips from advanced gardeners
   const renderTopTips = () => {
     if (plant.blogs === undefined) {
       return (
@@ -115,12 +116,12 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
           <Col span={16} className='left-column'>
             <Row type='flex' justify='center'>
               <Card style={{ width: 1400 }}>
-                <img src={plant_icon} className='plantIcon'></img>
+                <img src={plant_icon} className='plantIcon' alt='plant icon'/>
                 <strong className='plantName'>
                   <a href={plant.en_wikipedia_url}>{plant.name}</a>
                 </strong>
                 <small>{plant.binomial_name}</small>
-                <br></br>
+                <br/>
                 <Descriptions layout='vertical' bordered>
                   <Descriptions.Item label='Spread'>{plant.spread}</Descriptions.Item>
                   <Descriptions.Item label='Sun Requirements'>{plant.sun_requirements}</Descriptions.Item>

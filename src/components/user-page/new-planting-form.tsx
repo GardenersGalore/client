@@ -7,10 +7,10 @@ import { setGarden } from '../../store/actions';
 import { Garden, Planting } from '../../constants/types';
 
 export interface NewPlantingProps extends FormComponentProps {
-  garden: Garden;
-  dispatch: any;
-  xcoord: number;
-  ycoord: number;
+  garden: Garden; // garden planting is in
+  dispatch: any; // function to retrieve state
+  xcoord: number; // x-coord of planting in garden
+  ycoord: number; // y-coord of planting in garden
 }
 
 export class NewPlantingForm extends React.Component<NewPlantingProps> {

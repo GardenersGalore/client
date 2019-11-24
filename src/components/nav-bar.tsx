@@ -109,7 +109,7 @@ export const NavBar: React.FC<any> = () => {
       <Row>
         <Col span={2} />
         <Col span={4}>
-          <HomeLink></HomeLink>
+          <HomeLink/>
         </Col>
         <Col span={8}>
           <div className='search-outer'>
@@ -124,7 +124,7 @@ export const NavBar: React.FC<any> = () => {
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={3}></Col>
+        <Col span={3}/>
         <Col span={3}>
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
             {toLogin()}

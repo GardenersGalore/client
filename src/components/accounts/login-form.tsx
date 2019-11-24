@@ -9,11 +9,6 @@ export interface NormalLoginFormProps extends FormComponentProps {
   dispatch: any;
 }
 
-// // Your component own properties
-// type PropsType = RouteComponentProps<NormalLoginFormProps> & {
-//   someString: string,
-// }
-
 class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteComponentProps> {
   constructor(props: NormalLoginFormProps & RouteComponentProps) {
     super(props);
@@ -23,7 +18,6 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteCompon
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values.username);
         this.props.dispatch(setUsername(values.username));
         this.props.history.push('/user/' + values.username);
       }
@@ -61,5 +55,4 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteCompon
   }
 }
 
-//export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 export const ConnectedLoginForm = connect()(withRouter(NormalLoginForm));

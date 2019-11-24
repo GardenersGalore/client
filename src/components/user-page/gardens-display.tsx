@@ -7,36 +7,40 @@ import { GardenDisplay } from './garden-display';
 import Meta from 'antd/lib/card/Meta';
 
 export interface GardensDisplayProps {
-  user: User;
-  removeGarden: any;
-  isLoggedInUser: boolean;
+  user: User; // which user do we want to display gardens for
+  removeGarden: any; // function for removing a garden
+  isLoggedInUser: boolean; // is the owner of this garden the currently logged-in user?
 }
 
 export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisplayProps) => {
-  // const gardens = props.user.gardens;
-  const gardens = useSelector((state: RootState) => state.gg.user.gardens);
-  const dispatch = useDispatch();
-  const selectedGarden = useSelector((state: RootState) => state.gg.selectedGarden);
+  const gardens = useSelector((state: RootState) => state.gg.user.gardens); // gardens of user
+  const dispatch = useDispatch(); // function for retrieving state
+  const selectedGarden = useSelector((state: RootState) => state.gg.selectedGarden); // currently selected garden
 
+  // check if garden is currently selected
   const isSelected = (gardenName: string) => {
     return gardenName === selectedGarden;
   };
 
+  // change currently selected garden
   const toggleGardenSelected = (gardenName: string) => {
     const gardenDivider = document.getElementById('garden-divider');
     gardenDivider.scrollIntoView({ behavior: 'smooth' });
     isSelected(gardenName) ? dispatch(setSelectedGarden('')) : dispatch(setSelectedGarden(gardenName));
   };
 
+  // what to do when user deletes garden
   const confirm = (e: Garden) => {
     props.removeGarden(e);
     message.success('Garden Deleted');
   };
 
+  // what to do when user cancels deletion of garden
   const cancel = (e: any) => {
     message.error('Garden not deleted');
   };
 
+  // show garden card containing basic overview
   const renderGardenCard = (garden: Garden) => {
     const cover = garden.pictureURL
       ? garden.pictureURL
@@ -72,6 +76,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
     );
   };
 
+  // show list of user's gardens
   const renderGardens = () => {
     let renderGarden = false;
     let g: Garden = null;
@@ -82,11 +87,9 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
       }
     });
     if (renderGarden) {
-      // console.log("RENDERING GARDEN");
-      // dispatch(setGarden(g));
       return (
         <Card size='default'>
-          <GardenDisplay garden={g} isLoggedInUser={props.isLoggedInUser}></GardenDisplay>
+          <GardenDisplay garden={g} isLoggedInUser={props.isLoggedInUser}/>
         </Card>
       );
     } else {
@@ -109,7 +112,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
         }}
         size='small'
         dataSource={gardens}
-        renderItem={garden => renderGardenCard(garden)}></List>
+        renderItem={garden => renderGardenCard(garden)}/>
       <div id='garden-divider'>
         <Divider />
       </div>

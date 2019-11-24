@@ -11,11 +11,13 @@ import { WeatherDisplay } from './weather-display';
 
 export interface GardenDisplayProps {
   garden: Garden;
-  isLoggedInUser: boolean;
+  isLoggedInUser: boolean; // is the owner of this garden the currently logged-in user?
 }
 
 export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplayProps) => {
   const dispatch = useDispatch();
+
+  // get the currently selected garden
   const garden = useSelector((state: RootState) => {
     let selected: Garden = null;
     state.gg.user.gardens.forEach(g => {
@@ -28,10 +30,12 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     }
     return selected;
   });
-  const isLoading = useSelector((state: RootState) => state.gg.isLoading);
-  const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell);
-  const error = useSelector((state: RootState) => state.gg.error);
 
+  const isLoading = useSelector((state: RootState) => state.gg.isLoading); // true when loading, false when results loaded
+  const selectedCell = useSelector((state: RootState) => state.gg.selectedGardenCell); // currently selected cell in garden
+  const error = useSelector((state: RootState) => state.gg.error); // error message, if it exists
+
+  // find planting in current garden
   const findPlanting = (plantings: Planting[], rowIndex: number, colIndex: number): Planting | null => {
     let r = null;
     plantings.forEach(planting => {
@@ -42,47 +46,49 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     return r;
   };
 
+  // is cell (x, y) currently selected?
   const isSelected = (x: number, y: number) => {
     return x == selectedCell[0] && y == selectedCell[1];
   };
 
+  // select/deselect a cell
   const toggleSelected = (x: number, y: number) => {
-    //isSelected(x, y) ? dispatch(setSelectedGardenCell(-1, -1)) : dispatch(setSelectedGardenCell(x, y));
     if (!isSelected(x, y)) {
       dispatch(setSelectedGardenCell(x, y));
     }
   };
 
+  // change height of garden
   const setHeight = (newHeight: number) => {
     const new_garden = { ...garden };
     new_garden.garden_height = newHeight;
     dispatch(setGarden(new_garden));
   };
 
+  // change width of garden
   const setWidth = (newWidth: number) => {
     const new_garden = { ...garden };
     new_garden.garden_width = newWidth;
     dispatch(setGarden(new_garden));
   };
 
+  // remove a planting from the current garden
   const deleteAPlanting = (planting: Planting) => {
     const new_garden = { ...garden };
     new_garden.plantings = new_garden.plantings.filter(p => {
-      if (p.x_coord === planting.x_coord && p.y_coord === planting.y_coord) {
-        return false;
-      } else {
-        return true;
-      }
+      return !(p.x_coord === planting.x_coord && p.y_coord === planting.y_coord);
     });
-    dispatch(setGarden(new_garden));
-    deletePlanting(planting);
+    dispatch(setGarden(new_garden)); // refresh garden
+    deletePlanting(planting); // call API
   };
 
+  // use to calculate displayed width and height of cells
   const calculateCellSize = () => {
     const cellSize = (window.innerWidth * 0.35) / garden.garden_width - 8;
     return cellSize + 'px';
   };
 
+  // show info about current garden
   const renderGardenInfo = () => {
     return (
       <Descriptions title={garden.name} size='small'>
@@ -111,6 +117,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     );
   };
 
+  // form for adding a planting to a garden
   const renderNewPlantForm = () => {
     const MyNewForm = Form.create<NewPlantingProps>()(NewPlantingForm);
 
@@ -122,6 +129,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     );
   };
 
+  // show garden
   const renderGarden = () => {
     if (error) {
       return (
@@ -143,8 +151,6 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         for (let j = 0; j < garden.garden_width; j++) {
           const p = findPlanting(garden.plantings, i, j);
 
-          const gardenWidth = 24 / garden.garden_width;
-          console.log(gardenWidth);
           gardenRow.push(
             <Col className='garden-col' onClick={() => toggleSelected(i, j)}>
               <PlantingDisplay

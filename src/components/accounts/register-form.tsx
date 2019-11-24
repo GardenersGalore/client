@@ -20,7 +20,6 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
   }
 
   handleSubmit = (e: any) => {
-    console.log('SUBMITTING!');
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -53,7 +52,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
   compareToFirstPassword = (rule: any, value: any, callback: any) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('Your passwords don\'t match!');
     } else {
       callback();
     }
@@ -84,7 +83,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
     })(
       <Select>
         <Option value='Novice'>Novice</Option>
-        <Option value='Itermediate'>Itermediate</Option>
+        <Option value='Intermediate'>Intermediate</Option>
         <Option value='Advanced'>Advanced</Option>
       </Select>
     );
@@ -112,16 +111,16 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
     };
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label='E-mail'>
+        <Form.Item label='Email'>
           {getFieldDecorator('email', {
             rules: [
               {
                 type: 'email',
-                message: 'The input is not valid E-mail!',
+                message: 'The input is not valid email!',
               },
               {
                 required: true,
-                message: 'Please input your E-mail!',
+                message: 'Please input your email!',
               },
             ],
           })(<Input />)}
@@ -173,7 +172,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
         <Form.Item label='Experience'>{experienceSelector}</Form.Item>
         <Form.Item label={<span>Profile Photo&nbsp;</span>}>
           {getFieldDecorator('pictureURL', {
-            rules: [{ message: 'Please input your picture url!', whitespace: true }],
+            rules: [{ message: 'Please input your picture URL!', whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
@@ -181,7 +180,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
             valuePropName: 'checked',
           })(
             <Checkbox>
-              I have read the <a href=''>agreement</a>
+              I have read and accept the terms of the <a href=''> user agreement</a>
             </Checkbox>
           )}
         </Form.Item>

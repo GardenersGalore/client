@@ -8,12 +8,12 @@ import { postGarden } from '../../api';
 import { setUser } from '../../store/actions';
 
 export interface NewGardenFormProps extends FormComponentProps {
-  user: User;
-  dispatch: any;
+  user: User; // user who wants to add new garden
+  dispatch: any; // function to retrieve state
 }
 
 interface IState {
-  showForm: boolean;
+  showForm: boolean; // whether form should be shown (false if button should be shown)
 }
 
 class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentProps, IState> {

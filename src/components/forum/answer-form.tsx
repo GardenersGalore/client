@@ -33,14 +33,8 @@ export class AnswerForm extends React.Component<AnswerProps> {
 
         const question = { ...this.props.question };
         question.answers.push(newAnswer);
-        //this.props.dispatch(postNewQuestionData(newQuestion));
         this.props.dispatch(setQuestion(question));
-        //this.props.dispatch(setQuestions(questions_list));
         const posted = postNewAnswer(newAnswer);
-
-        console.log(posted);
-
-        //this.props.dispatch(getGardenData(this.props.garden.name));
       }
     });
   };

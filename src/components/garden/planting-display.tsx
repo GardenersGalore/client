@@ -1,17 +1,22 @@
 import { Popover, Badge, Icon, Button, Popconfirm, message } from 'antd/lib';
 import * as React from 'react';
-import { Planting } from '../../constants/types';
+import { Planting, RootState } from '../../constants/types';
+import { useSelector } from 'react-redux';
+import { waterIcon } from './water-icon';
+import { frostIcon } from './frost-icon';
 
 export interface PlantingDisplayProps {
-  planting: Planting;
-  isSelected: boolean;
-  cellSizePx: string;
-  renderNewPlantForm: any;
-  deletePlanting: any;
-  isLoggedInUser: boolean;
-}
-
+    planting : Planting;
+    isSelected : boolean;
+    cellSizePx: string;
+    renderNewPlantForm : any;
+    deletePlanting : any;
+    isLoggedInUser: boolean;
+  }
+  
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
+
+  const forecast = useSelector((state: RootState) => state.gg.forecast);
   const planting = props.planting;
   const createIcon = () => {
     let plantIcon;
@@ -34,7 +39,9 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     message.error('Planting not deleted');
   };
 
-  const createPopover = (element: any) => {
+  const createPopover = (element : any) => {
+    if (!props.isLoggedInUser && props.planting == null) return element;
+
     let popoverContent;
     let popoverTitle;
     if (props.planting != null) {
@@ -85,21 +92,48 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
     } else {
       plantingInformation = <div className='garden-cell-unoccupied'>+</div>;
     }
-    return plantingInformation;
-  };
+    return plantingInformation
+  }
 
-  const badgePlanting = (content: any) => {
-    return (
-      <Badge offset={[-10, 0]} count={8} style={{ backgroundColor: '#52c41a' }}>
-        <div
-          className='garden-cell'
-          style={{ width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx }}>
-          {content}
+  const badgePlanting = (content : any) => {
+    if(forecast && props.planting !== null){
+      if (forecast.data[0].snow > 0.5){
+        return(
+          <Badge count={frostIcon()} offset={[-10,0]}>
+              <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+                  {content}
+              </div>
+          </Badge>
+        );
+      } 
+      else if(forecast.data[0].rainfall_amount < 3 || forecast.data[0].rainfall_probability < 50){
+        return(
+          <Badge count={waterIcon()} offset={[-10,0]}>
+              <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+                  {content}
+              </div>
+          </Badge>
+        );
+      }    
+      else {
+        return(
+          <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+              {content}
+          </div>
+        )
+      }
+
+
+    } else {
+      return(
+        <div className='garden-cell' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
+            {content}
         </div>
-      </Badge>
-      // </Popconfirm>
-    );
-  };
+      )
+    }
+
+
+  }
 
   const renderPlanting = () => {
     const content = createContent();

@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Descriptions } from 'antd/lib';
+import { Alert, Col, Row, Spin, Card, Descriptions, Icon } from 'antd/lib';
 import * as React from 'react';
 
 export const Home: React.FC = () => (

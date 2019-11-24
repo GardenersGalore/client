@@ -23,6 +23,8 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
   };
 
   const toggleGardenSelected = (gardenName: string) => {
+    const gardenDivider = document.getElementById("garden-divider");
+    gardenDivider.scrollIntoView({behavior: 'smooth'});
     isSelected(gardenName) ? dispatch(setSelectedGarden('')) : dispatch(setSelectedGarden(gardenName));
   };
 
@@ -108,7 +110,9 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
         size='small'
         dataSource={gardens}
         renderItem={garden => renderGardenCard(garden)}></List>
-      <Divider />
+      <div id="garden-divider">
+        <Divider />
+      </div>
       {renderGardens()}
     </div>
   );

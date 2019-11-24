@@ -94,6 +94,20 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     return <Card title='Top Tips'>{b}</Card>;
   };
 
+  const renderPlantIcon = () => {
+    if (plant.svg_icon === undefined){
+      return (
+        <img src="../assets/unown_icon.svg" className='plantIcon'/>
+      )
+    } else {
+      const blob = new Blob([plant.svg_icon], { type: 'image/svg+xml' });
+      const plant_icon = URL.createObjectURL(blob);
+      return (
+        <img src={plant_icon} className='plantIcon'/>
+      )
+    }
+  }
+
   const renderPlant = () => {
     if (error) {
       return (
@@ -106,14 +120,16 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
         </div>
       );
     } else if (plant) {
-      const blob = new Blob([plant.svg_icon], { type: 'image/svg+xml' });
-      const plant_icon = URL.createObjectURL(blob);
+
+      const blob_backup = new Blob(["../assets/unown_icon.svg"], { type: 'image/svg+xml' });
+      const plant_icon_backup = URL.createObjectURL(blob_backup);
+      console.log(plant.svg_icon);
       return (
         <div className='user-page' style={{ paddingTop: '10px' }}>
           <Col span={16} className='left-column'>
             <Row type='flex' justify='center'>
               <Card style={{ width: 1400 }}>
-                <img src={plant_icon} className='plantIcon' alt='plant icon'/>
+                {renderPlantIcon()}
                 <strong className='plantName'>
                   <a href={plant.en_wikipedia_url}>{plant.name}</a>
                 </strong>

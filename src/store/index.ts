@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['isError', 'error', 'gg.error', 'gg.isError']
 };
 
 const rootReducer = () =>

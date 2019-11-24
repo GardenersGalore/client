@@ -24,7 +24,7 @@ export const App: React.FC<any> = () => {
         <div>
           <Layout className='layout'>
             <NavBar />
-            <Content className='content'>
+            <Content className='content' style={{minHeight : "100%"}}>
               <Switch>
                 <Route exact={true} path='/' component={Home} />
                 <Route exact={true} path='/forum/questions' component={Questions} />

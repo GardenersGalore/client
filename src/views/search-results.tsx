@@ -402,7 +402,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   return (
     <div>
-      {isLoading ? (
+      {isLoading > 0 ? (
         <Row type='flex' justify='center' className='fetching-content'>
           <Spin size='large' />
           <h2>Loading...</h2>

@@ -7,7 +7,7 @@ const initialState: GG = {
   user: null,
   userAll: [],
   gardens: [],
-  isLoading: false,
+  isLoading: 0,
   isError: false,
   plant: null,
   plantAll: [],
@@ -29,7 +29,7 @@ export const reducers = (state: GG = initialState, action: any) => {
     case ACTION.FETCHING_DATA:
       return {
         ...state,
-        isLoading: true,
+        isLoading: state.isLoading ++,
         error: '',
       };
 
@@ -56,7 +56,7 @@ export const reducers = (state: GG = initialState, action: any) => {
       return {
         ...state,
         isError: false,
-        isLoading: false,
+        isLoading: state.isLoading --,
       };
 
     case ACTION.FETCHING_DATA_SUCCESS_FORECAST:
@@ -69,7 +69,7 @@ export const reducers = (state: GG = initialState, action: any) => {
     case ACTION.FETCHING_DATA_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        isLoading: 0,
         isError: true,
         error: action.error,
       };

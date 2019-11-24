@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../constants/types';
 import { getPlantData } from '../store/actions';
+import { Loading } from '../components/loading'
 import * as moment from 'moment';
 
 const { Meta } = Card;
@@ -153,10 +154,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
   return (
     <div>
       {isLoading ? (
-        <Row type='flex' justify='center' className='fetching-content'>
-          <Spin size='large' />
-          <h2>Loading...</h2>
-        </Row>
+        <Loading/>
       ) : (
         renderPlant()
       )}

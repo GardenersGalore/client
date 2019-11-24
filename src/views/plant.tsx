@@ -80,8 +80,8 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
       }
       b.push(
         <Comment
-          author={<a>{blog.username}</a>}
-          avatar={<Avatar src={blog.user.pictureURL} alt='' />}
+          author={<a href={`/user/${blog.username}`}>{blog.username}</a>}
+          avatar={<Avatar src={blog.user.pictureURL} alt='../assets/user.svg' />}
           content={<p>{blog.content}</p>}
           datetime={
             <Tooltip title={d.format('YYYY-MM-DD HH:mm:ss')}>

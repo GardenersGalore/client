@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { NavBar } from '../components/nav-bar';
-import store from '../store';
+import * as store from '../store/index';
 import { Home } from './home';
 import { Plant } from './plant';
 import { Login } from './login';
@@ -14,12 +14,15 @@ import { UserView } from './user';
 import { SearchFor } from './search-results';
 import { AskAQuestion } from './ask-a-question';
 import { QuestionView } from './question';
+import { PersistGate } from 'redux-persist/integration/react'
+import { Loading } from '../components/loading';
 
 const { Header, Content, Footer } = Layout;
 
 export const App: React.FC<any> = () => {
   return (
-    <Provider store={store}>
+    <Provider store={store.default.store}>
+      <PersistGate loading={<Loading />} persistor={store.default.persistor}>
       <Router>
         <div>
           <Layout className='layout'>
@@ -42,6 +45,7 @@ export const App: React.FC<any> = () => {
           </Layout>
         </div>
       </Router>
+      </PersistGate>
     </Provider>
   );
 };

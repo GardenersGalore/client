@@ -1,4 +1,4 @@
-import { Avatar, Card, List, Row, Spin } from 'antd/lib';
+import { Avatar, Card, List, Row, Spin, Col } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -78,6 +78,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   //Function to fetch plants
   const renderPlantSearch = () => {
     return (
+      <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
         <List
           itemLayout='horizontal'
@@ -99,12 +100,15 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
           )}
         />
       </Card>
+      </Row>
+
     );
   };
 
   //Function to fetch gardens
   const renderGardenSearch = () => {
     return (
+      <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
         <List
           itemLayout='horizontal'
@@ -127,12 +131,15 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
           )}
         />
       </Card>
+      </Row>
+
     );
   };
 
   //Function to fetch users
   const renderUserSearch = () => {
     return (
+      <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
         <List
           itemLayout='horizontal'
@@ -148,28 +155,32 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
           )}
         />
       </Card>
+      </Row>
+
     );
   };
 
   //Function to fetch questions
   const renderQuestionSearch = () => {
     return (
-      <Card style={{ width: 800 }}>
-        <List
-          itemLayout='horizontal'
-          dataSource={questions}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={questionPic} />}
-                title={<a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>}
-                description={truncateText(item.description, 50) + `...`}
-              />
-              <p>Author: {item.author}</p>
-            </List.Item>
-          )}
-        />
-      </Card>
+      <Row type='flex' justify='center' className='fetching-content'>
+        <Card style={{ width: 800 }}>
+          <List
+            itemLayout='horizontal'
+            dataSource={questions}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={questionPic} />}
+                  title={<a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>}
+                  description={truncateText(item.description, 50) + `...`}
+                />
+                <p>Author: {item.author}</p>
+              </List.Item>
+            )}
+          />
+        </Card>
+      </Row>
     );
   };
 
@@ -178,70 +189,70 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     if (!isEmpty(plants) && gardens.length > 0 && users.length > 0) {
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderPlantSearch()}
             {renderGardenSearch()}
             {renderUserSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (!isEmpty(plants) && gardens.length > 0) {
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderPlantSearch()}
             {renderGardenSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (!isEmpty(plants) && users.length > 0) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderPlantSearch()}
             {renderUserSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (!isEmpty(plants) && questions.length > 0) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderPlantSearch()}
             {renderQuestionSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (!isEmpty(plants)) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderPlantSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (users.length > 0) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderUserSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (gardens.length > 0) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderGardenSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else if (questions.length > 0) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-content'>
+          <Col>
             {renderQuestionSearch()}
-          </Row>
+          </Col>
         </div>
       );
     } else {

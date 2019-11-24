@@ -1,4 +1,4 @@
-import { Avatar, Card, Col, Form, List, Row, Spin } from 'antd/lib';
+import { Avatar, Card, Col, Form, List, Row, Spin, Alert } from 'antd/lib';
 import * as React from 'react';
 import { QuestionForm, QuestionProps } from '../components/forum/question-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,8 @@ const data = [
   },
 ];
 
+
+
 export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
   const dispatch = useDispatch();
 
@@ -29,8 +31,32 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const questions = useSelector((state: RootState) => state.gg.questions);
 
-  const renderQuestionForm = () => {
+
+  const renderQ = () => {
+    if(username === ""){
+      return(
+        <div>
+          <Alert message="You must be logged in to ask a question" type="error" />
+        </div>
+      )
+    }
     const MyNewForm = Form.create<QuestionProps>()(QuestionForm);
+    return(
+      <
+        MyNewForm
+      dispatch={dispatch}
+      question={question}
+      username={username}
+      questions={questions}
+      history={props.history}
+      location={props.location}
+      match={props.match}
+      />
+    )
+  }
+
+  const renderQuestionForm = () => {
+    
 
     return (
       <div className='user-page'>
@@ -46,15 +72,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
           <Col span={16} className='left-column'>
             <Row className='user-row'>
               <Card title='Ask a public question' size='default' className='card-shadow'>
-                <MyNewForm
-                  dispatch={dispatch}
-                  question={question}
-                  username={username}
-                  questions={questions}
-                  history={props.history}
-                  location={props.location}
-                  match={props.match}
-                />
+              {renderQ()}
               </Card>
             </Row>
           </Col>

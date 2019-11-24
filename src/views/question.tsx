@@ -27,8 +27,23 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
   useEffect(() => {
     if (!question) {
       dispatch(getQuestionData(props.match.params._id));
+    } else if (question._id.$oid !== props.match.params._id) {
+      dispatch(getQuestionData(props.match.params._id));
     }
   });
+
+  const renderAnswerQuestion = () => {
+    if (username === ""){
+      return(
+        <div>
+          <Alert message="You must be logged in to answer a question" type="error" />
+        </div>
+      );
+    } 
+    return(
+      <MyNewForm dispatch={dispatch} question={question} username={username} />
+    )
+  }
 
   const renderQuestion = () => {
     if (error) {
@@ -87,7 +102,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
 
                 <Divider/>
                 <Card title='Submit your answer' className='card-shadow'>
-                  <MyNewForm dispatch={dispatch} question={question} username={username} />
+                  {renderAnswerQuestion()}
                 </Card>
               </Row>
             </Col>
@@ -116,7 +131,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
                 </Card>
                 <Divider/>
                 <Card title='Submit your answer'>
-                  <MyNewForm dispatch={dispatch} question={question} username={username} />
+                  {renderAnswerQuestion()}
                 </Card>
               </Row>
             </Col>

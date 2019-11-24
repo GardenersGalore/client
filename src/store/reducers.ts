@@ -11,11 +11,17 @@ const initialState: GG = {
   isError: false,
   plant: null,
   plantAll: [],
-  question: [],
+  searchQuestion: [],
   search: null,
   error: '',
   selectedGardenCell: [-1, -1],
+  question: null,
+  questions: [],
   selectedGarden: '',
+  forecast: null,
+  forecastIsError: false,
+  forecastIsLoading: false,
+  forecastError: '',
 };
 
 export const reducers = (state: GG = initialState, action: any) => {
@@ -25,6 +31,13 @@ export const reducers = (state: GG = initialState, action: any) => {
         ...state,
         isLoading: true,
         error: '',
+      };
+
+    case ACTION.FETCHING_DATA_FORECAST:
+      return {
+        ...state,
+        forecastIsLoading: true,
+        forecastError: '',
       };
 
     case ACTION.SET_SEARCH:
@@ -46,12 +59,27 @@ export const reducers = (state: GG = initialState, action: any) => {
         isLoading: false,
       };
 
+    case ACTION.FETCHING_DATA_SUCCESS_FORECAST:
+      return {
+        ...state,
+        forecastIsError: false,
+        forecastIsLoading: false,
+      };
+
     case ACTION.FETCHING_DATA_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
         error: action.error,
+      };
+
+    case ACTION.FETCHING_DATA_FAILURE_FORECAST:
+      return {
+        ...state,
+        forecastIsError: true,
+        forecastIsLoading: false,
+        forecastError: action.error,
       };
 
     case ACTION.SET_PLANT:
@@ -84,6 +112,12 @@ export const reducers = (state: GG = initialState, action: any) => {
         gardens: action.gardens,
       };
 
+    case ACTION.SET_FORECAST:
+      return {
+        ...state,
+        forecast: action.forecast,
+      };
+
     case ACTION.SET_PLANTSEARCH:
       console.log('in reducer');
       return {
@@ -105,7 +139,7 @@ export const reducers = (state: GG = initialState, action: any) => {
         userAll: action.users,
       };
 
-    case ACTION.SET_QUESTION:
+    case ACTION.SEARCH_SET_QUESTION:
       console.log('in reducer');
       return {
         ...state,
@@ -127,12 +161,31 @@ export const reducers = (state: GG = initialState, action: any) => {
       return {
         ...state,
         user: newUser,
-        //garden: newGarden,
       };
-    // return {
-    //   ...state,
-    //   garden: action.garden,
-    // };
+
+    case ACTION.SET_QUESTIONS:
+      return {
+        ...state,
+        questions: action.questions,
+      };
+
+    case ACTION.SET_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_ANSWER:
+      return {
+        ...state,
+        answer: action.answer,
+      };
 
     default:
       return state;

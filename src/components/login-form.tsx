@@ -1,6 +1,6 @@
 import { Form, Icon, Input, Button, Checkbox, Row } from 'antd';
 import * as React from 'react';
-import {FormComponentProps} from 'antd/lib/form/Form';
+import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { setUsername } from '../store/actions';
 import { withRouter, RouteComponentProps } from 'react-router';
@@ -10,22 +10,17 @@ export interface NormalLoginFormProps extends FormComponentProps {
   dispatch: any;
 }
 
-
 // // Your component own properties
 // type PropsType = RouteComponentProps<NormalLoginFormProps> & {
 //   someString: string,
 // }
 
-
-
 class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteComponentProps> {
-    constructor(props: NormalLoginFormProps & RouteComponentProps) {
-        super(props);
-    }
+  constructor(props: NormalLoginFormProps & RouteComponentProps) {
+    super(props);
+  }
 
-
-
-  handleSubmit = (e : any) => {
+  handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -39,37 +34,32 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteCompon
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form onSubmit={this.handleSubmit} className='login-form'>
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
-            />,
-          )}
+          })(<Input prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder='Username' />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              placeholder="Password"
-            />,
+              prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type='password'
+              placeholder='Password'
+            />
           )}
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type='primary' htmlType='submit' className='login-form-button'>
             Log in
           </Button>
-          Or <a href="/register">register now!</a>
+          Or <a href='/register'>register now!</a>
         </Form.Item>
       </Form>
     );
   }
 }
 //export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
-export const ConnectedLoginForm =  connect()(withRouter(NormalLoginForm));
+export const ConnectedLoginForm = connect()(withRouter(NormalLoginForm));

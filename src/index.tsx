@@ -24,6 +24,9 @@ import 'antd/lib/popover/style/css';
 import 'antd/lib/badge/style/css';
 import 'antd/lib/popconfirm/style/css';
 import 'antd/lib/message/style/css';
+import 'antd/lib/carousel/style/css';
+import 'antd/lib/tag/style/css';
+import 'antd/lib/comment/style/css';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

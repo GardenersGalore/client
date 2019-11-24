@@ -1,102 +1,117 @@
-import {
-    Form,
-    Input,
-    Tooltip,
-    Icon,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
-    Button,
-    AutoComplete,
-  } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
 import * as React from 'react';
-import {FormComponentProps} from 'antd/lib/form/Form';
+import { FormComponentProps } from 'antd/lib/form/Form';
+import { postUser } from '../api';
+import { User } from '../constants/types';
+import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { setUsername } from '../store/actions';
 
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
-
-interface RegisterFormProps {
-    confirmDirty: false,
-    autoCompleteResult: [],
+export interface RegisterFormProps extends FormComponentProps {
+  confirmDirty: false;
+  dispatch: any;
 }
 
+class NormalRegisterForm extends React.Component<RegisterFormProps & RouteComponentProps> {
+  constructor(props: RegisterFormProps & RouteComponentProps) {
+    super(props);
+  }
+  handleSubmit = (e: any) => {
+    console.log('SUBMITTING!');
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        const newUser: User = {
+          name: values.username,
+          username: values.username,
+          email: values.email,
+          password: values.password,
+          phone_number: values.phone,
+          experience: values.experience,
+          pictureURL: values.pictureURL,
+          blogs: [],
+          gardens: [],
+          favourite_plants: [],
+        };
+        postUser(newUser);
+        message.success('User Added');
+        this.props.dispatch(setUsername(values.username));
+        this.props.history.push('/user/' + values.username);
+      }
+    });
+  };
 
-class NormalRegisterForm extends React.Component<RegisterFormProps & FormComponentProps> {
-    constructor(props: RegisterFormProps & FormComponentProps) {
-        super(props);
+  handleConfirmBlur = (e: any) => {
+    const { value } = e.target;
+    this.setState({ confirmDirty: this.props.confirmDirty || !!value });
+  };
+
+  compareToFirstPassword = (rule: any, value: any, callback: any) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
     }
-    handleSubmit = (e : any) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-          if (!err) {
-            console.log('Received values of form: ', values);
-          }
-        });
-      };
-    
-      handleConfirmBlur = (e : any) => {
-        const { value } = e.target;
-        this.setState({ confirmDirty: this.props.confirmDirty || !!value });
-      };
-    
-      compareToFirstPassword = (rule : any, value : any , callback : any) => {
-        const { form } = this.props;
-        if (value && value !== form.getFieldValue('password')) {
-          callback('Two passwords that you enter is inconsistent!');
-        } else {
-          callback();
-        }
-      };
-    
-      validateToNextPassword = (rule : any, value : any , callback : any) => {
-        const { form } = this.props;
-        if (value && this.props.confirmDirty) {
-          form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-      };
+  };
 
-    
+  validateToNextPassword = (rule: any, value: any, callback: any) => {
+    const { form } = this.props;
+    if (value && this.props.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
 
     const prefixSelector = getFieldDecorator('prefix', {
-        initialValue: '86',
-      })(
-        <Select style={{ width: 70 }}>
-          <Option value="86">+86</Option>
-          <Option value="87">+87</Option>
-        </Select>,
+      initialValue: '61',
+    })(
+      <Select style={{ width: 70 }}>
+        <Option value='64'>+64</Option>
+        <Option value='61'>+61</Option>
+      </Select>
+    );
+
+    const experienceSelector = getFieldDecorator('experience', {
+      initialValue: 'Novice',
+    })(
+      <Select>
+        <Option value='Novice'>Novice</Option>
+        <Option value='Itermediate'>Itermediate</Option>
+        <Option value='Advanced'>Advanced</Option>
+      </Select>
     );
     const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
     };
     const tailFormItemLayout = {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
         },
-      };
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
     return (
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="E-mail">
+      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form.Item label='E-mail'>
           {getFieldDecorator('email', {
             rules: [
               {
@@ -110,7 +125,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
             ],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Password" hasFeedback>
+        <Form.Item label='Password' hasFeedback>
           {getFieldDecorator('password', {
             rules: [
               {
@@ -123,7 +138,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
             ],
           })(<Input.Password />)}
         </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback>
+        <Form.Item label='Confirm Password' hasFeedback>
           {getFieldDecorator('confirm', {
             rules: [
               {
@@ -139,45 +154,38 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
         <Form.Item
           label={
             <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
+              Username&nbsp;
+              <Tooltip title='What do you want others to call you?'>
+                <Icon type='question-circle-o' />
               </Tooltip>
             </span>
-          }
-        >
-          {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+          }>
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Phone Number">
+        <Form.Item label='Phone Number'>
           {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
+            rules: [{ required: false, message: 'Please input your phone number!' }],
           })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
         </Form.Item>
-        <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(<Input />)}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
+        <Form.Item label='Experience'>{experienceSelector}</Form.Item>
+        <Form.Item label={<span>Profile Photo&nbsp;</span>}>
+          {getFieldDecorator('pictureURL', {
+            rules: [{ message: 'Please input your picture url!', whitespace: true }],
+          })(<Input />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
           })(
             <Checkbox>
-              I have read the <a href="">agreement</a>
-            </Checkbox>,
+              I have read the <a href=''>agreement</a>
+            </Checkbox>
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type='primary' htmlType='submit'>
             Register
           </Button>
         </Form.Item>
@@ -186,4 +194,4 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & FormCompone
   }
 }
 
-export const WrappedRegisterForm = Form.create({ name: 'register_form' })(NormalRegisterForm);
+export const ConnectedRegisterForm = connect()(withRouter(NormalRegisterForm));

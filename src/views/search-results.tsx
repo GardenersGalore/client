@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Planting, Garden, Plant, User, Question } from '../constants/types';
+import { RootState, Planting, Garden, Plant, User, SearchQuestion } from '../constants/types';
 import { getAllPlantData, getAllGardenData, getAllUserData, getAllQuestionData } from '../store/actions';
 import Title from '../../node_modules/antd/lib/typography/Title';
 import { keys } from '../../node_modules/@types/d3';
@@ -30,7 +30,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const plants: Plant[] = useSelector((state: RootState) => state.gg.plantAll);
   const gardens: Garden[] = useSelector((state: RootState) => state.gg.gardens);
   const users: User[] = useSelector((state: RootState) => state.gg.userAll);
-  const questions: Question[] = useSelector((state: RootState) => state.gg.question);
+  const questions: SearchQuestion[] = useSelector((state: RootState) => state.gg.searchQuestion);
   const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
 

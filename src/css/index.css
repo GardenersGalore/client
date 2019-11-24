@@ -302,3 +302,7 @@ USER LANDING PAGE
     color: white;
     font-family: Arial, sans-serif;
 }
+
+.fetching-weather-content{
+  margin-top: 10px;
+}

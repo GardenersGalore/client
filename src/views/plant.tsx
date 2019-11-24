@@ -21,40 +21,62 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
   const plant = useSelector((state: RootState) => state.gg.plant);
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
+  const isError = useSelector((state: RootState) => state.gg.isError);
+
 
   useEffect(() => {
-    if (!plant) {
-      dispatch(getPlantData(props.match.params.name));
-    } else if (plant.name != props.match.params.name) {
-      dispatch(getPlantData(props.match.params.name));
+    if (!isLoading && !isError) {
+      console.log('NOT LOADING');
+      if (!plant) {
+        dispatch(getPlantData(props.match.params.name));
+      } else if (plant.name != props.match.params.name) {
+        dispatch(getPlantData(props.match.params.name));
+      }
     }
   });
 
   const renderCarousel = () => {
-    const c: any[] = [];
-    plant.plantings.forEach(p => {
-      console.log(p);
-      if (p.pictureURL !== undefined) {
-        c.push(
-          <div className='carosel-cl'>
-            <Card
-              hoverable
-              bordered={false}
-              style={{ width: 300 }}
-              cover={<img alt='example' src={p.pictureURL} width={200} />}>
-              <Meta
-                title={<a href={`/user/${p.garden.username}`}>{p.garden_name}</a>}
-                description={'Planted by: ' + p.garden.username}
-              />
-            </Card>
-          </div>
-        );
-      }
-    });
-    return c;
+    if (plant.plantings === undefined){
+      return(
+        <div>No pictures of {plant.name} in people's gardens!</div>
+      )
+    } else {
+      const c: any[] = [];
+      plant.plantings.forEach(p => {
+        console.log(p);
+        if (p.pictureURL !== undefined) {
+          c.push(
+            <div className='carosel-cl'>
+              <Card
+                hoverable
+                bordered={false}
+                style={{ width: 300 }}
+                cover={<img alt='example' src={p.pictureURL} width={200} />}>
+                <Meta
+                  title={<a href={`/user/${p.garden.username}`}>{p.garden_name}</a>}
+                  description={'Planted by: ' + p.garden.username}
+                />
+              </Card>
+            </div>
+          );
+        }
+      });
+  
+      return (
+        c
+      );
+    }
   };
 
   const renderTopTips = () => {
+    if (plant.blogs === undefined){
+      return(
+        <div>
+          <Card title='Top Tips'> There are currently no top tips!</Card>;
+        </div>
+      )
+    } 
+
     const b: any[] = [];
     plant.blogs.forEach(blog => {
       let d: any = null;
@@ -73,11 +95,6 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
             </Tooltip>
           }
         />
-        // <div>
-        //   <Avatar size={50} src={blog.user.pictureURL} />
-        //   {blog.name}
-        //   {blog.content}
-        // </div>
       );
     });
     return <Card title='Top Tips'>{b}</Card>;
@@ -101,7 +118,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div className='user-page' style={{ paddingTop: '10px' }}>
           <Col span={16} className='left-column'>
-            <Row type='flex' justify='center' className='fetching-weather-content'>
+            <Row type='flex' justify='center'>
               <Card style={{ width: 1400 }}>
                 <img src={plant_icon} className='plantIcon'></img>
                 <strong className='plantName'>

@@ -46,7 +46,7 @@ export interface SearchQuestion {
 }
 
 export interface Blog {
-  date: Date;
+  date: number;
   name: string;
   username: string;
   content: string;

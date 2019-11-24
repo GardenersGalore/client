@@ -21,6 +21,7 @@ function isEmpty(obj: any) {
   return true;
 }
 
+
 // Your component own properties
 type PlantProps = RouteComponentProps<PathParamsType> & {};
 

@@ -12,7 +12,7 @@ import { postGarden } from '../api';
 import { deleteGarden } from '../api';
 
 import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/new-garden-form';
-import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
+import { ConnectedNewBlogForm, NewBlogFormProps } from '../components/new-blog-form';
 
 type PathParamsType = {
   name: string;
@@ -93,6 +93,12 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     dispatch(setUser(updated_user));
   };
 
+  const renderBlogForm = () => {
+    if (user.username != loggedInUsername) return;
+    const MyNewForm = Form.create<NewBlogFormProps>()(ConnectedNewBlogForm);
+    return <MyNewForm user={user} dispatch={dispatch} />;
+  }
+
   const renderBlogs = () => {
     if (user.blogs.length > 0) {
       const b: any[] = [];
@@ -115,11 +121,12 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
 
       return (
         <Card title='Recent Blogs'>
+          {renderBlogForm()}
           <Timeline>{b}</Timeline>
         </Card>
       );
     } else {
-      return <Card title='Recent Blogs'>ADD BLOG</Card>;
+      return <Card title='Recent Blogs'>{renderBlogForm()}</Card>;
     }
   };
 

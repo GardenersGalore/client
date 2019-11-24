@@ -1,4 +1,4 @@
-import { Plant, Garden, Planting, User, SearchQuestion, Weather, Forecast, Question, Answer } from './constants/types';
+import { Plant, Garden, Planting, User, SearchQuestion, Weather, Forecast, Question, Answer, Blog } from './constants/types';
 import { resolve } from 'dns';
 import { Questions } from './views/questions';
 
@@ -302,3 +302,27 @@ export const postNewAnswer = (answer: Answer): Promise<Answer> => {
     .then(readResponse)
     .then((data: Answer) => data);
 };
+
+export const postBlog = (blog: Blog): Promise<Blog> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}blog`;
+  const body = JSON.stringify({
+    name: blog.name,
+    tags: blog.tags,
+    content: blog.content,
+    username: blog.username,
+  });
+
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Blog) => data);
+};
+

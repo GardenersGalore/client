@@ -42,8 +42,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     }
   });
 
-  console.log(gardens, plants, questions);
-
   const capitaliseFirstLetter = (word: string) => {
     return word[0].toUpperCase() + word.slice(1);
   };
@@ -69,7 +67,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   const scope = {
     splitterStyle: {
-      height: 580,
+      height: 620,
     },
   };
 
@@ -206,7 +204,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         </div>
       );
     } else if (!isEmpty(plants) && questions.length > 0) {
-      console.log('here', questions[0]._id['$oid']);
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
@@ -224,7 +221,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         </div>
       );
     } else if (users.length > 0) {
-      console.log('IGI');
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
@@ -233,7 +229,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         </div>
       );
     } else if (gardens.length > 0) {
-      console.log('ggg');
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
@@ -242,7 +237,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
         </div>
       );
     } else if (questions.length > 0) {
-      console.log('quest');
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>

@@ -65,12 +65,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     return plantIcon;
   };
 
-  const scope = {
-    splitterStyle: {
-      height: 620,
-    },
-  };
-
   const userPic = '../assets/user.svg';
   const gardenPic = '../assets/garden.svg';
   const questionPic = '../assets/question.svg';
@@ -80,6 +74,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     return (
       <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
+        <h2>Plants</h2>
         <List
           itemLayout='horizontal'
           dataSource={plants}
@@ -110,6 +105,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     return (
       <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
+        <h2>Gardens</h2>
         <List
           itemLayout='horizontal'
           dataSource={gardens}
@@ -117,11 +113,11 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src={gardenPic} />}
-                title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                title={<a href={`/user/${item.username}`}>{capitaliseFirstLetter(item.name)}</a>}
                 description={
                   <div>
                     <p>
-                      Heigh: {item.garden_height} Width: {item.garden_width}
+                      Height: {item.garden_height} Width: {item.garden_width}
                     </p>
                   </div>
                 }
@@ -141,6 +137,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     return (
       <Row type='flex' justify='center' className='fetching-content'>
       <Card style={{ width: 800 }}>
+        <h2>Users</h2>
         <List
           itemLayout='horizontal'
           dataSource={users}
@@ -207,7 +204,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (!isEmpty(plants) && users.length > 0) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderPlantSearch()}
             {renderUserSearch()}
@@ -216,7 +213,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (!isEmpty(plants) && questions.length > 0) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderPlantSearch()}
             {renderQuestionSearch()}
@@ -225,7 +222,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (!isEmpty(plants)) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderPlantSearch()}
           </Col>
@@ -233,7 +230,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (users.length > 0) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderUserSearch()}
           </Col>
@@ -241,7 +238,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (gardens.length > 0) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderGardenSearch()}
           </Col>
@@ -249,7 +246,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else if (questions.length > 0) {
       return (
-        <div style={scope.splitterStyle}>
+        <div >
           <Col>
             {renderQuestionSearch()}
           </Col>
@@ -257,7 +254,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       );
     } else {
       return (
-        <div style={scope.splitterStyle}>
+        <div>
           <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <h1>No data found</h1>
@@ -268,13 +265,5 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     }
   };
 
-  return (
-    <div>
-      {isLoading ? (
-        <Loading/>
-      ) : (
-        renderSearch()
-      )}
-    </div>
-  );
+  return <div>{isLoading ? <Loading /> : renderSearch()}</div>;
 };

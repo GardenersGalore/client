@@ -99,7 +99,7 @@ const setUserSearch = (users: User[]) => {
 
 const setQuestionSearch = (questions: Question[]) => {
   return {
-    type: SET_QUESTION,
+    type: SEARCH_SET_QUESTION,
     questions,
   };
 };
@@ -285,7 +285,7 @@ export const getAllQuestionData = (name: string) => {
     dispatch(fetchingData());
     try {
       const results: Question[] = await getAllQuestion(name);
-      console.log(results.length, 'asfsafas');
+      console.log(results.length, 'In QUESTION');
       dispatch(setQuestionSearch(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {

@@ -273,3 +273,32 @@ USER LANDING PAGE
   font-size: 0.8rem;
   font-weight: 700;
 }
+
+.home-background {
+    background-image: url("../assets/soil.jpg");
+    background-color: #49372e;
+    background-size: cover;
+    text-align: center;
+    padding: 100px;
+}
+
+.home-image {
+    display: inline-block;
+    margin-bottom: 50px;
+    height: 300px;
+}
+
+.home-subtitle {
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.inline {
+    display: inline-block;
+    margin: 5px;
+}
+
+.or {
+    color: white;
+    font-family: Arial, sans-serif;
+}

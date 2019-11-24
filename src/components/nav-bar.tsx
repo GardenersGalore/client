@@ -112,7 +112,7 @@ export const NavBar: React.FC<any> = () => {
           <HomeLink></HomeLink>
         </Col>
         <Col span={8}>
-          <div className='weather-search-outer'>
+          <div className='search-outer'>
             <Search />
           </div>
         </Col>

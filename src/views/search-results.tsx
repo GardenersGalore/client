@@ -81,7 +81,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       console.log('PK');
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -145,7 +145,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (!isEmpty(plants) && gardens.length > 0) {
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -194,7 +194,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (!isEmpty(plants) && users.length > 0) {
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -237,7 +237,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       console.log('here', questions[0]._id['$oid']);
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -282,7 +282,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (!isEmpty(plants)) {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -311,7 +311,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       console.log('IGI');
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -334,7 +334,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       console.log('ggg');
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -364,7 +364,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       console.log('quest');
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <List
                 itemLayout='horizontal'
@@ -390,7 +390,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     } else {
       return (
         <div style={scope.splitterStyle}>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Card style={{ width: 800 }}>
               <h1>No data found</h1>
             </Card>
@@ -403,8 +403,8 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   return (
     <div>
       {isLoading ? (
-        <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large' />
+        <Row type='flex' justify='center' className='fetching-content'>
+          <Spin size='large' />
           <h2>Loading...</h2>
         </Row>
       ) : (

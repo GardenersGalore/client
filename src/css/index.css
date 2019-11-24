@@ -207,11 +207,7 @@ USER LANDING PAGE
     text-align: right;
 }
 
-/* .about-content {
-  padding-top: 2rem;
-} */
-
-.weather-search-outer {
+.search-outer {
     padding: 0 0.5rem;
 }
 
@@ -223,9 +219,6 @@ USER LANDING PAGE
     width: 150px;
     padding: 15px;
 }
-
-/*
-/* Navigation bar for mobile device */
 
 .error {
     padding: 2rem 2rem;
@@ -307,6 +300,6 @@ USER LANDING PAGE
     font-family: Arial, sans-serif;
 }
 
-.fetching-weather-content {
+.fetching-content {
     margin-top: 10px;
 }

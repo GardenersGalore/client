@@ -126,7 +126,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     if (error) {
       return (
         <div>
-          <Row type='flex' justify='center' className='fetching-weather-content'>
+          <Row type='flex' justify='center' className='fetching-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
               <Alert message='Error' description={error} type='error' showIcon={true} />
             </Col>

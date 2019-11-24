@@ -80,8 +80,8 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
   return (
     <div>
       {isLoading ? (
-        <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large' />
+        <Row type='flex' justify='center' className='fetching-content'>
+          <Spin size='large' />
           <h2>Loading...</h2>
         </Row>
       ) : (

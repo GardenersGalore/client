@@ -3,6 +3,7 @@ import * as React from 'react';
 import { QuestionForm, QuestionProps } from '../components/forum/question-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Question, RootState } from '../constants/types';
+import { Loading } from '../components/loading';
 
 const data = [
   {
@@ -80,10 +81,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
   return (
     <div>
       {isLoading ? (
-        <Row type='flex' justify='center' className='fetching-content'>
-          <Spin size='large' />
-          <h2>Loading...</h2>
-        </Row>
+        <Loading/>
       ) : (
         renderQuestionForm()
       )}

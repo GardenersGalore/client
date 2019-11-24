@@ -14,7 +14,7 @@ export interface GG {
   searchQuestion: SearchQuestion[];
   error: string;
   search: SearchState;
-  isLoading: number;
+  isLoading: boolean;
   isError: boolean;
   selectedGardenCell: [number, number];
   questions: Question[];

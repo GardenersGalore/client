@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Garden, Plant, RootState, SearchQuestion, User } from '../constants/types';
 import { getAllGardenData, getAllPlantData, getAllQuestionData, getAllUserData } from '../store/actions';
+import { Loading } from '../components/loading';
 
 type PathParamsType = {
   name: string;
@@ -258,11 +259,8 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   return (
     <div>
-      {isLoading > 0 ? (
-        <Row type='flex' justify='center' className='fetching-content'>
-          <Spin size='large' />
-          <h2>Loading...</h2>
-        </Row>
+      {isLoading ? (
+        <Loading/>
       ) : (
         renderSearch()
       )}

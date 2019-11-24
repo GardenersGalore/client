@@ -72,73 +72,118 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       height: 580,
     },
   };
-  const renderPlant = () => {
-    const userPic = '../assets/user.svg';
-    const gardenPic = '../assets/garden.svg';
-    const questionPic = '../assets/question.svg';
 
+  const userPic = '../assets/user.svg';
+  const gardenPic = '../assets/garden.svg';
+  const questionPic = '../assets/question.svg';
+
+  //Function to fetch plants
+  const renderPlantSearch = () => {
+    return (
+      <Card style={{ width: 800 }}>
+        <List
+          itemLayout='horizontal'
+          dataSource={plants}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                key={item.name}
+                avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                description={
+                  <div>
+                    <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                    <p>{truncateText(item.description, 60)}</p>
+                  </div>
+                }
+              />
+            </List.Item>
+          )}
+        />
+      </Card>
+    );
+  };
+
+  //Function to fetch gardens
+  const renderGardenSearch = () => {
+    return (
+      <Card style={{ width: 800 }}>
+        <List
+          itemLayout='horizontal'
+          dataSource={gardens}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={gardenPic} />}
+                title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                description={
+                  <div>
+                    <p>
+                      Heigh: {item.garden_height} Width: {item.garden_width}
+                    </p>
+                  </div>
+                }
+              />
+              <p> User: {item.username}</p>
+            </List.Item>
+          )}
+        />
+      </Card>
+    );
+  };
+
+  //Function to fetch users
+  const renderUserSearch = () => {
+    return (
+      <Card style={{ width: 800 }}>
+        <List
+          itemLayout='horizontal'
+          dataSource={users}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={userPic} />}
+                title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                description={`Experience: ${item.experience}`}
+              />
+            </List.Item>
+          )}
+        />
+      </Card>
+    );
+  };
+
+  //Function to fetch questions
+  const renderQuestionSearch = () => {
+    return (
+      <Card style={{ width: 800 }}>
+        <List
+          itemLayout='horizontal'
+          dataSource={questions}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={questionPic} />}
+                title={<a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>}
+                description={truncateText(item.description, 50) + `...`}
+              />
+              <p>Author: {item.author}</p>
+            </List.Item>
+          )}
+        />
+      </Card>
+    );
+  };
+
+  //Main Function
+  const renderSearch = () => {
     if (!isEmpty(plants) && gardens.length > 0 && users.length > 0) {
-      console.log('PK');
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={plants}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                          <p> {truncateText(item.description, 60)}</p>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={gardens}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
-                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <p>
-                            Heigh: {item.garden_height} Width: {item.garden_width}
-                          </p>
-                        </div>
-                      }
-                    />
-                    <p> User: {item.username}</p>
-                  </List.Item>
-                )}
-              />
-            </Card>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={users}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
-                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={`Experience: ${item.experience}`}
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderPlantSearch()}
+            {renderGardenSearch()}
+            {renderUserSearch()}
           </Row>
         </div>
       );
@@ -146,136 +191,27 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={plants}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                          <p> {truncateText(item.description, 60)}</p>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={gardens}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
-                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <p>
-                            Heigh: {item.garden_height} Width: {item.garden_width}
-                          </p>
-                        </div>
-                      }
-                    />
-                    <p> User: {item.username}</p>
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderPlantSearch()}
+            {renderGardenSearch()}
           </Row>
         </div>
       );
     } else if (!isEmpty(plants) && users.length > 0) {
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={plants}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                          <p> {truncateText(item.description, 60)}</p>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={users}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
-                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={`Experience: ${item.experience}`}
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderPlantSearch()}
+            {renderUserSearch()}
           </Row>
         </div>
       );
     } else if (!isEmpty(plants) && questions.length > 0) {
       console.log('here', questions[0]._id['$oid']);
       return (
-        <div>
+        <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={plants}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                          <p>{truncateText(item.description, 60)}</p>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={questions}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={questionPic} />}
-                      title={
-                        <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
-                      }
-                      description={truncateText(item.description, 50) + `...`}
-                    />
-                    <p>Author: {item.author}</p>
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderPlantSearch()}
+            {renderQuestionSearch()}
           </Row>
         </div>
       );
@@ -283,27 +219,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={plants}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      key={item.name}
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                      title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                          <p>{truncateText(item.description, 60)}</p>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderPlantSearch()}
           </Row>
         </div>
       );
@@ -312,21 +228,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={users}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
-                      title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={`Experience: ${item.experience}`}
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderUserSearch()}
           </Row>
         </div>
       );
@@ -335,28 +237,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={gardens}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
-                      title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                      description={
-                        <div>
-                          <p>
-                            Heigh: {item.garden_height} Width: {item.garden_width}
-                          </p>
-                        </div>
-                      }
-                    />
-                    <p> User: {item.username}</p>
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderGardenSearch()}
           </Row>
         </div>
       );
@@ -365,25 +246,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
       return (
         <div style={scope.splitterStyle}>
           <Row type='flex' justify='center' className='fetching-content'>
-            <Card style={{ width: 800 }}>
-              <List
-                itemLayout='horizontal'
-                dataSource={questions}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      key={item.question_title}
-                      avatar={<Avatar src={questionPic} />}
-                      title={
-                        <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
-                      }
-                      description={truncateText(item.description, 50) + `...`}
-                    />
-                    <p>Author: {item.author}</p>
-                  </List.Item>
-                )}
-              />
-            </Card>
+            {renderQuestionSearch()}
           </Row>
         </div>
       );
@@ -408,7 +271,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
           <h2>Loading...</h2>
         </Row>
       ) : (
-        renderPlant()
+        renderSearch()
       )}
     </div>
   );

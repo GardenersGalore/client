@@ -143,7 +143,7 @@ export const reducers = (state: GG = initialState, action: any) => {
       console.log('in reducer');
       return {
         ...state,
-        question: action.questions,
+        searchQuestion: action.questions,
       };
 
     case ACTION.SET_GARDEN:

@@ -66,7 +66,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   const scope = {
     splitterStyle: {
-      height: 580,
+      height: 620,
     },
   };
 

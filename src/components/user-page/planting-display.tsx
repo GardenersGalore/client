@@ -50,13 +50,13 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
       popoverContent = (
         <div>
           <b>About:</b> {planting.description}
-          <br />
+          <br/>
           <b>Date planted:</b> {planting.planted_at.toDateString}
-          <br />
+          <br/>
           <b>Harvest count: </b> {planting.harvest_count}
-          <br />
+          <br/>
           <b>Planted from:</b> {planting.planted_from}
-          <br />
+          <br/>
           {props.isLoggedInUser ? (
             <Popconfirm
               title='Are you sure delete this planting?'
@@ -67,7 +67,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
               <Button>Delete</Button>
             </Popconfirm>
           ) : (
-            <div />
+            <div/>
           )}
         </div>
       );
@@ -88,7 +88,7 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
       const plantIcon = createIcon();
       plantingInformation = (
         <div className='garden-cell-occupied'>
-          <img src={plantIcon} className='garden-plant-icon' alt={props.planting.plant_name} />
+          <img src={plantIcon} className='garden-plant-icon' alt={props.planting.plant_name}/>
         </div>
       );
     } else {

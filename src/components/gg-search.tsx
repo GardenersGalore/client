@@ -29,7 +29,7 @@ export const GgSearch: React.FC<WeatherSearchProps> = (props: WeatherSearchProps
       onChange={handleChange}
       onSearch={handleSubmit}
       onPressEnter={handleSubmit}
-      placeholder='Search for plants'
+      placeholder=''
       enterButton={true}
       style={{ verticalAlign: 'middle', width: '100%' }}
     />

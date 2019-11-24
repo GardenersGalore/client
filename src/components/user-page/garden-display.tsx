@@ -93,25 +93,25 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     return (
       <Descriptions title={garden.name} size='small'>
         <Descriptions.Item label='Garden Height'>
-          <Button type='primary' icon='minus' size='small' onClick={() => setHeight(garden.garden_height - 1)} />
+          <Button type='primary' icon='minus' size='small' onClick={() => setHeight(garden.garden_height - 1)}/>
           <b style={{ padding: '6px' }}>{garden.garden_height}</b>
-          <Button type='primary' icon='plus' size='small' onClick={() => setHeight(garden.garden_height + 1)} />
+          <Button type='primary' icon='plus' size='small' onClick={() => setHeight(garden.garden_height + 1)}/>
         </Descriptions.Item>
         <Descriptions.Item label='Garden Width'>
-          <Button type='primary' icon='minus' size='small' onClick={() => setWidth(garden.garden_width - 1)} />
+          <Button type='primary' icon='minus' size='small' onClick={() => setWidth(garden.garden_width - 1)}/>
           <b style={{ padding: '6px' }}>{garden.garden_width}</b>
-          <Button type='primary' icon='plus' size='small' onClick={() => setWidth(garden.garden_width + 1)} />
+          <Button type='primary' icon='plus' size='small' onClick={() => setWidth(garden.garden_width + 1)}/>
         </Descriptions.Item>
         {garden.description != null ? (
           <Descriptions.Item label='About'>{garden.description}</Descriptions.Item>
         ) : (
-          <div />
+          <div/>
         )}
-        {garden.city_name != null ? <Descriptions.Item label='City'>{garden.city_name}</Descriptions.Item> : <div />}
+        {garden.city_name != null ? <Descriptions.Item label='City'>{garden.city_name}</Descriptions.Item> : <div/>}
         {garden.country_name != null ? (
           <Descriptions.Item label='Country'>{garden.country_name}</Descriptions.Item>
         ) : (
-          <div />
+          <div/>
         )}
       </Descriptions>
     );
@@ -124,7 +124,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
     return (
       <div>
         Add new plant
-        <MyNewForm garden={garden} dispatch={dispatch} xcoord={selectedCell[0]} ycoord={selectedCell[1]} />
+        <MyNewForm garden={garden} dispatch={dispatch} xcoord={selectedCell[0]} ycoord={selectedCell[1]}/>
       </div>
     );
   };
@@ -136,7 +136,7 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
-              <Alert message='Error' description={error} type='error' showIcon={true} />
+              <Alert message='Error' description={error} type='error' showIcon={true}/>
             </Col>
           </Row>
         </div>
@@ -161,14 +161,14 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
                 deletePlanting={deleteAPlanting}
                 isLoggedInUser={props.isLoggedInUser}
               />
-            </Col>
+            </Col>,
           );
         }
 
         patch.push(
           <Row type='flex' justify='center' className='garden-row'>
             {gardenRow}
-          </Row>
+          </Row>,
         );
       }
 
@@ -176,13 +176,13 @@ export const GardenDisplay: React.FC<GardenDisplayProps> = (props: GardenDisplay
         <div>
           {renderGardenInfo()}
           <Card className='garden-card'>{patch}</Card>
-          <Divider />
+          <Divider/>
           <h3>Weather</h3>
-          <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name} />
+          <WeatherDisplay city_name={garden.city_name} country_name={garden.country_name}/>
         </div>
       );
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderGarden()}</div>;
+  return <div>{isLoading ? <Loading/> : renderGarden()}</div>;
 };

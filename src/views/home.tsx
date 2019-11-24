@@ -3,8 +3,8 @@ import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 export const Home: React.FC = () => (
-  <div className='home-background' >
-    <img className='home-image' src='../assets/home-logo2.png' style={{"marginTop" : "50px"}} />
+  <div className='home-background'>
+    <img className='home-image' src='../assets/home-logo2.png' style={{ marginTop: '50px' }}/>
     <h2 className='home-subtitle'>Welcome to Gardeners Galore, a website that helps you keep track of your gardens.</h2>
     <Link to='/login'>
       <Button className='inline' type='primary'>

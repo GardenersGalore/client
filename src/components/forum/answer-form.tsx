@@ -44,7 +44,7 @@ export class AnswerForm extends React.Component<AnswerProps> {
         <Form.Item label='Answer'>
           {getFieldDecorator('answer', {
             rules: [{ required: true }],
-          })(<TextArea rows={4} />)}
+          })(<TextArea rows={4}/>)}
         </Form.Item>
         <Form.Item>
           <Button type='primary' htmlType='submit'>

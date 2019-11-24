@@ -56,20 +56,20 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
         <Form.Item label='Garden name'>
           {getFieldDecorator('gname', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
-        <Form.Item label='Description'>{getFieldDecorator('description')(<Input />)}</Form.Item>
+        <Form.Item label='Description'>{getFieldDecorator('description')(<Input/>)}</Form.Item>
         <Form.Item label='City'>
           {getFieldDecorator('city', {
             rules: [{ required: true, message: 'Please input the name of the city!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
         <Form.Item label='Country'>
           {getFieldDecorator('country', {
             rules: [{ required: true, message: 'Please input the name of the country!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
-        <Form.Item label='Picture'>{getFieldDecorator('picture')(<Input />)}</Form.Item>
+        <Form.Item label='Picture'>{getFieldDecorator('picture')(<Input/>)}</Form.Item>
 
         <Form.Item>
           <Button type='primary' htmlType='submit'>

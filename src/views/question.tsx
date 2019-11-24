@@ -33,17 +33,15 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
   });
 
   const renderAnswerQuestion = () => {
-    if (username === ""){
-      return(
+    if (username === '') {
+      return (
         <div>
-          <Alert message="You must be logged in to answer a question" type="error" />
+          <Alert message='You must be logged in to answer a question' type='error'/>
         </div>
       );
-    } 
-    return(
-      <MyNewForm dispatch={dispatch} question={question} username={username} />
-    )
-  }
+    }
+    return <MyNewForm dispatch={dispatch} question={question} username={username}/>;
+  };
 
   const renderQuestion = () => {
     if (error) {
@@ -51,7 +49,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
-              <Alert message='Error' description={error} type='error' showIcon={true} />
+              <Alert message='Error' description={error} type='error' showIcon={true}/>
             </Col>
           </Row>
         </div>
@@ -62,7 +60,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
           <Row type='flex' justify='center' className='user-row'>
             <Card className='forum-card'>
               <Col span={6}>
-                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
+                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png'/>
               </Col>
               <Col span={18}/>
             </Card>
@@ -98,7 +96,8 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
                         {answer.author}
                       </span>
                     </Card>
-                  )}/>
+                  )}
+                />
 
                 <Divider/>
                 <Card title='Submit your answer' className='card-shadow'>
@@ -115,7 +114,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
           <Row type='flex' justify='center' className='user-row'>
             <Card className='user-card'>
               <Col span={6}>
-                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
+                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png'/>
               </Col>
               <Col span={18}/>
             </Card>
@@ -130,9 +129,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
                   {question.description}
                 </Card>
                 <Divider/>
-                <Card title='Submit your answer'>
-                  {renderAnswerQuestion()}
-                </Card>
+                <Card title='Submit your answer'>{renderAnswerQuestion()}</Card>
               </Row>
             </Col>
           </Row>
@@ -141,5 +138,5 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderQuestion()}</div>;
+  return <div>{isLoading ? <Loading/> : renderQuestion()}</div>;
 };

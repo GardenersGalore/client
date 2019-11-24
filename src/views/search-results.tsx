@@ -1,4 +1,4 @@
-import { Avatar, Card, List, Row, Spin, Col } from 'antd/lib';
+import { Avatar, Card, List, Row } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,71 +71,67 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
 
   //Function to fetch plants
   const renderPlantSearch = () => {
-    if (plants.length > 0){
+    if (plants.length > 0) {
       return (
         <Row type='flex' justify='center' className='fetching-content'>
-        <Card style={{ width: 800 }}>
-          <h2>Plants</h2>
-          <List
-            itemLayout='horizontal'
-            dataSource={plants}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  key={item.name}
-                  avatar={<Avatar src={createIcon(item.svg_icon)} />}
-                  title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                  description={
-                    <div>
-                      <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
-                      <p>{truncateText(item.description, 60)}</p>
-                    </div>
-                  }
-                />
-              </List.Item>
-            )}
-          />
-        </Card>
+          <Card style={{ width: 800 }}>
+            <h2>Plants</h2>
+            <List
+              itemLayout='horizontal'
+              dataSource={plants}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    key={item.name}
+                    avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                    title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                    description={
+                      <div>
+                        <a href={item.en_wikipedia_url}>{item.en_wikipedia_url}</a>
+                        <p>{truncateText(item.description, 60)}</p>
+                      </div>
+                    }
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
         </Row>
-  
       );
     }
   };
 
-
   //Function to fetch gardens
   const renderGardenSearch = () => {
-    if (gardens.length > 0){
+    if (gardens.length > 0) {
       return (
         <Row type='flex' justify='center' className='fetching-content'>
-        <Card style={{ width: 800 }}>
-          <h2>Gardens</h2>
-          <List
-            itemLayout='horizontal'
-            dataSource={gardens}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={gardenPic} />}
-                  title={<a href={`/user/${item.username}`}>{capitaliseFirstLetter(item.name)}</a>}
-                  description={
-                    <div>
-                      <p>
-                        Height: {item.garden_height} Width: {item.garden_width}
-                      </p>
-                    </div>
-                  }
-                />
-                <p> User: {item.username}</p>
-              </List.Item>
-            )}
-          />
-        </Card>
+          <Card style={{ width: 800 }}>
+            <h2>Gardens</h2>
+            <List
+              itemLayout='horizontal'
+              dataSource={gardens}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar src={gardenPic}/>}
+                    title={<a href={`/user/${item.username}`}>{capitaliseFirstLetter(item.name)}</a>}
+                    description={
+                      <div>
+                        <p>
+                          Height: {item.garden_height} Width: {item.garden_width}
+                        </p>
+                      </div>
+                    }
+                  />
+                  <p> User: {item.username}</p>
+                </List.Item>
+              )}
+            />
+          </Card>
         </Row>
-  
       );
     }
-
   };
 
   //Function to fetch users
@@ -143,24 +139,23 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     if (users.length > 0) {
       return (
         <Row type='flex' justify='center' className='fetching-content'>
-        <Card style={{ width: 800 }}>
-          <h2>Users</h2>
-          <List
-            itemLayout='horizontal'
-            dataSource={users}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={userPic} />}
-                  title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
-                  description={`Experience: ${item.experience}`}
-                />
-              </List.Item>
-            )}
-          />
-        </Card>
+          <Card style={{ width: 800 }}>
+            <h2>Users</h2>
+            <List
+              itemLayout='horizontal'
+              dataSource={users}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar src={userPic}/>}
+                    title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
+                    description={`Experience: ${item.experience}`}
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>
         </Row>
-
       );
     }
   };
@@ -168,43 +163,44 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   //Function to fetch questions
   const renderQuestionSearch = () => {
     if (questions.length > 0) {
-    return (
-      <Row type='flex' justify='center' className='fetching-content'>
-        <Card style={{ width: 800 }}>
-        <h2>Questions</h2>
-          <List
-            itemLayout='horizontal'
-            dataSource={questions}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={questionPic} />}
-                  title={<a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>}
-                  description={truncateText(item.description, 50) + `...`}
-                />
-                <p>Author: {item.author}</p>
-              </List.Item>
-            )}
-          />
-        </Card>
-      </Row>
-    );
+      return (
+        <Row type='flex' justify='center' className='fetching-content'>
+          <Card style={{ width: 800 }}>
+            <h2>Questions</h2>
+            <List
+              itemLayout='horizontal'
+              dataSource={questions}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar src={questionPic}/>}
+                    title={
+                      <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
+                    }
+                    description={truncateText(item.description, 50) + `...`}
+                  />
+                  <p>Author: {item.author}</p>
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Row>
+      );
     }
   };
 
   //Main Function
   const renderSearch = () => {
-    if (!isEmpty(plants) || !isEmpty(gardens) || !isEmpty(users) || !isEmpty(questions)){
-      return(
+    if (!isEmpty(plants) || !isEmpty(gardens) || !isEmpty(users) || !isEmpty(questions)) {
+      return (
         <div>
           {renderPlantSearch()}
           {renderGardenSearch()}
           {renderUserSearch()}
           {renderQuestionSearch()}
         </div>
-      )
-    }
-    else {
+      );
+    } else {
       return (
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
@@ -217,5 +213,5 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderSearch()}</div>;
+  return <div>{isLoading ? <Loading/> : renderSearch()}</div>;
 };

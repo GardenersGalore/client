@@ -19,7 +19,7 @@ export const NavBar: React.FC<any> = () => {
       onClick={() => {
         history.push('/');
       }}>
-      <img className='gardeners-galore-icon' src='../assets/gardeners_galore_white.ico' alt='' />
+      <img className='gardeners-galore-icon' src='../assets/gardeners_galore_white.ico' alt=''/>
     </Link>
   ));
 
@@ -66,18 +66,17 @@ export const NavBar: React.FC<any> = () => {
   ));
 
   const handleSearch = (location: string) => {
-
   };
 
   const Search = withRouter(({ history }) => {
-    return <GgSearch onSearch={handleSearch} history={history} />;
+    return <GgSearch onSearch={handleSearch} history={history}/>;
   });
 
   const myGardens = () => {
     if (username !== '') {
       return (
         <Menu.Item key='Garden'>
-          <GardenLink />
+          <GardenLink/>
         </Menu.Item>
       );
     }
@@ -87,7 +86,7 @@ export const NavBar: React.FC<any> = () => {
     if (username !== '') {
       return (
         <Menu.Item key='Logout'>
-          <LogoutLink />
+          <LogoutLink/>
         </Menu.Item>
       );
     }
@@ -97,7 +96,7 @@ export const NavBar: React.FC<any> = () => {
     if (username === '') {
       return (
         <Menu.Item key='Login'>
-          <LoginLink />
+          <LoginLink/>
         </Menu.Item>
       );
     }
@@ -106,20 +105,20 @@ export const NavBar: React.FC<any> = () => {
   return (
     <Header className='nav-bar'>
       <Row>
-        <Col span={2} />
+        <Col span={2}/>
         <Col span={4}>
           <HomeLink/>
         </Col>
         <Col span={8}>
           <div className='search-outer'>
-            <Search />
+            <Search/>
           </div>
         </Col>
         <Col span={4}>
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
             {myGardens()}
             <Menu.Item key='Forum'>
-              <ForumLink />
+              <ForumLink/>
             </Menu.Item>
           </Menu>
         </Col>

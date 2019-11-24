@@ -71,7 +71,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderAddGarden = () => {
     if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
-    return <MyNewForm user={user} dispatch={dispatch} />;
+    return <MyNewForm user={user} dispatch={dispatch}/>;
   };
 
   const removeGarden = (garden: Garden) => {
@@ -86,7 +86,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderBlogForm = () => {
     if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewBlogFormProps>()(ConnectedNewBlogForm);
-    return <MyNewForm user={user} dispatch={dispatch} />;
+    return <MyNewForm user={user} dispatch={dispatch}/>;
   };
 
   const renderBlogs = () => {
@@ -100,11 +100,11 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
         b.push(
           <Timeline.Item>
             {blog.name}
-            <br />
+            <br/>
             {tags}
-            <br />
+            <br/>
             {blog.content}
-          </Timeline.Item>
+          </Timeline.Item>,
         );
       });
 
@@ -121,28 +121,22 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
 
   const renderUserAvatar = () => {
     if (user.pictureURL) {
-      return (
-        <Avatar size={200} className='userlogo' src={user.pictureURL} alt="../assets/user.svg" />
-      )
+      return <Avatar size={200} className='userlogo' src={user.pictureURL} alt='../assets/user.svg'/>;
     } else {
-      return (
-        <Avatar size={200} className='userlogo' src="../assets/user.svg" />
-      )
+      return <Avatar size={200} className='userlogo' src='../assets/user.svg'/>;
     }
-  }
+  };
 
   const renderUser = () => {
     if (isError) {
-      return <Error error={error} />;
+      return <Error error={error}/>;
     } else if (user) {
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>
             <Card className='user-card'>
               <Col span={5}>
-                <div className='userlogo-shadow'>
-                  {renderUserAvatar()}
-                </div>
+                <div className='userlogo-shadow'>{renderUserAvatar()}</div>
               </Col>
               <Col span={19}>
                 <div>
@@ -158,7 +152,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
               <Row className='user-row'>
                 <Card title='Gardens' size='default'>
                   {renderAddGarden()}
-                  <Divider />
+                  <Divider/>
                   <GardensDisplay
                     user={user}
                     removeGarden={removeGarden}
@@ -176,7 +170,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                     renderItem={item => (
                       <List.Item>
                         <List.Item.Meta
-                          avatar={<Avatar src={createIcon(item.plant.svg_icon)} />}
+                          avatar={<Avatar src={createIcon(item.plant.svg_icon)}/>}
                           title={<a href={`/plant/${item.plant.name}`}>{capitaliseFirstLetter(item.plant.name)}</a>}
                           description={truncateText(item.plant.description, 100)}
                         />
@@ -193,5 +187,5 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderUser()}</div>;
+  return <div>{isLoading ? <Loading/> : renderUser()}</div>;
 };

@@ -9,7 +9,7 @@ export const Register: React.FC = () => {
   const renderLoginForm = () => {
     const MyNewForm = Form.create<RegisterFormProps>()(ConnectedRegisterForm);
 
-    return <MyNewForm dispatch={dispatch} confirmDirty={false} />;
+    return <MyNewForm dispatch={dispatch} confirmDirty={false}/>;
   };
 
   return (

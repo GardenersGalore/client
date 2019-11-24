@@ -1,11 +1,11 @@
-import { Alert, Avatar, Card, Carousel, Col, Comment, Descriptions, Row, Spin, Tooltip } from 'antd/lib';
+import { Alert, Avatar, Card, Carousel, Col, Comment, Descriptions, Row, Tooltip } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../constants/types';
 import { getPlantData } from '../store/actions';
-import { Loading } from '../components/loading'
+import { Loading } from '../components/loading';
 import * as moment from 'moment';
 
 const { Meta } = Card;
@@ -47,13 +47,13 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
                 hoverable
                 bordered={false}
                 style={{ width: 300 }}
-                cover={<img alt='example' src={p.pictureURL} width={200} />}>
+                cover={<img alt='example' src={p.pictureURL} width={200}/>}>
                 <Meta
                   title={<a href={`/user/${p.garden.username}`}>{p.garden_name}</a>}
                   description={'Planted by: ' + p.garden.username}
                 />
               </Card>
-            </div>
+            </div>,
           );
         }
       });
@@ -81,14 +81,14 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
       b.push(
         <Comment
           author={<a href={`/user/${blog.username}`}>{blog.username}</a>}
-          avatar={<Avatar src={blog.user.pictureURL} alt='../assets/user.svg' />}
+          avatar={<Avatar src={blog.user.pictureURL} alt='../assets/user.svg'/>}
           content={<p>{blog.content}</p>}
           datetime={
             <Tooltip title={d.format('YYYY-MM-DD HH:mm:ss')}>
               <span>{d.fromNow()}</span>
             </Tooltip>
           }
-        />
+        />,
       );
     });
     return <Card title='Top Tips'>{b}</Card>;
@@ -100,7 +100,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
         <div>
           <Row type='flex' justify='center' className='fetching-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
-              <Alert message='Error' description={error} type='error' showIcon={true} />
+              <Alert message='Error' description={error} type='error' showIcon={true}/>
             </Col>
           </Row>
         </div>
@@ -148,13 +148,5 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     }
   };
 
-  return (
-    <div>
-      {isLoading ? (
-        <Loading/>
-      ) : (
-        renderPlant()
-      )}
-    </div>
-  );
+  return <div>{isLoading ? <Loading/> : renderPlant()}</div>;
 };

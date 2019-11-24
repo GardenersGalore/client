@@ -9,7 +9,7 @@ export const Login: React.FC = () => {
   const renderLoginForm = () => {
     const MyNewForm = Form.create<NormalLoginFormProps>()(ConnectedLoginForm);
 
-    return <MyNewForm dispatch={dispatch} />;
+    return <MyNewForm dispatch={dispatch}/>;
   };
 
   return (

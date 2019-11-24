@@ -46,14 +46,14 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
       ? garden.pictureURL
       : 'https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png';
     const actions = props.isLoggedInUser
-      ? [<Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />]
+      ? [<Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)}/>]
       : [];
 
     return (
       <List.Item key={garden.name}>
         <Card
           hoverable
-          cover={<img alt='example' src={cover} />}
+          cover={<img alt='example' src={cover}/>}
           actions={[
             <Popconfirm
               title='Are you sure delete this garden?'
@@ -63,7 +63,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
               onCancel={cancel}
               okText='Yes'
               cancelText='No'>
-              <Icon type='delete' key='delete' />
+              <Icon type='delete' key='delete'/>
             </Popconfirm>,
           ]}>
           <Meta
@@ -93,7 +93,7 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
         </Card>
       );
     } else {
-      return <div />;
+      return <div/>;
     }
   };
 
@@ -112,9 +112,10 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
         }}
         size='small'
         dataSource={gardens}
-        renderItem={garden => renderGardenCard(garden)}/>
+        renderItem={garden => renderGardenCard(garden)}
+      />
       <div id='garden-divider'>
-        <Divider />
+        <Divider/>
       </div>
       {renderGardens()}
     </div>

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState, Question } from '../constants/types';
 import { getQuestionData } from '../store/actions';
-import { AnswerForm, AnswerProps } from '../components/answer-form';
+import { AnswerForm, AnswerProps } from '../components/forum/answer-form';
 import { Loading } from '../components/loading';
 
 type PathParamsType = {

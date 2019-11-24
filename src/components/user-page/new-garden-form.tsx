@@ -3,9 +3,9 @@ import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { Garden, User } from '../constants/types';
-import { postGarden } from '../api';
-import { setUser } from '../store/actions';
+import { Garden, User } from '../../constants/types';
+import { postGarden } from '../../api';
+import { setUser } from '../../store/actions';
 
 export interface NewGardenFormProps extends FormComponentProps {
   user: User;

@@ -1,11 +1,11 @@
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { postUser } from '../api';
-import { User } from '../constants/types';
+import { postUser } from '../../api';
+import { User } from '../../constants/types';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { setUsername } from '../store/actions';
+import { setUsername } from '../../store/actions';
 
 const { Option } = Select;
 

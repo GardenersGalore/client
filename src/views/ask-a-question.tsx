@@ -1,6 +1,6 @@
 import { Row, Card, Form, Spin, Col, Avatar, List } from 'antd/lib';
 import * as React from 'react';
-import { QuestionForm, QuestionProps } from '../components/question-form';
+import { QuestionForm, QuestionProps } from '../components/forum/question-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, Question } from '../constants/types';
 

@@ -7,12 +7,12 @@ import { Garden, RootState } from '../constants/types';
 import { getUserData, setUser } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
-import { GardensDisplay } from '../components/garden/gardens-display';
+import { GardensDisplay } from '../components/user-page/gardens-display';
 import { postGarden } from '../api';
 import { deleteGarden } from '../api';
 
-import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/new-garden-form';
-import { ConnectedNewBlogForm, NewBlogFormProps } from '../components/new-blog-form';
+import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/user-page/new-garden-form';
+import { ConnectedNewBlogForm, NewBlogFormProps } from '../components/user-page/new-blog-form';
 
 type PathParamsType = {
   name: string;

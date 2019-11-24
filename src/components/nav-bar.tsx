@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 const { Header } = Layout;
 import * as React from 'react';
-import { WeatherSearch } from './weather-search';
+import { GgSearch } from './gg-search';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../constants/types';
 import { setUsername } from '../store/actions';
@@ -70,7 +70,7 @@ export const NavBar: React.FC<any> = () => {
   };
 
   const Search = withRouter(({ history }) => {
-    return <WeatherSearch onSearch={handleSearch} history={history} />;
+    return <GgSearch onSearch={handleSearch} history={history} />;
   });
 
   const myGardens = () => {

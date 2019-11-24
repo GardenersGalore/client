@@ -1,6 +1,6 @@
 import { Alert, Col, Row, Spin, Card, Descriptions, Form } from 'antd/lib';
 import * as React from 'react';
-import { ConnectedLoginForm, NormalLoginFormProps } from '../components/login-form';
+import { ConnectedLoginForm, NormalLoginFormProps } from '../components/accounts/login-form';
 import { useDispatch } from 'react-redux';
 
 export const Login: React.FC = () => {

@@ -1,6 +1,6 @@
 import { Alert, Col, Row, Spin, Card, Descriptions, Form } from 'antd/lib';
 import * as React from 'react';
-import { ConnectedRegisterForm, RegisterFormProps } from '../components/register-form';
+import { ConnectedRegisterForm, RegisterFormProps } from '../components/accounts/register-form';
 import { useDispatch } from 'react-redux';
 
 export const Register: React.FC = () => {

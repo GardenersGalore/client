@@ -3,9 +3,9 @@ import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { Blog, User } from '../constants/types';
-import { postBlog } from '../api';
-import { setUser } from '../store/actions';
+import { Blog, User } from '../../constants/types';
+import { postBlog } from '../../api';
+import { setUser } from '../../store/actions';
 import { userInfo } from 'os';
 
 export interface NewBlogFormProps extends FormComponentProps {

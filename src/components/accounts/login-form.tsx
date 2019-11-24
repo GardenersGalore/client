@@ -2,7 +2,7 @@ import { Form, Icon, Input, Button, Checkbox, Row } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
-import { setUsername } from '../store/actions';
+import { setUsername } from '../../store/actions';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 

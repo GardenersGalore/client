@@ -1,10 +1,10 @@
 import { Form, Input, Button } from 'antd';
 import * as React from 'react';
-import { postNewAnswer } from '../api';
+import { postNewAnswer } from '../../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
-import { setQuestion } from '../store/actions';
-import { Question, Answer } from '../constants/types';
+import { setQuestion } from '../../store/actions';
+import { Question, Answer } from '../../constants/types';
 
 const { TextArea } = Input;
 

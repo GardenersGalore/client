@@ -11,7 +11,7 @@ interface WeatherSearchProps {
   history: any;
 }
 
-export const WeatherSearch: React.FC<WeatherSearchProps> = (props: WeatherSearchProps) => {
+export const GgSearch: React.FC<WeatherSearchProps> = (props: WeatherSearchProps) => {
   const [location, setLocation] = React.useState<string>('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

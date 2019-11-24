@@ -1,9 +1,9 @@
 import { Form, Input, Button } from 'antd';
 import * as React from 'react';
-import { postNewQuestion } from '../api';
+import { postNewQuestion } from '../../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { setQuestion, setQuestions } from '../store/actions';
-import { Question } from '../constants/types';
+import { setQuestion, setQuestions } from '../../store/actions';
+import { Question } from '../../constants/types';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 const { TextArea } = Input;

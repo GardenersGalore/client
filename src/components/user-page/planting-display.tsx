@@ -2,8 +2,8 @@ import { Popover, Badge, Icon, Button, Popconfirm, message } from 'antd/lib';
 import * as React from 'react';
 import { Planting, RootState } from '../../constants/types';
 import { useSelector } from 'react-redux';
-import { waterIcon } from './water-icon';
-import { frostIcon } from './frost-icon';
+import { waterIcon } from '../icon/water-icon';
+import { frostIcon } from '../icon/frost-icon';
 
 export interface PlantingDisplayProps {
   planting: Planting;

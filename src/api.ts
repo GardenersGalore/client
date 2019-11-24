@@ -13,7 +13,6 @@ const checkStatus = (response: any): any => {
 const parseJSON = (response: any): any => response.json();
 
 const readResponse = (response: any): any => {
-  console.log(response);
   return response;
 };
 
@@ -85,8 +84,6 @@ export const postUser = (user: User): Promise<User> => {
     experience: user.experience,
     pictureURL: user.pictureURL,
   });
-  console.log('POSTING USER!');
-  console.log(body);
   return fetch(requestUrl, {
     method: 'POST',
     headers: {
@@ -165,9 +162,6 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
     planted_from: planting.planted_from,
     harvest_count: planting.harvest_count,
   });
-  console.log('POSTING PLANTING!');
-  console.log(planting);
-  console.log(body);
   return fetch(requestUrl, {
     method: 'POST',
     headers: {
@@ -184,8 +178,6 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
 
 export const deletePlanting = (planting: Planting): Promise<Planting> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}planting?garden_name=${planting.garden_name}&x_coord=${planting.x_coord}&y_coord=${planting.y_coord}`;
-  console.log('DELETING PLANTING!');
-  console.log(planting);
   return fetch(requestUrl, {
     method: 'DELETE',
   })
@@ -208,9 +200,6 @@ export const postGarden = (garden: Garden): Promise<Garden> => {
     garden_height: garden.garden_height,
     pictureURL: garden.pictureURL,
   });
-  console.log('POSTING GARDEN!');
-  console.log(garden);
-  console.log(body);
   return fetch(requestUrl, {
     method: 'POST',
     headers: {
@@ -261,9 +250,6 @@ export const postNewQuestion = (question: Question): Promise<Question> => {
     description: question.description,
     author: question.author,
   });
-  console.log('POSTING NEW QUESTION');
-  console.log(question);
-  console.log(body);
   return fetch(requestUrl, {
     method: 'POST',
     headers: {
@@ -286,7 +272,6 @@ export const postNewAnswer = (answer: Answer): Promise<Answer> => {
     answer: answer.answer,
     author: answer.author,
   });
-  console.log('POSTING NEW ANSWER');
   return fetch(requestUrl, {
     method: 'POST',
     headers: {

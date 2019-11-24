@@ -22,7 +22,6 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         const p = await getPlant(values.name);
 
         const newPlanting: Planting = {
@@ -42,7 +41,6 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
         new_garden.plantings.push(newPlanting);
         this.props.dispatch(setGarden(new_garden));
         const posted = postPlanting(newPlanting);
-        console.log('POSTED', posted);
       }
     });
   };

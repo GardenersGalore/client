@@ -23,8 +23,6 @@ export class AnswerForm extends React.Component<AnswerProps> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-
         const newAnswer: Answer = {
           question_title: this.props.question.question_title,
           author: this.props.username,

@@ -17,7 +17,7 @@ type QuestionProps = RouteComponentProps<PathParamsType> & {};
 export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
   const dispatch = useDispatch();
 
-  const username: string = useSelector((state: RootState) => state.gg.username);
+  const username: string = useSelector((state: RootState) => state.gg.username); // username of user who asked question
   const question: Question = useSelector((state: RootState) => state.gg.question);
   const error = useSelector((state: RootState) => state.gg.error);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
@@ -42,7 +42,6 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
         </div>
       );
     } else if (question && question.answers.length > 0) {
-      console.log('display ', question);
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>
@@ -50,7 +49,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
               <Col span={6}>
                 <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
               </Col>
-              <Col span={18}>Johnny</Col>
+              <Col span={18}/>
             </Card>
           </Row>
 
@@ -60,12 +59,12 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
                 <Card title='Question' size='default' className='card-shadow'>
                   <span>
                     {question.question_title}
-                    <Icon type='user' style={{ marginLeft: 850, marginRight: 8 }}></Icon>
+                    <Icon type='user' style={{ marginLeft: 850, marginRight: 8 }}/>
                     {question.author}
                   </span>
                   <p>{question.description}</p>
                 </Card>
-                <Divider></Divider>
+                <Divider/>
 
                 <Card size='default' style={{ marginBottom: 8 }} className='card-shadow'>
                   <p>Answers</p>
@@ -80,13 +79,13 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
                     <Card style={{ marginBottom: 8 }} className='card-shadow'>
                       <p>{answer.answer}</p>
                       <span>
-                        <Icon type='user' style={{ marginRight: 8 }}></Icon>
+                        <Icon type='user' style={{ marginRight: 8 }}/>
                         {answer.author}
                       </span>
                     </Card>
-                  )}></List>
+                  )}/>
 
-                <Divider></Divider>
+                <Divider/>
                 <Card title='Submit your answer' className='card-shadow'>
                   <MyNewForm dispatch={dispatch} question={question} username={username} />
                 </Card>
@@ -96,7 +95,6 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
         </div>
       );
     } else if (question) {
-      console.log('display2 ', question);
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>
@@ -104,7 +102,7 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
               <Col span={6}>
                 <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
               </Col>
-              <Col span={18}>Johnny</Col>
+              <Col span={18}/>
             </Card>
           </Row>
 
@@ -113,10 +111,10 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
               <Row className='user-row'>
                 <Card title='Question'>
                   {question.question_title}
-                  <br></br>
+                  <br/>
                   {question.description}
                 </Card>
-                <Divider></Divider>
+                <Divider/>
                 <Card title='Submit your answer'>
                   <MyNewForm dispatch={dispatch} question={question} username={username} />
                 </Card>

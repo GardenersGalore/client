@@ -13,7 +13,6 @@ type PathParamsType = {
   name: string;
 };
 
-// Your component own properties
 type PlantProps = RouteComponentProps<PathParamsType> & {};
 
 export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
@@ -26,7 +25,6 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
 
   useEffect(() => {
     if (!isLoading && !isError) {
-      console.log('NOT LOADING');
       if (!plant) {
         dispatch(getPlantData(props.match.params.name));
       } else if (plant.name != props.match.params.name) {
@@ -35,13 +33,13 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     }
   });
 
+  // show carousel of pictures users have uploaded
   const renderCarousel = () => {
     if (plant.plantings === undefined) {
       return <div>No pictures of {plant.name} in people's gardens!</div>;
     } else {
       const c: any[] = [];
       plant.plantings.forEach(p => {
-        console.log(p);
         if (p.pictureURL !== undefined) {
           c.push(
             <div className='carosel-cl'>
@@ -64,6 +62,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     }
   };
 
+  // show top tips from advanced gardeners
   const renderTopTips = () => {
     if (plant.blogs === undefined) {
       return (
@@ -78,7 +77,6 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
       let d: any = null;
       if (blog.date !== undefined) {
         d = moment(blog.date);
-        console.log(d);
       }
       b.push(
         <Comment
@@ -110,18 +108,17 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     } else if (plant) {
       const blob = new Blob([plant.svg_icon], { type: 'image/svg+xml' });
       const plant_icon = URL.createObjectURL(blob);
-      console.log(plant);
       return (
         <div className='user-page' style={{ paddingTop: '10px' }}>
           <Col span={16} className='left-column'>
             <Row type='flex' justify='center'>
               <Card style={{ width: 1400 }}>
-                <img src={plant_icon} className='plantIcon'></img>
+                <img src={plant_icon} className='plantIcon' alt='plant icon'/>
                 <strong className='plantName'>
                   <a href={plant.en_wikipedia_url}>{plant.name}</a>
                 </strong>
                 <small>{plant.binomial_name}</small>
-                <br></br>
+                <br/>
                 <Descriptions layout='vertical' bordered>
                   <Descriptions.Item label='Spread'>{plant.spread}</Descriptions.Item>
                   <Descriptions.Item label='Sun Requirements'>{plant.sun_requirements}</Descriptions.Item>

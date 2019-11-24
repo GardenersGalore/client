@@ -38,7 +38,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
             <Col span={6}>
               <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
             </Col>
-            <Col span={18}>Johnny</Col>
+            <Col span={18}/>
           </Card>
         </Row>
         <Row>

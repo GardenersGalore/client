@@ -2,6 +2,7 @@ export interface RootState {
   gg: GG;
 }
 
+// GG = GardenersGalore contains info for the main state of the website
 export interface GG {
   username: string;
   user: User;
@@ -53,6 +54,7 @@ export interface Blog {
   tags: string[];
 }
 
+// this contains info for a specific type of plant
 export interface Plant {
   name: string;
   en_wikipedia_url: string;
@@ -78,6 +80,7 @@ export interface BlogInfo {
   user: User;
 }
 
+// this contains extended info about a specific type of plant
 export interface PlantInfo {
   name: string;
   en_wikipedia_url: string;
@@ -96,6 +99,8 @@ export interface PlantInfo {
   blogs: BlogInfo[];
 }
 
+// this contains extended info about a specific planting
+// a planting is an instance of a plant, ie the exact one someone has planted
 export interface PlantingInfo {
   plant_name: string;
   garden_name: string;
@@ -115,6 +120,7 @@ export interface PlantLike {
   count: number;
 }
 
+// a planting is an instance of a plant, ie the exact one someone has planted
 export interface Planting {
   plant_name: string;
   garden_name: string;
@@ -128,11 +134,6 @@ export interface Planting {
   plant: Plant;
 }
 
-export interface Location {
-  type: string;
-  coordinates: number[];
-}
-
 export interface Garden {
   name: string;
   username: string;
@@ -143,22 +144,6 @@ export interface Garden {
   garden_height: number;
   plantings: Planting[];
   pictureURL: string;
-}
-
-export interface Plant {
-  name: string;
-  en_wikipedia_url: string;
-  binomial_name: string;
-  description: string;
-  median_lifespan: string;
-  median_days_to_first_harvest: number;
-  median_days_to_last_harvest: number;
-  height: number;
-  spread: number;
-  row_spacing: number;
-  sowing_method: string;
-  sun_requirements: string;
-  svg_icon: string;
 }
 
 export interface SearchState {
@@ -183,31 +168,6 @@ export interface _id {
   $oid: string;
 }
 
-/*
-Old Types
-
-*/
-
-export interface GeoCode {
-  status: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-}
-
-export interface Filter {
-  units: 'si' | 'us';
-  searchedLocation: string;
-  timestamp: number;
-}
-
-export interface Timezone {
-  timezone: string;
-  offset: number;
-  latitude: number;
-  longitude: number;
-}
-
 export interface Forecast {
   city_name: string;
   lon: string;
@@ -230,9 +190,4 @@ export interface Weather {
   icon: string;
   code: number;
   description: string;
-}
-
-export interface NavBarState {
-  location: string;
-  timestamp: number;
 }

@@ -33,7 +33,6 @@ export const SET_GARDENS = 'SET_GARDENS';
 export const SET_GARDEN = 'SET_GARDEN';
 export const SET_SEARCH = 'SET_SEARCH';
 export const SET_GARDENSEARCH = 'SET_GARDENSEARCH';
-
 export const SET_SELECTED_GARDEN_CELL = 'SET_SELECTED_GARDEN_CELL';
 export const SET_SELECTED_GARDEN = 'SET_SELECTED_GARDEN';
 export const SET_GARDEN_HEIGHT = 'SET_GARDEN_HEIGHT';
@@ -41,7 +40,6 @@ export const SET_GARDEN_WIDTH = 'SET_GARDEN_WIDTH';
 export const SET_PLANTSEARCH = 'SET_PLANTSEARCH';
 export const SET_USERSEARCH = 'SET_USERSEARCH';
 export const SEARCH_SET_QUESTION = 'SEARCH_SET_QUESTION';
-
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_ANSWER = 'SET_ANSWER';
 export const SET_QUESTION = 'SET_QUESTION';
@@ -233,7 +231,6 @@ export const getAllPlantData = (name: string) => {
     dispatch(fetchingData());
     try {
       const results: Plant[] = await getAllPlant(name);
-      console.log(results.length, 'asfsafas');
       dispatch(setPlantSearch(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -273,7 +270,6 @@ export const getAllQuestionData = (name: string) => {
     dispatch(fetchingData());
     try {
       const results: Question[] = await getAllQuestion(name);
-      console.log(results.length, 'In QUESTION');
       dispatch(setQuestionSearch(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -287,7 +283,6 @@ export const getUserData = (username: string) => {
     dispatch(fetchingData());
     try {
       const results: User = await getUser(username);
-      console.log('RECEIVED USER', results);
       dispatch(setUser(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -313,9 +308,7 @@ export const getGardensData = (username: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting gardens for: ${username}`);
       const results: Garden[] = await getGardens(username);
-      console.log(results);
       dispatch(setGardens(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -334,16 +327,10 @@ export const getGardenData = (gardenName: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting: ${gardenName}`);
       const garden: Garden = await getGarden(gardenName);
-      console.log(garden);
       const plantings: Planting[] = await getPlantings(gardenName);
 
       const unique = [...new Set(plantings.map(item => item.plant_name))];
-      console.log('aa', garden);
-
-      console.log('UNIQUE IS:');
-      console.log(unique);
 
       await asyncForEach(unique, async (u: string) => {
         const uniquePlant = await getPlant(u);
@@ -354,10 +341,6 @@ export const getGardenData = (gardenName: string) => {
         });
       });
 
-      // THIS IS THE ROAD BLOCK!! :(
-      // await asyncForEach(plantings, async (planting: Planting) => {
-      //   planting.plant = await getPlant(planting.plant_name);
-      // });
       await asyncForEach(plantings, async (planting: Planting) => {
         planting.plant = await getPlant(planting.plant_name);
       });
@@ -375,9 +358,7 @@ export const getQuestionsData = (username: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting questions for: ${username}`);
       const results: Question[] = await getQuestions(username);
-      console.log(results);
       dispatch(setQuestions(results));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -390,9 +371,7 @@ export const getQuestionData = (_id: string) => {
   return async (dispatch: ThunkDispatch<RootState, {}, AnyAction>, getState: any) => {
     dispatch(fetchingData());
     try {
-      console.log(`Getting: ${_id}`);
       const question: Question = await getQuestion(_id);
-      console.log(question);
       dispatch(setQuestion(question));
       dispatch(fetchingDataSuccess());
     } catch (error) {
@@ -431,7 +410,6 @@ export const getForecastData = (city_name: string, country_name: string) => {
     dispatch(fetchingDataForecast());
     try {
       const results: Forecast = await getForecast(city_name, country_name);
-      console.log(results);
       dispatch(setForecast(results));
       dispatch(fetchingDataSuccessForecast());
     } catch (error) {

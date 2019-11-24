@@ -23,7 +23,6 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         const newUser: User = {
           name: values.username,
           username: values.username,

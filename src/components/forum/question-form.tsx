@@ -28,8 +28,6 @@ export class QuestionForm extends React.Component<QuestionProps> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-
         const newQuestion: Question = {
           question_title: values.question_title,
           author: this.props.username,

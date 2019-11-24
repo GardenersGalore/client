@@ -51,7 +51,6 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
     });
   };
 
-
   handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -103,8 +102,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
         {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
         label={index === 0 ? 'Tags' : ''}
         required={false}
-        key={k}
-      >
+        key={k}>
         {getFieldDecorator(`tags[${k}]`, {
           validateTrigger: ['onChange', 'onBlur'],
           rules: [
@@ -114,13 +112,9 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
               message: 'Please input blogs tags or delete this field.',
             },
           ],
-        })(<Input placeholder="tag name" style={{ width: '60%' }}/>)}
+        })(<Input placeholder='tag name' style={{ width: '60%' }} />)}
         {keys.length > 1 ? (
-          <Icon
-            className="dynamic-delete-button"
-            type="minus-circle-o"
-            onClick={() => this.remove(k)}
-          />
+          <Icon className='dynamic-delete-button' type='minus-circle-o' onClick={() => this.remove(k)} />
         ) : null}
       </Form.Item>
     ));
@@ -129,16 +123,17 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
         <Form.Item label='Blog name'>
           {getFieldDecorator('name', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
-        <Form.Item label='content'>{getFieldDecorator('content', {
-          rules: [{ required: true, message: 'Input the content of your blog!' }],
-        })(<Input/>)}
+        <Form.Item label='content'>
+          {getFieldDecorator('content', {
+            rules: [{ required: true, message: 'Input the content of your blog!' }],
+          })(<Input />)}
         </Form.Item>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus"/> Add tag
+          <Button type='dashed' onClick={this.add} style={{ width: '60%' }}>
+            <Icon type='plus' /> Add tag
           </Button>
         </Form.Item>
         <Form.Item>
@@ -161,7 +156,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
             Add Blog
           </Button>
         </div>
-        <Divider/>
+        <Divider />
       </div>
     );
   }

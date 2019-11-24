@@ -9,18 +9,12 @@ export const Login: React.FC = () => {
   const renderLoginForm = () => {
     const MyNewForm = Form.create<NormalLoginFormProps>()(ConnectedLoginForm);
 
-    return (
-      <MyNewForm dispatch={dispatch}/>
-    );
+    return <MyNewForm dispatch={dispatch} />;
   };
 
   return (
     <Row type='flex' justify='center' style={{ paddingTop: '100px' }}>
-      <Card style={{ width: 350 }}>
-        {renderLoginForm()}
-      </Card>
+      <Card style={{ width: 350 }}>{renderLoginForm()}</Card>
     </Row>
   );
-
-
 };

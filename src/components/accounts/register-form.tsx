@@ -76,7 +76,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
       <Select style={{ width: 70 }}>
         <Option value='64'>+64</Option>
         <Option value='61'>+61</Option>
-      </Select>,
+      </Select>
     );
 
     const experienceSelector = getFieldDecorator('experience', {
@@ -86,7 +86,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
         <Option value='Novice'>Novice</Option>
         <Option value='Itermediate'>Itermediate</Option>
         <Option value='Advanced'>Advanced</Option>
-      </Select>,
+      </Select>
     );
     const formItemLayout = {
       labelCol: {
@@ -124,7 +124,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
                 message: 'Please input your E-mail!',
               },
             ],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item label='Password' hasFeedback>
           {getFieldDecorator('password', {
@@ -137,7 +137,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
                 validator: this.validateToNextPassword,
               },
             ],
-          })(<Input.Password/>)}
+          })(<Input.Password />)}
         </Form.Item>
         <Form.Item label='Confirm Password' hasFeedback>
           {getFieldDecorator('confirm', {
@@ -150,31 +150,31 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
                 validator: this.compareToFirstPassword,
               },
             ],
-          })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
+          })(<Input.Password onBlur={this.handleConfirmBlur} />)}
         </Form.Item>
         <Form.Item
           label={
             <span>
               Username&nbsp;
               <Tooltip title='What do you want others to call you?'>
-                <Icon type='question-circle-o'/>
+                <Icon type='question-circle-o' />
               </Tooltip>
             </span>
           }>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item label='Phone Number'>
           {getFieldDecorator('phone', {
             rules: [{ required: false, message: 'Please input your phone number!' }],
-          })(<Input addonBefore={prefixSelector} style={{ width: '100%' }}/>)}
+          })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
         </Form.Item>
         <Form.Item label='Experience'>{experienceSelector}</Form.Item>
         <Form.Item label={<span>Profile Photo&nbsp;</span>}>
           {getFieldDecorator('pictureURL', {
             rules: [{ message: 'Please input your picture url!', whitespace: true }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {getFieldDecorator('agreement', {
@@ -182,7 +182,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
           })(
             <Checkbox>
               I have read the <a href=''>agreement</a>
-            </Checkbox>,
+            </Checkbox>
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>

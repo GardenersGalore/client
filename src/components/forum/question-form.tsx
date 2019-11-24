@@ -60,12 +60,12 @@ export class QuestionForm extends React.Component<QuestionProps> {
         <Form.Item label='Title'>
           {getFieldDecorator('question_title', {
             rules: [{ required: true }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item label='Description'>
           {getFieldDecorator('description', {
             rules: [{ required: true }],
-          })(<TextArea rows={4}/>)}
+          })(<TextArea rows={4} />)}
         </Form.Item>
         <Form.Item>
           <Button type='primary' htmlType='submit'>

@@ -323,4 +323,3 @@ export const postBlog = (blog: Blog): Promise<Blog> => {
     .then(readResponse)
     .then((data: Blog) => data);
 };
-

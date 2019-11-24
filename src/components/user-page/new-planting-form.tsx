@@ -54,12 +54,12 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
         <Form.Item label='Plant type'>
           {getFieldDecorator('name', {
             rules: [{ required: true }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item label='Picture URL'>
           {getFieldDecorator('pictureURL', {
             rules: [{ required: true }],
-          })(<Input/>)}
+          })(<Input />)}
         </Form.Item>
         <Form.Item>
           <Button type='primary' htmlType='submit' className='login-form-button'>

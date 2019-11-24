@@ -19,7 +19,6 @@ function isEmpty(obj: any) {
   return true;
 }
 
-
 // Your component own properties
 type PlantProps = RouteComponentProps<PathParamsType> & {};
 
@@ -90,7 +89,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -110,7 +109,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic}/>}
+                      avatar={<Avatar src={gardenPic} />}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -132,7 +131,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic}/>}
+                      avatar={<Avatar src={userPic} />}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -154,7 +153,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -174,7 +173,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic}/>}
+                      avatar={<Avatar src={gardenPic} />}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -203,7 +202,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -223,7 +222,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic}/>}
+                      avatar={<Avatar src={userPic} />}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -246,7 +245,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -266,7 +265,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={questionPic}/>}
+                      avatar={<Avatar src={questionPic} />}
                       title={
                         <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
                       }
@@ -292,7 +291,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.name}
-                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
+                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -320,7 +319,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic}/>}
+                      avatar={<Avatar src={userPic} />}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -343,7 +342,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic}/>}
+                      avatar={<Avatar src={gardenPic} />}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -374,7 +373,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.question_title}
-                      avatar={<Avatar src={questionPic}/>}
+                      avatar={<Avatar src={questionPic} />}
                       title={
                         <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
                       }
@@ -405,7 +404,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     <div>
       {isLoading ? (
         <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large'/>
+          <Spin className='fetching-weather-spinner' size='large' />
           <h2>Loading...</h2>
         </Row>
       ) : (

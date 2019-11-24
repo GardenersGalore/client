@@ -23,19 +23,19 @@ export const App: React.FC<any> = () => {
       <Router>
         <div>
           <Layout className='layout'>
-            <NavBar/>
+            <NavBar />
             <Content className='content'>
               <Switch>
-                <Route exact={true} path='/' component={Home}/>
-                <Route exact={true} path='/forum/questions' component={Questions}/>
-                <Route exact={true} path='/forum/ask-a-question' component={AskAQuestion}/>
-                <Route exact={true} path='/login' component={Login}/>
-                <Route exact={true} path='/register' component={Register}/>
-                <Route path='/plant/:name' component={Plant}/>
-                <Route path='/user/:name' component={UserView}/>
-                <Route path='/search-result/:name' component={SearchFor}/>
-                <Route path='/forum/question/:_id' component={QuestionView}/>
-                <Route component={PageNotFound}/>
+                <Route exact={true} path='/' component={Home} />
+                <Route exact={true} path='/forum/questions' component={Questions} />
+                <Route exact={true} path='/forum/ask-a-question' component={AskAQuestion} />
+                <Route exact={true} path='/login' component={Login} />
+                <Route exact={true} path='/register' component={Register} />
+                <Route path='/plant/:name' component={Plant} />
+                <Route path='/user/:name' component={UserView} />
+                <Route path='/search-result/:name' component={SearchFor} />
+                <Route path='/forum/question/:_id' component={QuestionView} />
+                <Route component={PageNotFound} />
               </Switch>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Gardeners Galore ©2019</Footer>

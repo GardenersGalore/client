@@ -33,7 +33,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
 
   const renderContent = () => {
     if (isError) {
-      return <Error error={error}/>;
+      return <Error error={error} />;
     } else if (forecast) {
       return <div>{renderDailyForecastTable()}</div>;
     }
@@ -61,7 +61,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
         width='5rem'
         render={icon => (
           <div>
-            <Avatar size={50} className='userlogo' src={'../../assets/icons/' + icon + '.png'}/>
+            <Avatar size={50} className='userlogo' src={'../../assets/icons/' + icon + '.png'} />
           </div>
         )}
       />
@@ -113,5 +113,5 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
     </Table>
   );
 
-  return <div>{isLoading ? <Loading/> : renderContent()}</div>;
+  return <div>{isLoading ? <Loading /> : renderContent()}</div>;
 };

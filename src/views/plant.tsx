@@ -23,7 +23,6 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const isError = useSelector((state: RootState) => state.gg.isError);
 
-
   useEffect(() => {
     if (!isLoading && !isError) {
       console.log('NOT LOADING');
@@ -37,9 +36,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
 
   const renderCarousel = () => {
     if (plant.plantings === undefined) {
-      return (
-        <div>No pictures of {plant.name} in people's gardens!</div>
-      );
+      return <div>No pictures of {plant.name} in people's gardens!</div>;
     } else {
       const c: any[] = [];
       plant.plantings.forEach(p => {
@@ -51,20 +48,18 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
                 hoverable
                 bordered={false}
                 style={{ width: 300 }}
-                cover={<img alt='example' src={p.pictureURL} width={200}/>}>
+                cover={<img alt='example' src={p.pictureURL} width={200} />}>
                 <Meta
                   title={<a href={`/user/${p.garden.username}`}>{p.garden_name}</a>}
                   description={'Planted by: ' + p.garden.username}
                 />
               </Card>
-            </div>,
+            </div>
           );
         }
       });
 
-      return (
-        c
-      );
+      return c;
     }
   };
 
@@ -87,14 +82,14 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
       b.push(
         <Comment
           author={<a>{blog.username}</a>}
-          avatar={<Avatar src={blog.user.pictureURL} alt=''/>}
+          avatar={<Avatar src={blog.user.pictureURL} alt='' />}
           content={<p>{blog.content}</p>}
           datetime={
             <Tooltip title={d.format('YYYY-MM-DD HH:mm:ss')}>
               <span>{d.fromNow()}</span>
             </Tooltip>
           }
-        />,
+        />
       );
     });
     return <Card title='Top Tips'>{b}</Card>;
@@ -106,7 +101,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
-              <Alert message='Error' description={error} type='error' showIcon={true}/>
+              <Alert message='Error' description={error} type='error' showIcon={true} />
             </Col>
           </Row>
         </div>
@@ -159,7 +154,7 @@ export const Plant: React.FC<PlantProps> = (props: PlantProps) => {
     <div>
       {isLoading ? (
         <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large'/>
+          <Spin className='fetching-weather-spinner' size='large' />
           <h2>Loading...</h2>
         </Row>
       ) : (

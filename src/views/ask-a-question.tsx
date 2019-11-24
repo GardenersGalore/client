@@ -36,7 +36,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
         <Row type='flex' justify='center' className='user-row'>
           <Card className='forum-card'>
             <Col span={6}>
-              <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png'/>
+              <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
             </Col>
             <Col span={18}>Johnny</Col>
           </Card>
@@ -65,7 +65,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
                   dataSource={data}
                   renderItem={item => (
                     <List.Item>
-                      <List.Item.Meta title={item.title}/>
+                      <List.Item.Meta title={item.title} />
                     </List.Item>
                   )}
                 />
@@ -81,7 +81,7 @@ export const AskAQuestion: React.FC<QuestionProps> = (props: QuestionProps) => {
     <div>
       {isLoading ? (
         <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large'/>
+          <Spin className='fetching-weather-spinner' size='large' />
           <h2>Loading...</h2>
         </Row>
       ) : (

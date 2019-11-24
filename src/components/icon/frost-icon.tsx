@@ -71,5 +71,5 @@ const frostSVG = () => {
 };
 
 export const frostIcon = () => {
-  return <Icon component={frostSVG} style={{ color: '#1890ff' }}/>;
+  return <Icon component={frostSVG} style={{ color: '#1890ff' }} />;
 };

@@ -13,6 +13,8 @@ const initialState: GG = {
   search: null,
   error: '',
   selectedGardenCell: [-1, -1],
+  question: null,
+  questions: [],
   selectedGarden: '',
   forecast : null,
   forecastIsError : false,
@@ -138,6 +140,29 @@ export const reducers = (state: GG = initialState, action: any) => {
         user: newUser,
       };
 
+    case ACTION.SET_QUESTIONS:
+      return {
+        ...state,
+        questions: action.questions,
+      };
+
+    case ACTION.SET_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_QUESTION:
+      return {
+        ...state,
+        question: action.question,
+      };
+
+    case ACTION.POST_NEW_ANSWER:
+      return {
+        ...state,
+        answer: action.answer,
+      };
 
     default:
       return state;

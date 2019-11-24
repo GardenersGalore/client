@@ -35,7 +35,7 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
           description: 'new plant',
           planted_from: 'seed',
           harvest_count: 1,
-          pictureURL : values.pictureURL,
+          pictureURL: values.pictureURL,
           plant: p,
         };
 
@@ -43,7 +43,7 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
         new_garden.plantings.push(newPlanting);
         this.props.dispatch(setGarden(new_garden));
         const posted = postPlanting(newPlanting);
-        console.log("POSTED", posted)
+        console.log('POSTED', posted);
       }
     });
   };

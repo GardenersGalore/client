@@ -81,8 +81,6 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
         callback();
       };
 
-    
-
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -105,30 +103,30 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
       </Select>
     )
     const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
     };
     const tailFormItemLayout = {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
         },
-      };
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
     return (
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="E-mail">
+      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form.Item label='E-mail'>
           {getFieldDecorator('email', {
             rules: [
               {
@@ -142,7 +140,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
             ],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Password" hasFeedback>
+        <Form.Item label='Password' hasFeedback>
           {getFieldDecorator('password', {
             rules: [
               {
@@ -155,7 +153,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
             ],
           })(<Input.Password />)}
         </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback>
+        <Form.Item label='Confirm Password' hasFeedback>
           {getFieldDecorator('confirm', {
             rules: [
               {
@@ -182,7 +180,7 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
             rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Phone Number">
+        <Form.Item label='Phone Number'>
           {getFieldDecorator('phone', {
             rules: [{ required: false, message: 'Please input your phone number!' }],
           })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
@@ -206,12 +204,12 @@ class NormalRegisterForm extends React.Component<RegisterFormProps & RouteCompon
             valuePropName: 'checked',
           })(
             <Checkbox>
-              I have read the <a href="">agreement</a>
-            </Checkbox>,
+              I have read the <a href=''>agreement</a>
+            </Checkbox>
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type='primary' htmlType='submit'>
             Register
           </Button>
         </Form.Item>

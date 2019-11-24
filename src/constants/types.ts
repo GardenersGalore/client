@@ -14,6 +14,8 @@ export interface GG {
   isLoading: boolean;
   isError: boolean;
   selectedGardenCell: [number, number];
+  questions: Question[];
+  question: Question;
   selectedGarden: string;
   forecast: Forecast;
   forecastIsLoading: boolean;
@@ -94,7 +96,7 @@ export interface PlantingInfo {
   description: string;
   planted_from: string;
   harvest_count: number;
-  pictureURL : string;
+  pictureURL: string;
   plant: Plant;
   garden: Garden;
 }
@@ -113,7 +115,7 @@ export interface Planting {
   description: string;
   planted_from: string;
   harvest_count: number;
-  pictureURL : string;
+  pictureURL: string;
   plant: Plant;
 }
 
@@ -134,9 +136,26 @@ export interface Garden {
   pictureURL: string;
 }
 
-
 export interface SearchState {
   query: string;
+}
+
+export interface Answer {
+  answer: string;
+  author: string;
+  question_title: string;
+}
+
+export interface Question {
+  question_title: string;
+  author: string;
+  description: string;
+  answers: Answer[];
+  _id: _id;
+}
+
+export interface _id {
+  $oid: string;
 }
 
 /*

@@ -8,7 +8,7 @@ import Meta from 'antd/lib/card/Meta';
 
 export interface GardensDisplayProps {
   user: User;
-  removeGarden : any;
+  removeGarden: any;
   isLoggedInUser: boolean;
 }
 
@@ -28,44 +28,44 @@ export const GardensDisplay: React.FC<GardensDisplayProps> = (props: GardensDisp
     isSelected(gardenName) ? dispatch(setSelectedGarden('')) : dispatch(setSelectedGarden(gardenName));
   };
 
-  const confirm = (e : Garden) => {
+  const confirm = (e: Garden) => {
     props.removeGarden(e);
     message.success('Garden Deleted');
-  }
-  
-  const cancel = (e : any) => {
-    message.error('Garden not deleted');
-  }
+  };
 
+  const cancel = (e: any) => {
+    message.error('Garden not deleted');
+  };
 
   const renderGardenCard = (garden: Garden) => {
-    const cover = garden.pictureURL ? garden.pictureURL : 'https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png';
-    const actions = props.isLoggedInUser ? [
-      <Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />,
-    ] : [];
+    const cover = garden.pictureURL
+      ? garden.pictureURL
+      : 'https://i.pinimg.com/originals/14/07/a7/1407a7cb25ba944f12ca3d24535adefc.png';
+    const actions = props.isLoggedInUser
+      ? [<Icon type='delete' key='delete' onClick={() => props.removeGarden(garden)} />]
+      : [];
 
     return (
       <List.Item key={garden.name}>
         <Card
           hoverable
-          cover={
-            <img alt='example' src={cover} />
-          }
+          cover={<img alt='example' src={cover} />}
           actions={[
             <Popconfirm
-            title="Are you sure delete this garden?"
-            onConfirm={() => {
-              confirm(garden);
-            }}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-            >
-              <Icon type='delete' key='delete'/>
-            </Popconfirm>
-          ]}
-          >
-          <Meta title={<a onClick={() => toggleGardenSelected(garden.name)} >{garden.name}</a>} description={garden.city_name}/>
+              title='Are you sure delete this garden?'
+              onConfirm={() => {
+                confirm(garden);
+              }}
+              onCancel={cancel}
+              okText='Yes'
+              cancelText='No'>
+              <Icon type='delete' key='delete' />
+            </Popconfirm>,
+          ]}>
+          <Meta
+            title={<a onClick={() => toggleGardenSelected(garden.name)}>{garden.name}</a>}
+            description={garden.city_name}
+          />
           {garden.description}
         </Card>
       </List.Item>

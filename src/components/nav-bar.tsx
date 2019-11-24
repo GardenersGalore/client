@@ -1,7 +1,7 @@
 import { Layout, Menu, Row, Col } from 'antd';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-const { Header} = Layout;
+const { Header } = Layout;
 import * as React from 'react';
 import { WeatherSearch } from './weather-search';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,8 +18,7 @@ export const NavBar: React.FC<any> = () => {
       onClick={() => {
         history.push('/');
       }}>
-      <img className="gardeners-galore-icon" src='../assets/gardeners_galore_white.ico'  alt='' />
-
+      <img className='gardeners-galore-icon' src='../assets/gardeners_galore_white.ico' alt='' />
     </Link>
   ));
 
@@ -35,9 +34,9 @@ export const NavBar: React.FC<any> = () => {
 
   const ForumLink = withRouter(({ history }) => (
     <Link
-      to='/forum'
+      to='/forum/questions'
       onClick={() => {
-        history.push('/forum');
+        history.push('/forum/questions');
       }}>
       Forum
     </Link>
@@ -106,10 +105,9 @@ export const NavBar: React.FC<any> = () => {
   return (
     <Header className='nav-bar'>
       <Row>
-        <Col span={2}/>
+        <Col span={2} />
         <Col span={4}>
-          <HomeLink>
-          </HomeLink>
+          <HomeLink></HomeLink>
         </Col>
         <Col span={8}>
           <div className='weather-search-outer'>
@@ -117,7 +115,6 @@ export const NavBar: React.FC<any> = () => {
           </div>
         </Col>
         <Col span={4}>
-          
           <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }}>
             {myGardens()}            
             <Menu.Item key='Forum'>

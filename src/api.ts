@@ -1,5 +1,6 @@
-import { Plant, Garden, Planting, User, Weather, Forecast } from './constants/types';
+import { Plant, Garden, Planting, User, Weather, Forecast, Question, Answer } from './constants/types';
 import { resolve } from 'dns';
+import { Questions } from './views/questions';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
 
@@ -112,6 +113,23 @@ export const getPlantings = (gardenName: string): Promise<Planting[]> => {
     .then((data: Planting[]) => data);
 };
 
+export const getQuestions = (username: string): Promise<Question[]> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/questions?username=${username}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Question[]) => data);
+};
+
+export const getQuestion = (_id: string): Promise<Question> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/question?_id=${_id}`;
+  return fetch(requestUrl)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data: Question) => data);
+};
+
 export const postPlanting = (planting: Planting): Promise<Planting> => {
   const requestUrl = `${CLOUD_FUNCTION_URL}planting`;
 
@@ -120,7 +138,7 @@ export const postPlanting = (planting: Planting): Promise<Planting> => {
     garden_name: planting.garden_name,
     x_coord: planting.x_coord,
     y_coord: planting.y_coord,
-    pictureURL : planting.pictureURL,
+    pictureURL: planting.pictureURL,
     description: planting.description,
     planted_from: planting.planted_from,
     harvest_count: planting.harvest_count,
@@ -211,4 +229,52 @@ export const deleteGarden = (garden: Garden): Promise<Garden> => {
     .then(parseJSON)
     .then(readResponse)
     .then((data: Garden) => data);
+};
+
+export const postNewQuestion = (question: Question): Promise<Question> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/question`;
+
+  const body = JSON.stringify({
+    question_title: question.question_title,
+    description: question.description,
+    author: question.author,
+  });
+  console.log('POSTING NEW QUESTION');
+  console.log(question);
+  console.log(body);
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Question) => data);
+};
+
+export const postNewAnswer = (answer: Answer): Promise<Answer> => {
+  const requestUrl = `${CLOUD_FUNCTION_URL}forum/answer`;
+
+  const body = JSON.stringify({
+    question_title: answer.question_title,
+    answer: answer.answer,
+    author: answer.author,
+  });
+  console.log('POSTING NEW ANSWER');
+  return fetch(requestUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(readResponse)
+    .then((data: Answer) => data);
 };

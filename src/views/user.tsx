@@ -30,7 +30,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
   const loggedInUsername = useSelector((state: RootState) => state.gg.username);
 
-  let showAddGardenForm = false;
+  const showAddGardenForm = false;
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -56,12 +56,12 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     return plantIcon;
   };
 
-  const capitaliseFirstLetter = (word : string) => {
-    if(word.length === 0){
-      return "";
+  const capitaliseFirstLetter = (word: string) => {
+    if (word.length === 0) {
+      return '';
     }
-    if(word.length === 1){
-      return word[0].toUpperCase()
+    if (word.length === 1) {
+      return word[0].toUpperCase();
     }
     return word[0].toUpperCase() + word.slice(1);
   };
@@ -77,21 +77,21 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderAddGarden = () => {
     if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
-    return <MyNewForm user={user} dispatch={dispatch}/>;
+    return <MyNewForm user={user} dispatch={dispatch} />;
   };
 
-  const removeGarden = (garden : Garden) => {
+  const removeGarden = (garden: Garden) => {
     deleteGarden(garden);
     const updated_user = { ...user };
     updated_user.gardens = updated_user.gardens.filter(g => {
-      if (g.name === garden.name){
+      if (g.name === garden.name) {
         return false;
       } else {
         return true;
       }
-    })
+    });
     dispatch(setUser(updated_user));
-  }
+  };
 
   const renderBlogs = () => {
     if(user.blogs.length > 0){
@@ -143,8 +143,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
           <Row type='flex' justify='center' className='user-row'>
             <Card className='user-card'>
               <Col span={5}>
-                <div className="userlogo-shadow">
-                  <Avatar size={200} className="userlogo" src={user.pictureURL} />
+                <div className='userlogo-shadow'>
+                  <Avatar size={200} className='userlogo' src={user.pictureURL} />
                 </div>
               </Col>
               <Col span={19}>
@@ -162,7 +162,11 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                 <Card title='Gardens' size='default'>
                   {renderAddGarden()}
                   <Divider />
-                  <GardensDisplay user={user} removeGarden={removeGarden} isLoggedInUser={user.username == loggedInUsername}/>
+                  <GardensDisplay
+                    user={user}
+                    removeGarden={removeGarden}
+                    isLoggedInUser={user.username == loggedInUsername}
+                  />
                 </Card>
               </Row>
             </Col>

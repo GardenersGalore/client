@@ -1,4 +1,4 @@
-import { Popover, Badge, Icon, Button, Popconfirm, message} from 'antd/lib';
+import { Popover, Badge, Icon, Button, Popconfirm, message } from 'antd/lib';
 import * as React from 'react';
 import { Planting, RootState } from '../../constants/types';
 import { useSelector } from 'react-redux';
@@ -17,37 +17,34 @@ export interface PlantingDisplayProps {
 export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingDisplayProps) => {
 
   const forecast = useSelector((state: RootState) => state.gg.forecast);
-
-
   const planting = props.planting;
   const createIcon = () => {
-      let plantIcon;
-      if (props.planting.plant.svg_icon === undefined){
-        plantIcon = "../../assets/unown_icon.svg";
-      } else{
-          const blob = new Blob([props.planting.plant.svg_icon], { type: 'image/svg+xml' });
-          plantIcon = URL.createObjectURL(blob);
-      }
-      return plantIcon;
-  }
+    let plantIcon;
+    if (props.planting.plant.svg_icon === undefined) {
+      plantIcon = '../../assets/unown_icon.svg';
+    } else {
+      const blob = new Blob([props.planting.plant.svg_icon], { type: 'image/svg+xml' });
+      plantIcon = URL.createObjectURL(blob);
+    }
+    return plantIcon;
+  };
 
-  const confirm = (e : any) => {
+  const confirm = (e: any) => {
     props.deletePlanting(planting);
     message.success('Planting Deleted');
-  }
-  
-  const cancel = (e : any) => {
+  };
+
+  const cancel = (e: any) => {
     console.log(e);
     message.error('Planting not deleted');
-  }
-
+  };
 
   const createPopover = (element : any) => {
     if (!props.isLoggedInUser && props.planting == null) return element;
 
     let popoverContent;
     let popoverTitle;
-    if (props.planting != null){
+    if (props.planting != null) {
       popoverContent = (
         <div>
           <b>About:</b> {planting.description}
@@ -60,45 +57,40 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
           <br />
           {props.isLoggedInUser ? (
             <Popconfirm
-              title="Are you sure delete this planting?"
+              title='Are you sure delete this planting?'
               onConfirm={confirm}
               onCancel={cancel}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button>
-                Delete
-              </Button>
+              okText='Yes'
+              cancelText='No'>
+              <Button>Delete</Button>
             </Popconfirm>
-          ) : (<div />)}
-
+          ) : (
+            <div />
+          )}
         </div>
       );
       popoverTitle = props.planting.plant_name;
-    }
-    else {
+    } else {
       popoverContent = props.renderNewPlantForm();
     }
-    return(
-      <Popover content={popoverContent} title={popoverTitle} trigger="click">
+    return (
+      <Popover content={popoverContent} title={popoverTitle} trigger='click'>
         {element}
       </Popover>
-    )
-  }
+    );
+  };
 
   const createContent = () => {
     let plantingInformation;
     if (props.planting != null) {
-      let plantIcon = createIcon();
+      const plantIcon = createIcon();
       plantingInformation = (
         <div className='garden-cell-occupied'>
-          <img src={plantIcon} className='garden-plant-icon' alt={props.planting .plant_name} />
+          <img src={plantIcon} className='garden-plant-icon' alt={props.planting.plant_name} />
         </div>
       );
-
     } else {
       plantingInformation = <div className='garden-cell-unoccupied'>+</div>;
-
     }
     return plantingInformation
   }
@@ -144,28 +136,24 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
   }
 
   const renderPlanting = () => {
-    let content = createContent();
+    const content = createContent();
     let cell;
-    if (props.isSelected === true){
-      cell = <div
-                className='garden-cell garden-cell-selected' style={{width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx}}>
-                {content}
-            </div>
+    if (props.isSelected === true) {
+      cell = (
+        <div
+          className='garden-cell garden-cell-selected'
+          style={{ width: props.cellSizePx, height: props.cellSizePx, lineHeight: props.cellSizePx }}>
+          {content}
+        </div>
+      );
     } else {
       cell = badgePlanting(content);
     }
 
-    let popover = createPopover(cell);
+    const popover = createPopover(cell);
 
-    return (
-      popover
-    );
-  }
+    return popover;
+  };
 
-  return (
-    <div>
-      {renderPlanting()}
-    </div>
-  );
-
-}
+  return <div>{renderPlanting()}</div>;
+};

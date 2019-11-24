@@ -94,7 +94,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
               <Col span={6}>
                 <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
               </Col>
-              <Col span={18}>Johnny</Col>
+              <Col span={18}/>
             </Card>
           </Row>
 
@@ -114,18 +114,18 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
                           <a href={`/forum/question/${question._id.$oid}`}>
                             <Tooltip title='Click to see answers'>
                               <Badge showZero count={question.answers.length} style={{ backgroundColor: '#52c41a' }}>
-                                <Icon type='message'></Icon>
+                                <Icon type='message'/>
                               </Badge>
                             </Tooltip>
                           </a>,
-                          <IconText type='user' text={question.author} key='list-vertical-like-o' />,
+                          <IconText type='user' text={question.author} key='list-vertical-like-o'/>,
                         ]}>
                         <List.Item.Meta
                           title={<a href={`/forum/question/${question._id.$oid}`}>{question.question_title}</a>}
                           description={question.description}
                         />
                       </List.Item>
-                    )}></List>
+                    )}/>
                 </Card>
               </Row>
             </Col>
@@ -142,7 +142,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
                       </List.Item>
                     )}
                   />
-                  <br></br>
+                  <br/>
                   <div>
                     <ToAskAQuestion />
                   </div>

@@ -27,18 +27,13 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const error = useSelector((state: RootState) => state.gg.error);
   const isError = useSelector((state: RootState) => state.gg.isError);
   const isLoading = useSelector((state: RootState) => state.gg.isLoading);
-  const loggedInUsername = useSelector((state: RootState) => state.gg.username);
-
-  const showAddGardenForm = false;
+  const loggedInUsername = useSelector((state: RootState) => state.gg.username); // username of logged in user
 
   useEffect(() => {
     if (!isLoading && !isError) {
-      console.log('NOT LOADING');
       if (!user) {
-        console.log('NO USER', user);
         dispatch(getUserData(props.match.params.name));
       } else if (user.username !== props.match.params.name) {
-        console.log(user.username, props.match.params.name);
         dispatch(getUserData(props.match.params.name));
       }
     }
@@ -83,11 +78,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     deleteGarden(garden);
     const updated_user = { ...user };
     updated_user.gardens = updated_user.gardens.filter(g => {
-      if (g.name === garden.name) {
-        return false;
-      } else {
-        return true;
-      }
+      return g.name !== garden.name;
     });
     dispatch(setUser(updated_user));
   };

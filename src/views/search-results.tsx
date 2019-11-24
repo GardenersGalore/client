@@ -73,7 +73,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const renderPlantSearch = () => {
     return (
       <Card style={{ width: 800 }}>
-        <h2>Fruits/Veges</h2>
+        <h2>Plants</h2>
         <List
           itemLayout='horizontal'
           dataSource={plants}

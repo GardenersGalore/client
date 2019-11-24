@@ -65,12 +65,6 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     return plantIcon;
   };
 
-  const scope = {
-    splitterStyle: {
-      height: 620,
-    },
-  };
-
   const userPic = '../assets/user.svg';
   const gardenPic = '../assets/garden.svg';
   const questionPic = '../assets/question.svg';
@@ -79,6 +73,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const renderPlantSearch = () => {
     return (
       <Card style={{ width: 800 }}>
+        <h2>Fruits/Veges</h2>
         <List
           itemLayout='horizontal'
           dataSource={plants}
@@ -106,6 +101,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const renderGardenSearch = () => {
     return (
       <Card style={{ width: 800 }}>
+        <h2>Gardens</h2>
         <List
           itemLayout='horizontal'
           dataSource={gardens}
@@ -117,7 +113,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 description={
                   <div>
                     <p>
-                      Heigh: {item.garden_height} Width: {item.garden_width}
+                      Height: {item.garden_height} Width: {item.garden_width}
                     </p>
                   </div>
                 }
@@ -134,6 +130,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const renderUserSearch = () => {
     return (
       <Card style={{ width: 800 }}>
+        <h2>Users</h2>
         <List
           itemLayout='horizontal'
           dataSource={users}
@@ -155,6 +152,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
   const renderQuestionSearch = () => {
     return (
       <Card style={{ width: 800 }}>
+        <h2>Forum</h2>
         <List
           itemLayout='horizontal'
           dataSource={questions}

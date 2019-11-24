@@ -42,7 +42,6 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
         </div>
       );
     } else if (question && question.answers.length > 0) {
-      console.log('display ', question);
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>
@@ -96,7 +95,6 @@ export const QuestionView: React.FC<QuestionProps> = (props: QuestionProps) => {
         </div>
       );
     } else if (question) {
-      console.log('display2 ', question);
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>

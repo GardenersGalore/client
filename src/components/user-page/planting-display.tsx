@@ -36,7 +36,6 @@ export const PlantingDisplay: React.FC<PlantingDisplayProps> = (props: PlantingD
 
   // what to do when user cancels deleting planting
   const cancel = (e: any) => {
-    console.log(e);
     message.error('Planting not deleted');
   };
 

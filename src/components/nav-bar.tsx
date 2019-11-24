@@ -66,8 +66,7 @@ export const NavBar: React.FC<any> = () => {
   ));
 
   const handleSearch = (location: string) => {
-    // this needs to probs do something in terms of altering search state ..
-    console.log(location);
+
   };
 
   const Search = withRouter(({ history }) => {

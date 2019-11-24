@@ -119,28 +119,24 @@ export const reducers = (state: GG = initialState, action: any) => {
       };
 
     case ACTION.SET_PLANTSEARCH:
-      console.log('in reducer');
       return {
         ...state,
         plantAll: action.plants,
       };
 
     case ACTION.SET_GARDENSEARCH:
-      console.log('in reducer');
       return {
         ...state,
         gardens: action.gardens,
       };
 
     case ACTION.SET_USERSEARCH:
-      console.log('in reducer');
       return {
         ...state,
         userAll: action.users,
       };
 
     case ACTION.SEARCH_SET_QUESTION:
-      console.log('in reducer');
       return {
         ...state,
         searchQuestion: action.questions,

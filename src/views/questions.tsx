@@ -86,7 +86,6 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
         </div>
       );
     } else if (questions) {
-      console.log(questions);
       return (
         <div className='user-page'>
           <Row type='flex' justify='center' className='user-row'>

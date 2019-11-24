@@ -97,7 +97,6 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
         blog.tags.forEach(tag => {
           tags.push(<Tag color='green'>{tag}</Tag>);
         });
-        console.log(tags);
         b.push(
           <Timeline.Item>
             {blog.name}

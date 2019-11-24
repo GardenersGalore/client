@@ -225,6 +225,7 @@ export interface WeatherDay {
   snow: number;
   weather: Weather;
 }
+
 export interface Weather {
   icon: string;
   code: number;

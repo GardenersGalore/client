@@ -1,12 +1,11 @@
-import { Form, Button, Input, Icon, Divider } from 'antd';
+import { Button, Divider, Form, Icon, Input } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Blog, User } from '../../constants/types';
 import { postBlog } from '../../api';
 import { setUser } from '../../store/actions';
-import { userInfo } from 'os';
 
 export interface NewBlogFormProps extends FormComponentProps {
   user: User;
@@ -25,7 +24,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
     this.state = { showForm: false };
   }
 
-  remove = (k : any) => {
+  remove = (k: any) => {
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
@@ -36,7 +35,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
 
     // can use data-binding to set
     form.setFieldsValue({
-      keys: keys.filter((key : any) => key !== k),
+      keys: keys.filter((key: any) => key !== k),
     });
   };
 
@@ -59,20 +58,20 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
       if (!err) {
         const { keys, names } = values;
         console.log('Received values of form: ', values);
-          const blog : Blog = {
-              name : values.name,
-              username : this.props.user.username,
-              content : values.content,
-              tags : values.tags,
-              date : 0,
-          }
+        const blog: Blog = {
+          name: values.name,
+          username: this.props.user.username,
+          content: values.content,
+          tags: values.tags,
+          date: 0,
+        };
         console.log(blog);
-        const posted = postBlog(blog)
+        const posted = postBlog(blog);
 
-        console.log("POSTED RESULT: ", posted);
+        console.log('POSTED RESULT: ', posted);
 
         const updated_user = { ...this.props.user };
-        updated_user.blogs.push(blog)
+        updated_user.blogs.push(blog);
         this.props.dispatch(setUser(updated_user));
         this.setState({ showForm: false });
       }
@@ -99,7 +98,7 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
     };
     getFieldDecorator('keys', { initialValue: [] });
     const keys = getFieldValue('keys');
-    const formItems = keys.map((k : any, index : any) => (
+    const formItems = keys.map((k: any, index: any) => (
       <Form.Item
         {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
         label={index === 0 ? 'Tags' : ''}
@@ -112,10 +111,10 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
             {
               required: true,
               whitespace: true,
-              message: "Please input blogs tags or delete this field.",
+              message: 'Please input blogs tags or delete this field.',
             },
           ],
-        })(<Input placeholder="tag name" style={{ width: '60%'}} />)}
+        })(<Input placeholder="tag name" style={{ width: '60%' }}/>)}
         {keys.length > 1 ? (
           <Icon
             className="dynamic-delete-button"
@@ -130,16 +129,16 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
         <Form.Item label='Blog name'>
           {getFieldDecorator('name', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
         <Form.Item label='content'>{getFieldDecorator('content', {
-            rules: [{ required: true, message: 'Input the content of your blog!' }],
-          })(<Input />)}
+          rules: [{ required: true, message: 'Input the content of your blog!' }],
+        })(<Input/>)}
         </Form.Item>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> Add tag
+            <Icon type="plus"/> Add tag
           </Button>
         </Form.Item>
         <Form.Item>
@@ -149,21 +148,21 @@ class NewBlogForm extends React.Component<NewBlogFormProps & RouteComponentProps
         </Form.Item>
       </Form>
     ) : (
-        <div>
+      <div>
         <div className='gardens-add-button'>
-        <Button
-          type='primary'
-          shape='round'
-          icon='plus'
-          size='default'
-          onClick={() => {
-            this.setState({ showForm: true });
-          }}>
-          Add Blog
-        </Button>
+          <Button
+            type='primary'
+            shape='round'
+            icon='plus'
+            size='default'
+            onClick={() => {
+              this.setState({ showForm: true });
+            }}>
+            Add Blog
+          </Button>
         </div>
         <Divider/>
-        </div>
+      </div>
     );
   }
 }

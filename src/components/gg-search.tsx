@@ -2,8 +2,6 @@ import Input from 'antd/lib/input';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 
-import { withRouter, Redirect } from 'react-router';
-
 const Search = Input.Search;
 
 interface WeatherSearchProps {

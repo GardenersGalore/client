@@ -4,7 +4,7 @@ import { Icon } from 'antd';
 const waterSVG = () => {
   return (
     <svg width='2em' height='2em' version='1.1' id='Layer_1' x='0px' y='0px' viewBox='0 0 508 508'>
-      <circle fill='#FFFFFF' cx='254' cy='254' r='254' />
+      <circle fill='#FFFFFF' cx='254' cy='254' r='254'/>
       <path
         fill='#54C0EB'
         d='M252,414h4c62.8,0,115.2-50.4,114-113.2c0-8-1.2-15.6-2.8-22.8C360,246.4,324,210,298,170.8
@@ -48,5 +48,5 @@ const waterSVG = () => {
 };
 
 export const waterIcon = () => {
-  return <Icon component={waterSVG} style={{ color: '#1890ff' }} />;
+  return <Icon component={waterSVG} style={{ color: '#1890ff' }}/>;
 };

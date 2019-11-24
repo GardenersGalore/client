@@ -1,105 +1,106 @@
 body {
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  height: 100%;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
 }
 
 
-.gardeners-galore-icon{
-  height : 45px;
+.gardeners-galore-icon {
+    height: 45px;
 
 }
 
 .content {
-  min-height: 100%;
-  width: 100%;
-  margin: 0;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
 .login-form {
-  max-width: 300px;
+    max-width: 300px;
 }
 
 .my-form {
-  width: 100%;
+    width: 100%;
 }
 
 .login-form-forgot {
-  float: right;
+    float: right;
 }
+
 .login-form-button {
-  width: 100%;
+    width: 100%;
 }
 
 
 /***** GARDEN *****/
 
 .garden-row {
-  padding-top: 4px;
-  padding-bottom: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .garden-col {
-  padding-left: 4px;
-  padding-right: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 .garden-cell {
-  width : 20%;
-  height :20%;
-  text-align: center;
-  color: white;
-  transition: all .1s ease-in-out;
-  cursor: default;
-  user-select: none;
+    width: 20%;
+    height: 20%;
+    text-align: center;
+    color: white;
+    transition: all .1s ease-in-out;
+    cursor: default;
+    user-select: none;
 }
 
 .garden-cell:hover {
-  transform: scale(0.9);
+    transform: scale(0.9);
 }
 
 .garden-cell-occupied {
-  background-color: rgba(47, 74, 47, .75);
-  height: 100%;
+    background-color: rgba(47, 74, 47, .75);
+    height: 100%;
 }
 
 .garden-cell-unoccupied {
-  font-size: 48px;
-  background-color: rgba(255, 255, 255, .25);
-  height: 100%;
+    font-size: 48px;
+    background-color: rgba(255, 255, 255, .25);
+    height: 100%;
 }
 
 .garden-cell-selected {
-  outline: #1890ff solid 5px;
+    outline: #1890ff solid 5px;
 }
 
 .garden-card {
-  background-image: url("../assets/soil.jpg");
-  background-color: #49372e;
-  background-size: contain;
+    background-image: url("../assets/soil.jpg");
+    background-color: #49372e;
+    background-size: contain;
 }
 
 .garden-plant-icon {
-  width : 90%;
-  height : 90%;
-  margin: 5%;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
 }
 
 .garden-info {
-  background-color: rgba(255, 255, 255, .75);
-  width: 30%;
-  padding: 30px;
+    background-color: rgba(255, 255, 255, .75);
+    width: 30%;
+    padding: 30px;
 }
 
 .garden-info-p {
-  line-height: 3;
+    line-height: 3;
 }
 
 .garden-size-button {
-  font-size: 150%;
-  cursor: pointer;
-  user-select: none;
-  line-height: 1 !important;
+    font-size: 150%;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1 !important;
 }
 
 /*
@@ -107,171 +108,174 @@ USER LANDING PAGE
 
 */
 
-.username{
-  bottom: -180px;
-  left: -5px;
-  position: absolute;
-  font-size: 200%;
-  text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+.username {
+    bottom: -180px;
+    left: -5px;
+    position: absolute;
+    font-size: 200%;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .4);
 }
 
-.userlogo img{
-  border: 4px solid #fff;
-  border-radius: 100%;
+.userlogo img {
+    border: 4px solid #fff;
+    border-radius: 100%;
 }
 
-.userlogo-shadow{
-  height: 202px;
-  width: 202px;
-  background: rgba(0, 0, 0, .15);
-  border-radius: 100%;
+.userlogo-shadow {
+    height: 202px;
+    width: 202px;
+    background: rgba(0, 0, 0, .15);
+    border-radius: 100%;
 }
 
-.user-page{
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+.user-page {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.user-row{
-  padding-top : 10px;
-}
-.user-card{
-  width : 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgb(0, 20, 41) 80%, rgb(255, 255, 255) 20%);
+.user-row {
+    padding-top: 10px;
 }
 
-.forum-card{
-  width : 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgb(0, 20, 41) 80%, rgb(255, 255, 255) 20%);
-  box-shadow: 0 4px 8px rgba(59,64,69,0.2);
+.user-card {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgb(0, 20, 41) 80%, rgb(255, 255, 255) 20%);
 }
 
-.gardens-card{
-  padding-top : 10px;
+.forum-card {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgb(0, 20, 41) 80%, rgb(255, 255, 255) 20%);
+    box-shadow: 0 4px 8px rgba(59, 64, 69, 0.2);
 }
 
-.gardens-add-button{
+.gardens-card {
+    padding-top: 10px;
+}
+
+.gardens-add-button {
 
 }
 
-.blogs-card{
-  padding-top : 10px;
+.blogs-card {
+    padding-top: 10px;
 }
 
-.fav-plants-card{
-  padding-top : 10px;
+.fav-plants-card {
+    padding-top: 10px;
 }
 
-.left-column{
-  padding-right: 5px;
+.left-column {
+    padding-right: 5px;
 }
 
-.right-column{
-  padding-left: 5px;
+.right-column {
+    padding-left: 5px;
 }
 
-.card-shadow{
-  box-shadow: 0 4px 8px rgba(59,64,69,0.2);
-}
-.planting-form{
-  width : 100%;
+.card-shadow {
+    box-shadow: 0 4px 8px rgba(59, 64, 69, 0.2);
 }
 
+.planting-form {
+    width: 100%;
+}
 
 
 .logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 28px 16px 0;
-  float: left;
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 28px 16px 0;
+    float: left;
 }
 
 /* Navigation bar for desktop version */
 .nav-bar {
-  padding: 0 1rem;
-  z-index: 1;
-  width: 100%;
+    padding: 0 1rem;
+    z-index: 1;
+    width: 100%;
 }
 
 .nav-bar-menu {
-  line-height: 4rem;
+    line-height: 4rem;
 }
 
 .nav-bar-icon {
-  text-align: right;
+    text-align: right;
 }
+
 /* .about-content {
   padding-top: 2rem;
 } */
 
 .weather-search-outer {
-  padding: 0 0.5rem;
+    padding: 0 0.5rem;
 }
 
 .plantName {
-  font-size: 2.5rem;
+    font-size: 2.5rem;
 }
 
 .plantIcon {
-  width: 150px;
-  padding: 15px;
+    width: 150px;
+    padding: 15px;
 }
-/* 
+
+/*
 /* Navigation bar for mobile device */
 
 .error {
-  padding: 2rem 2rem;
+    padding: 2rem 2rem;
 }
 
-.loading{
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+.loading {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 
 .ant-carousel .slick-slide {
-  text-align: center;
-  height: 400px;
-  background: #9bad89;
-  overflow: auto;
+    text-align: center;
+    height: 400px;
+    background: #9bad89;
+    overflow: auto;
 }
 
 .ant-carousel .slick-slide h3 {
-  color: #fff;
+    color: #fff;
 }
 
 .carosel-cl {
-  margin-left : "auto";
-  margin-right : "auto";
-  padding-bottom: 10px;
-  padding-top: 10px;
-  width : 300px !important;
+    margin-left: "auto";
+    margin-right: "auto";
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 300px !important;
 }
 
 
 .daily-forecast-table-outer {
-  padding: 1rem 0;
+    padding: 1rem 0;
 }
 
 .daily-forecast-item {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .daily-forecast-sub-item-wrapper {
-  text-align: center;
+    text-align: center;
 }
 
 .daily-forecast-sub-item-summary {
-  font-size: 0.8rem;
-  font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 .home-background {
@@ -303,6 +307,6 @@ USER LANDING PAGE
     font-family: Arial, sans-serif;
 }
 
-.fetching-weather-content{
-  margin-top: 10px;
+.fetching-weather-content {
+    margin-top: 10px;
 }

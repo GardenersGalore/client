@@ -1,33 +1,21 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  getPlant,
-  getGardens,
-  getGarden,
-  getPlantings,
-  getGardenPlant,
-  postPlanting,
-  getUser,
-  getAllPlant,
-  getForecast,
-  getQuestions,
-  getQuestion,
   getAllGarden,
-  getAllUser,
+  getAllPlant,
   getAllQuestion,
+  getAllUser,
+  getForecast,
+  getGarden,
+  getGardenPlant,
+  getGardens,
+  getPlant,
+  getPlantings,
+  getQuestion,
+  getQuestions,
+  getUser,
 } from '../api';
-import {
-  RootState,
-  GG,
-  Plant,
-  SearchState,
-  Garden,
-  Planting,
-  User,
-  Forecast,
-  Question,
-  Answer,
-} from '../constants/types';
+import { Answer, Forecast, Garden, Plant, Planting, Question, RootState, SearchState, User } from '../constants/types';
 
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const FETCHING_DATA_SUCCESS = 'FETCHING_DATA_SUCCESS';

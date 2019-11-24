@@ -1,12 +1,10 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, Avatar, List } from 'antd/lib';
+import { Avatar, Card, List, Row, Spin } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { RootState, Planting, Garden, Plant, User, SearchQuestion } from '../constants/types';
-import { getAllPlantData, getAllGardenData, getAllUserData, getAllQuestionData } from '../store/actions';
-import Title from '../../node_modules/antd/lib/typography/Title';
-import { keys } from '../../node_modules/@types/d3';
+import { Garden, Plant, RootState, SearchQuestion, User } from '../constants/types';
+import { getAllGardenData, getAllPlantData, getAllQuestionData, getAllUserData } from '../store/actions';
 
 type PathParamsType = {
   name: string;
@@ -92,7 +90,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -112,7 +110,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
+                      avatar={<Avatar src={gardenPic}/>}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -134,7 +132,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
+                      avatar={<Avatar src={userPic}/>}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -156,7 +154,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -176,7 +174,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
+                      avatar={<Avatar src={gardenPic}/>}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -205,7 +203,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -225,7 +223,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
+                      avatar={<Avatar src={userPic}/>}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -248,7 +246,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -268,7 +266,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={questionPic} />}
+                      avatar={<Avatar src={questionPic}/>}
                       title={
                         <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
                       }
@@ -294,7 +292,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.name}
-                      avatar={<Avatar src={createIcon(item.svg_icon)} />}
+                      avatar={<Avatar src={createIcon(item.svg_icon)}/>}
                       title={<a href={`/plant/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -322,7 +320,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={userPic} />}
+                      avatar={<Avatar src={userPic}/>}
                       title={<a href={`/user/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={`Experience: ${item.experience}`}
                     />
@@ -345,7 +343,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={gardenPic} />}
+                      avatar={<Avatar src={gardenPic}/>}
                       title={<a href={`/garden/${item.name}`}>{capitaliseFirstLetter(item.name)}</a>}
                       description={
                         <div>
@@ -376,7 +374,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.question_title}
-                      avatar={<Avatar src={questionPic} />}
+                      avatar={<Avatar src={questionPic}/>}
                       title={
                         <a href={`/forum/question/${item._id['$oid']}`}>{capitaliseFirstLetter(item.question_title)}</a>
                       }
@@ -407,7 +405,7 @@ export const SearchFor: React.FC<PlantProps> = (props: PlantProps) => {
     <div>
       {isLoading ? (
         <Row type='flex' justify='center' className='fetching-weather-content'>
-          <Spin className='fetching-weather-spinner' size='large' />
+          <Spin className='fetching-weather-spinner' size='large'/>
           <h2>Loading...</h2>
         </Row>
       ) : (

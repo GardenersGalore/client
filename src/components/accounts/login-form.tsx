@@ -1,10 +1,9 @@
-import { Form, Icon, Input, Button, Checkbox, Row } from 'antd';
+import { Button, Form, Icon, Input } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { setUsername } from '../../store/actions';
-import { withRouter, RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 export interface NormalLoginFormProps extends FormComponentProps {
   dispatch: any;
@@ -38,17 +37,17 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteCompon
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
-          })(<Input prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder='Username' />)}
+          })(<Input prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }}/>} placeholder='Username'/>)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input
-              prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }}/>}
               type='password'
               placeholder='Password'
-            />
+            />,
           )}
         </Form.Item>
         <Form.Item>
@@ -61,5 +60,6 @@ class NormalLoginForm extends React.Component<NormalLoginFormProps & RouteCompon
     );
   }
 }
+
 //export const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 export const ConnectedLoginForm = connect()(withRouter(NormalLoginForm));

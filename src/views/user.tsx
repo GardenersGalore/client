@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Form, Input, Button, Avatar, Divider, List, Icon, Timeline, Tag } from 'antd/lib';
+import { Avatar, Card, Col, Divider, Form, List, Row, Tag, Timeline } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,6 @@ import { getUserData, setUser } from '../store/actions';
 import { Loading } from '../components/loading';
 import { Error } from '../components/error';
 import { GardensDisplay } from '../components/user-page/gardens-display';
-import { postGarden } from '../api';
 import { deleteGarden } from '../api';
 
 import { ConnectedNewGardenForm, NewGardenFormProps } from '../components/user-page/new-garden-form';
@@ -77,7 +76,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderAddGarden = () => {
     if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewGardenFormProps>()(ConnectedNewGardenForm);
-    return <MyNewForm user={user} dispatch={dispatch} />;
+    return <MyNewForm user={user} dispatch={dispatch}/>;
   };
 
   const removeGarden = (garden: Garden) => {
@@ -96,8 +95,8 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
   const renderBlogForm = () => {
     if (user.username != loggedInUsername) return;
     const MyNewForm = Form.create<NewBlogFormProps>()(ConnectedNewBlogForm);
-    return <MyNewForm user={user} dispatch={dispatch} />;
-  }
+    return <MyNewForm user={user} dispatch={dispatch}/>;
+  };
 
   const renderBlogs = () => {
     if (user.blogs.length > 0) {
@@ -111,11 +110,11 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
         b.push(
           <Timeline.Item>
             {blog.name}
-            <br />
+            <br/>
             {tags}
-            <br />
+            <br/>
             {blog.content}
-          </Timeline.Item>
+          </Timeline.Item>,
         );
       });
 
@@ -132,7 +131,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
 
   const renderUser = () => {
     if (isError) {
-      return <Error error={error} />;
+      return <Error error={error}/>;
     } else if (user) {
       return (
         <div className='user-page'>
@@ -140,7 +139,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
             <Card className='user-card'>
               <Col span={5}>
                 <div className='userlogo-shadow'>
-                  <Avatar size={200} className='userlogo' src={user.pictureURL} />
+                  <Avatar size={200} className='userlogo' src={user.pictureURL}/>
                 </div>
               </Col>
               <Col span={19}>
@@ -157,7 +156,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
               <Row className='user-row'>
                 <Card title='Gardens' size='default'>
                   {renderAddGarden()}
-                  <Divider />
+                  <Divider/>
                   <GardensDisplay
                     user={user}
                     removeGarden={removeGarden}
@@ -175,7 +174,7 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
                     renderItem={item => (
                       <List.Item>
                         <List.Item.Meta
-                          avatar={<Avatar src={createIcon(item.plant.svg_icon)} />}
+                          avatar={<Avatar src={createIcon(item.plant.svg_icon)}/>}
                           title={<a href={`/plant/${item.plant.name}`}>{capitaliseFirstLetter(item.plant.name)}</a>}
                           description={truncateText(item.plant.description, 100)}
                         />
@@ -192,5 +191,5 @@ export const UserView: React.FC<UserProps> = (props: UserProps) => {
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderUser()}</div>;
+  return <div>{isLoading ? <Loading/> : renderUser()}</div>;
 };

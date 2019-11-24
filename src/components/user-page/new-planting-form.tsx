@@ -1,11 +1,10 @@
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Button, Form, Input } from 'antd';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { getPlant, postPlanting } from '../../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { addPlantingToGarden, setGarden, getGardenData } from '../../store/actions';
-import { Plant, Planting, RootState, Garden } from '../../constants/types';
+import { connect } from 'react-redux';
+import { setGarden } from '../../store/actions';
+import { Garden, Planting } from '../../constants/types';
 
 export interface NewPlantingProps extends FormComponentProps {
   garden: Garden;
@@ -55,12 +54,12 @@ export class NewPlantingForm extends React.Component<NewPlantingProps> {
         <Form.Item label='Plant type'>
           {getFieldDecorator('name', {
             rules: [{ required: true }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
         <Form.Item label='Picture URL'>
           {getFieldDecorator('pictureURL', {
             rules: [{ required: true }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
         <Form.Item>
           <Button type='primary' htmlType='submit' className='login-form-button'>

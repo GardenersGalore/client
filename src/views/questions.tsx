@@ -1,9 +1,9 @@
-import { Alert, Col, Row, Badge, Card, Avatar, List, Icon, Button, Tooltip } from 'antd/lib';
+import { Alert, Avatar, Badge, Button, Card, Col, Icon, List, Row, Tooltip } from 'antd/lib';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
-import { RootState, Question } from '../constants/types';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Question, RootState } from '../constants/types';
 import { getQuestionsData } from '../store/actions';
 import { Loading } from '../components/loading';
 
@@ -69,7 +69,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
 
   const IconText = (i: IconType) => (
     <span>
-      <Icon type={i.type} style={{ marginRight: 8 }} />
+      <Icon type={i.type} style={{ marginRight: 8 }}/>
       {i.text}
     </span>
   );
@@ -80,7 +80,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
         <div>
           <Row type='flex' justify='center' className='fetching-weather-content'>
             <Col xs={24} sm={24} md={18} lg={16} xl={16}>
-              <Alert message='Error' description={error} type='error' showIcon={true} />
+              <Alert message='Error' description={error} type='error' showIcon={true}/>
             </Col>
           </Row>
         </div>
@@ -92,7 +92,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
           <Row type='flex' justify='center' className='user-row'>
             <Card className='forum-card'>
               <Col span={6}>
-                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png' />
+                <Avatar size={200} src='https://cdn0.iconfinder.com/data/icons/digital-marketing-102/66/16-512.png'/>
               </Col>
               <Col span={18}>Johnny</Col>
             </Card>
@@ -118,7 +118,7 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
                               </Badge>
                             </Tooltip>
                           </a>,
-                          <IconText type='user' text={question.author} key='list-vertical-like-o' />,
+                          <IconText type='user' text={question.author} key='list-vertical-like-o'/>,
                         ]}>
                         <List.Item.Meta
                           title={<a href={`/forum/question/${question._id.$oid}`}>{question.question_title}</a>}
@@ -138,13 +138,13 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
                     dataSource={data}
                     renderItem={item => (
                       <List.Item>
-                        <List.Item.Meta title={item.title} description={item.description} />
+                        <List.Item.Meta title={item.title} description={item.description}/>
                       </List.Item>
                     )}
                   />
                   <br></br>
                   <div>
-                    <ToAskAQuestion />
+                    <ToAskAQuestion/>
                   </div>
                 </Card>
               </Row>
@@ -155,5 +155,5 @@ export const Questions: React.FC<QuestionsProps> = (props: QuestionsProps) => {
     }
   };
 
-  return <div>{isLoading ? <Loading /> : renderQuestions()}</div>;
+  return <div>{isLoading ? <Loading/> : renderQuestions()}</div>;
 };

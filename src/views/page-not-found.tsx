@@ -1,4 +1,4 @@
-import { Result, Button } from 'antd/lib';
+import { Button, Result } from 'antd/lib';
 import * as React from 'react';
 
 export const PageNotFound: React.FC = () => (

@@ -1,10 +1,10 @@
-import { Form, Input, Button } from 'antd';
+import { Button, Form, Input } from 'antd';
 import * as React from 'react';
 import { postNewAnswer } from '../../api';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
 import { setQuestion } from '../../store/actions';
-import { Question, Answer } from '../../constants/types';
+import { Answer, Question } from '../../constants/types';
 
 const { TextArea } = Input;
 
@@ -52,7 +52,7 @@ export class AnswerForm extends React.Component<AnswerProps> {
         <Form.Item label='Answer'>
           {getFieldDecorator('answer', {
             rules: [{ required: true }],
-          })(<TextArea rows={4} />)}
+          })(<TextArea rows={4}/>)}
         </Form.Item>
         <Form.Item>
           <Button type='primary' htmlType='submit'>

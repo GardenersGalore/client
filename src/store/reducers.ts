@@ -1,4 +1,4 @@
-import { GG, Garden } from '../constants/types';
+import { Garden, GG } from '../constants/types';
 import * as ACTION from './actions';
 
 const initialState: GG = {

@@ -1,13 +1,12 @@
-import { Popover, Badge, Icon, Button, Popconfirm, message, List, Card, Col, Row, Avatar, Table } from 'antd/lib';
+import { Avatar, Row, Table } from 'antd/lib';
 import * as React from 'react';
-import { Planting, RootState, Weather, WeatherDay } from '../../constants/types';
+import { useEffect } from 'react';
+import { RootState, WeatherDay } from '../../constants/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getForecastData } from '../../store/actions';
-import { useEffect } from 'react';
 import { Loading } from '../loading';
 import { Error } from '../error';
 import Column from 'antd/lib/table/Column';
-import { Utils } from '../../utils';
 
 export interface WeatherDisplayProps {
   country_name: string;
@@ -34,7 +33,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
 
   const renderContent = () => {
     if (isError) {
-      return <Error error={error} />;
+      return <Error error={error}/>;
     } else if (forecast) {
       return <div>{renderDailyForecastTable()}</div>;
     }
@@ -62,7 +61,7 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
         width='5rem'
         render={icon => (
           <div>
-            <Avatar size={50} className='userlogo' src={'../../assets/icons/' + icon + '.png'} />
+            <Avatar size={50} className='userlogo' src={'../../assets/icons/' + icon + '.png'}/>
           </div>
         )}
       />
@@ -114,5 +113,5 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = (props: WeatherDisp
     </Table>
   );
 
-  return <div>{isLoading ? <Loading /> : renderContent()}</div>;
+  return <div>{isLoading ? <Loading/> : renderContent()}</div>;
 };

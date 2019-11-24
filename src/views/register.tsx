@@ -1,4 +1,4 @@
-import { Alert, Col, Row, Spin, Card, Descriptions, Form } from 'antd/lib';
+import { Card, Form, Row } from 'antd/lib';
 import * as React from 'react';
 import { ConnectedRegisterForm, RegisterFormProps } from '../components/accounts/register-form';
 import { useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ export const Register: React.FC = () => {
   const renderLoginForm = () => {
     const MyNewForm = Form.create<RegisterFormProps>()(ConnectedRegisterForm);
 
-    return <MyNewForm dispatch={dispatch} confirmDirty={false} />;
+    return <MyNewForm dispatch={dispatch} confirmDirty={false}/>;
   };
 
   return (

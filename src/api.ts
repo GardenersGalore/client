@@ -1,6 +1,4 @@
-import { Plant, Garden, Planting, User, SearchQuestion, Weather, Forecast, Question, Answer, Blog } from './constants/types';
-import { resolve } from 'dns';
-import { Questions } from './views/questions';
+import { Answer, Blog, Forecast, Garden, Plant, Planting, Question, User } from './constants/types';
 
 const CLOUD_FUNCTION_URL = 'http://localhost:3000/';
 

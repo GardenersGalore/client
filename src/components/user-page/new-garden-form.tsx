@@ -1,8 +1,8 @@
-import { Form, Button, Input, Icon } from 'antd';
+import { Button, Form, Input } from 'antd';
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Garden, User } from '../../constants/types';
 import { postGarden } from '../../api';
 import { setUser } from '../../store/actions';
@@ -56,20 +56,20 @@ class NewGardenForm extends React.Component<NewGardenFormProps & RouteComponentP
         <Form.Item label='Garden name'>
           {getFieldDecorator('gname', {
             rules: [{ required: true, message: 'Please input the name of the garden!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
-        <Form.Item label='Description'>{getFieldDecorator('description')(<Input />)}</Form.Item>
+        <Form.Item label='Description'>{getFieldDecorator('description')(<Input/>)}</Form.Item>
         <Form.Item label='City'>
           {getFieldDecorator('city', {
             rules: [{ required: true, message: 'Please input the name of the city!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
         <Form.Item label='Country'>
           {getFieldDecorator('country', {
             rules: [{ required: true, message: 'Please input the name of the country!' }],
-          })(<Input />)}
+          })(<Input/>)}
         </Form.Item>
-        <Form.Item label='Picture'>{getFieldDecorator('picture')(<Input />)}</Form.Item>
+        <Form.Item label='Picture'>{getFieldDecorator('picture')(<Input/>)}</Form.Item>
 
         <Form.Item>
           <Button type='primary' htmlType='submit'>

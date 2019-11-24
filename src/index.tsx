@@ -20,7 +20,6 @@ import 'antd/lib/avatar/style/css';
 import 'antd/lib/timeline/style/css';
 import 'antd/lib/result/style/css';
 import 'antd/lib/divider/style/css';
-import 'antd/lib/popover/style/css';
 import 'antd/lib/badge/style/css';
 import 'antd/lib/popconfirm/style/css';
 import 'antd/lib/message/style/css';
@@ -33,4 +32,4 @@ import * as ReactDOM from 'react-dom';
 import './css/index.css';
 import { App } from './views/app';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
